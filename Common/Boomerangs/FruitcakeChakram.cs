@@ -8,9 +8,6 @@ namespace Bangarang.Common.Boomerangs {
     public class FruitcakeChakramGI : GlobalItem {
         public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.FruitcakeChakram;
 
-        public override void SetDefaults(Item item) {
-            item.autoReuse = true;
-        }
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips) {
             int index = tooltips.FindLastIndex(t => t.Mod == "Terraria");
             tooltips.Insert(index + 1, new(Mod, "Tooltip0", "Inflicts a random debuff on hit"));
