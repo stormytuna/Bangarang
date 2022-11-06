@@ -24,7 +24,7 @@ namespace Bangarang.Common.Systems {
             ItemID.ThornChakram,
             ItemID.CombatWrench,
             ItemID.Flamarang,
-            //ItemID.Bananarang // Technically making this impossible to acquire 
+            //ItemID.Bananarang // Technically making this impossible to acquire. TODO: in 1.4.4 remove the added light disc
             ItemID.FlyingKnife,
             ItemID.BouncingShield,
             //ItemID.LightDisc // Also technically removing this, TODO: in 1.4.4 remove the added light disc
