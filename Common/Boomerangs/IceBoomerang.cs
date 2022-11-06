@@ -8,11 +8,11 @@ using Terraria.ModLoader;
 
 namespace Bangarang.Common.Boomerangs {
     public class IceBoomerangGI : GlobalItem {
-        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ProjectileID.IceBoomerang && ServerConfig.Instance.VanillaChanges;
+        public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.IceBoomerang && ServerConfig.Instance.VanillaChanges;
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips) {
             int index = tooltips.FindLastIndex(t => t.Mod == "Terraria");
-            tooltips.Insert(index + 1, new(Mod, "Tooltip0", "Sprays icey bolts and inflicts frostburn when it hits an enemy"));
+            tooltips.Insert(index + 1, new(Mod, "Tooltip0", "Sprays icey bolts and inflicts Frostburn when it hits an enemy"));
         }
     }
 
