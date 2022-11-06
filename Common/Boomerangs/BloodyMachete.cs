@@ -12,6 +12,7 @@ namespace Bangarang.Common.Boomerangs {
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips) {
             int index = tooltips.FindLastIndex(t => t.Mod == "Terraria");
             tooltips.Insert(index + 1, new(Mod, "Tooltip0", "Increases in damage while airborne"));
+            tooltips.Insert(index + 2, new(Mod, "Tooltip1", "'Go, do a crime'"));
         }
     }
 
