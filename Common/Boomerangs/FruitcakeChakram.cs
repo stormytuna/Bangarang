@@ -36,7 +36,9 @@ namespace Bangarang.Common.Boomerangs {
         public override bool AppliesToEntity(NPC entity, bool lateInstantiation) => entity.type == NPCID.Merchant;
 
         public override void SetupShop(int type, Chest shop, ref int nextSlot) {
-            Helpers.AddToShop(ref shop, ref nextSlot, ItemID.FruitcakeChakram, i => i.type == ItemID.Shuriken, 12);
+            if (Main.dayTime) {
+                Helpers.AddToShop(ref shop, ref nextSlot, ItemID.FruitcakeChakram, i => i.type == ItemID.Shuriken, 12);
+            }
         }
     }
 }
