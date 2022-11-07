@@ -6,12 +6,17 @@ using Terraria.ModLoader;
 
 namespace Bangarang.Content.Projectiles.Weapons {
     public abstract class Boomerang : ModProjectile {
-        /// <summary>How quickly the boomerang will return to its owner</summary>
-        public float ReturnSpeed { get; set; }
-        /// <summary>How strong the boomerang will home in on its owner when returning</summary>
-        public float HomingOnOwnerStrength { get; set; }
+        /// <summary>How quickly the boomerang will return to its owner. Default = 10f</summary>
+        public float ReturnSpeed { get; set; } = 10f;
+
+        /// <summary>How strong the boomerang will home in on its owner when returning. Default = 4f</summary>
+        public float HomingOnOwnerStrength { get; set; } = 4f;
+
         /// <summary>How many frames the boomerang will travel away from the player for. Default = 30</summary>
-        public int TravelOutFrames { get; set; }
+        public int TravelOutFrames { get; set; } = 30;
+
+        /// <summary>Whether or not the boomerang will turn around when it reaches its max TravelOutFrames. Default = true</summary>
+        public bool DoTurn { get; set; } = true;
 
         public Player Owner { get => Main.player[Projectile.owner]; }
 
@@ -30,8 +35,8 @@ namespace Bangarang.Content.Projectiles.Weapons {
                 // Increase our frame counter
                 Projectile.ai[1] += 1f;
                 // Check if our frame counter is high enough to turn around
-                if (Projectile.ai[1] >= 30f) {
-                    Projectile.ai[0] = 2f;
+                if (Projectile.ai[1] >= (float)TravelOutFrames && DoTurn) {
+                    Projectile.ai[0] = 1f;
                     Projectile.ai[1] = 0f;
                     Projectile.netUpdate = true;
                 }
@@ -67,6 +72,22 @@ namespace Bangarang.Content.Projectiles.Weapons {
                     Projectile.Kill();
                 }
             }
+        }
+
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit) {
+            Projectile.ai[0] = 1f;
+            Projectile.ai[1] = 0f;
+            Projectile.netUpdate = true;
+            Projectile.velocity = -Projectile.velocity;
+        }
+
+        public override bool OnTileCollide(Vector2 oldVelocity) {
+            Projectile.ai[0] = 1f;
+            Projectile.ai[1] = 0f;
+            Projectile.netUpdate = true;
+            Projectile.velocity = -Projectile.velocity;
+
+            return false;
         }
     }
 }
