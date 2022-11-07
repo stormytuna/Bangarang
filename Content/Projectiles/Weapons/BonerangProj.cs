@@ -40,12 +40,14 @@ namespace Bangarang.Content.Projectiles.Weapons {
             int numDust = Main.rand.Next(4, 7);
             for (int i = 0; i < numDust; i++) {
                 Vector2 velocity = Projectile.velocity;
-                velocity *= 0.5f;
+                velocity *= 0.3f;
                 Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Bone, velocity.X, velocity.Y, 0, default, Main.rand.NextFloat(0.8f, 1.2f));
             }
 
             Projectile.Kill();
         }
+
+        public override bool OnTileCollide(Vector2 oldVelocity) => true;
     }
 
     public class BoneShardProj : ModProjectile {
@@ -84,7 +86,7 @@ namespace Bangarang.Content.Projectiles.Weapons {
             int numDust = Main.rand.Next(2, 6);
             for (int i = 0; i < numDust; i++) {
                 Vector2 velocity = Projectile.velocity;
-                velocity *= 0.5f;
+                velocity *= 0.3f;
                 Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Bone, velocity.X, velocity.Y, 0, default, Main.rand.NextFloat(0.6f, 1f));
             }
         }
