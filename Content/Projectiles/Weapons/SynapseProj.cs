@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using System.IO;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -24,6 +25,7 @@ namespace Bangarang.Content.Projectiles.Weapons {
             ReturnSpeed = 14f;
             HomingOnOwnerStrength = 4f;
             TravelOutFrames = 30;
+            DoTurn = true;
         }
 
         private int currentTarget = -1;
@@ -35,18 +37,21 @@ namespace Bangarang.Content.Projectiles.Weapons {
 
                 // If there's an npc near the boomerang, we want to move towards it
                 if (target != null) {
+                    DoTurn = false;
                     // Add to our velocity 
                     float maxVelocity = ReturnSpeed * Owner.GetAttackSpeed(DamageClass.Melee);
-                    float homingStrength = 2f;
-                    Vector2 directionToPlayer = Owner.Center - Projectile.Center;
-                    directionToPlayer.Normalize();
-                    directionToPlayer *= homingStrength;
-                    Projectile.velocity += directionToPlayer;
+                    float homingStrength = 1.5f;
+                    Vector2 toEnemy = target.Center - Projectile.Center;
+                    toEnemy.Normalize();
+                    toEnemy *= homingStrength;
+                    Projectile.velocity += toEnemy;
                     if (Projectile.velocity.LengthSquared() > maxVelocity * maxVelocity) {
                         Projectile.velocity.Normalize();
                         Projectile.velocity *= maxVelocity;
                     }
                 }
+
+                DoTurn = true;
             }
 
             // Calling base so we have the default AI provided by our Boomerang class
