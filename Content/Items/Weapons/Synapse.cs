@@ -29,6 +29,7 @@ namespace Bangarang.Content.Items.Weapons {
             Item.damage = 25;
             Item.crit = 4;
             Item.knockBack = 8f;
+            Item.DamageType = DamageClass.Melee;
         }
 
         public override void AddRecipes() {
