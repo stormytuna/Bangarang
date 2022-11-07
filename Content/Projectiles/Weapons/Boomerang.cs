@@ -81,6 +81,13 @@ namespace Bangarang.Content.Projectiles.Weapons {
             Projectile.velocity = -Projectile.velocity;
         }
 
+        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac) {
+            width = 20;
+            height = 20;
+
+            return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
+        }
+
         public override bool OnTileCollide(Vector2 oldVelocity) {
             Projectile.ai[0] = 1f;
             Projectile.ai[1] = 0f;
