@@ -20,6 +20,7 @@ namespace Bangarang.Content.Projectiles.Weapons {
 
             Projectile.DamageType = DamageClass.Melee;
             Projectile.friendly = true;
+            Projectile.hostile = false;
             Projectile.penetrate = -1;
 
             Projectile.tileCollide = true;
