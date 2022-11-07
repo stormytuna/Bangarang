@@ -15,10 +15,17 @@ namespace Bangarang.Content.Projectiles.Weapons {
         /// <summary>How many frames the boomerang will travel away from the player for. Default = 30</summary>
         public int TravelOutFrames { get; set; } = 30;
 
+        /// <summary>How many radians the boomerang will rotate per frame. Default = 0.4f</summary>
+        public float Rotation { get; set; } = 0.4f;
+
         /// <summary>Whether or not the boomerang will turn around when it reaches its max TravelOutFrames. Default = true</summary>
         public bool DoTurn { get; set; } = true;
 
         public Player Owner { get => Main.player[Projectile.owner]; }
+
+        public virtual void OnReachedApex() {
+
+        }
 
         public override void AI() {
             // Funky sound
@@ -28,7 +35,7 @@ namespace Bangarang.Content.Projectiles.Weapons {
             }
 
             // Spinny :D
-            Projectile.rotation += 0.4f * Projectile.direction;
+            Projectile.rotation += Rotation * Projectile.direction;
 
             // AI state 1 - travelling away from player 
             if (Projectile.ai[0] == 0f) {
@@ -36,6 +43,7 @@ namespace Bangarang.Content.Projectiles.Weapons {
                 Projectile.ai[1] += 1f;
                 // Check if our frame counter is high enough to turn around
                 if (Projectile.ai[1] >= (float)TravelOutFrames && DoTurn) {
+                    OnReachedApex();
                     Projectile.ai[0] = 1f;
                     Projectile.ai[1] = 0f;
                     Projectile.netUpdate = true;
