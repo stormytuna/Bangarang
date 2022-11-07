@@ -9,7 +9,7 @@ namespace Bangarang.Content.Projectiles.Weapons {
     public class ShadeChakramProj : Boomerang {
         public override void SetStaticDefaults() {
             DisplayName.SetDefault("Shade Chakram");
-            ProjectileID.Sets.TrailCacheLength[Type] = 11;
+            ProjectileID.Sets.TrailCacheLength[Type] = 4;
             ProjectileID.Sets.TrailingMode[Type] = 0;
         }
 
@@ -42,14 +42,14 @@ namespace Bangarang.Content.Projectiles.Weapons {
         }
 
         public override bool PreDraw(ref Color lightColor) {
-            for (int i = 1; i < Projectile.oldPos.Length; i += 2) {
+            for (int i = 0; i < Projectile.oldPos.Length; i++) {
                 Main.EntitySpriteDraw(
                     ShadeChakramTexture.Value,
-                    Projectile.oldPos[i] - Main.screenPosition,
+                    Projectile.oldPos[i] - Main.screenPosition + new Vector2(15f, 15f),
                     null,
-                    Color.White * (i / Projectile.oldPos.Length),
+                    Color.White * ((float)i / (float)Projectile.oldPos.Length),
                     Projectile.rotation,
-                    Vector2.Zero,
+                    ShadeChakramTexture.Value.Size() / 2f,
                     Projectile.scale,
                     SpriteEffects.None,
                     0
