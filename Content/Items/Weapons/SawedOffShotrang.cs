@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 namespace Bangarang.Content.Items.Weapons {
     public class SawedOffShotrang : ModItem {
         public override void SetStaticDefaults() {
-            Tooltip.SetDefault("Fires a shotgun blast atches its apex\n'Who said guns were ranged weapons?'");
+            Tooltip.SetDefault("Fires a shotgun blast at its apex\n'Who said guns were ranged weapons?'");
         }
 
         public override void SetDefaults() {
