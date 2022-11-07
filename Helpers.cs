@@ -59,7 +59,7 @@ namespace Bangarang {
             for (int i = 0; i < Main.npc.Length; i++) {
                 NPC npc = Main.npc[i];
 
-                if (!npc.active || npc.CountsAsACritter || npc.friendly || !npc.immortal || excludedNPCs.Contains(npc.whoAmI)) {
+                if (!npc.active || npc.CountsAsACritter || npc.friendly || npc.immortal || excludedNPCs.Contains(npc.whoAmI)) {
                     continue;
                 }
 
