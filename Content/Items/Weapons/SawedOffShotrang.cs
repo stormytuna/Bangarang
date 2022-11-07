@@ -36,7 +36,7 @@ namespace Bangarang.Content.Items.Weapons {
             CreateRecipe()
                 .AddIngredient(ItemID.Shotgun)
                 .AddIngredient(ItemID.IllegalGunParts)
-                .AddTile(TileID.MythrilAnvil)
+                .AddTile(TileID.Anvils)
                 .Register();
         }
 
