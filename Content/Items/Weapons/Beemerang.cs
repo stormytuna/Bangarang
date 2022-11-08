@@ -27,7 +27,6 @@ namespace Bangarang.Content.Items.Weapons {
             Item.shoot = Projectile;
             Item.shootSpeed = 13f;
             Item.damage = 30;
-            Item.crit = 6;
             Item.knockBack = 8f;
             Item.DamageType = DamageClass.Melee;
         }
