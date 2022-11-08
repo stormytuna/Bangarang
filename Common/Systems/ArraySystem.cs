@@ -1,5 +1,6 @@
 using Bangarang.Content.Items.Weapons;
 using System.Collections.Generic;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -66,6 +67,18 @@ namespace Bangarang.Common.Systems {
             _fruitcakeChakramDebuffs = null;
             _itemsThatShootBoomerangs = null;
             _boomerangMaxOutCount = null;
+        }
+
+        public override void PostSetupContent() {
+            for (int i = 0; i < ContentSamples.ItemsByType.Count; i++) {
+                Item item = ContentSamples.ItemsByType[i];
+                Projectile proj = ContentSamples.ProjectilesByType[item.shoot];
+                if (proj.friendly && !proj.hostile && proj.aiStyle == 3 && proj.CountsAsClass(DamageClass.Melee)) {
+                    if (!_boomerangMaxOutCount.ContainsKey(item.type)) {
+                        _boomerangMaxOutCount.Add(item.type, -1);
+                    }
+                }
+            }
         }
     }
 }
