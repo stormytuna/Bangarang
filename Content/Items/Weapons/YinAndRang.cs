@@ -35,9 +35,8 @@ namespace Bangarang.Content.Items.Weapons {
             CreateRecipe()
                 .AddIngredient(ItemID.LightShard)
                 .AddIngredient(ItemID.DarkShard)
-                .AddIngredient(ItemID.HallowedBar, 5)
-                .AddIngredient(ItemID.SoulofMight, 3)
-                .AddTile(TileID.Anvils)
+                .AddIngredient(ItemID.TitaniumBar, 5)
+                .AddTile(TileID.MythrilAnvil)
                 .Register();
         }
 
