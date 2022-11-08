@@ -43,41 +43,40 @@ namespace Bangarang.Content.Projectiles.Weapons {
                 Projectile.ai[1] += 1f;
                 // Check if our frame counter is high enough to turn around
                 if (Projectile.ai[1] >= (float)TravelOutFrames && DoTurn) {
-                    OnReachedApex();
                     Projectile.ai[0] = 1f;
                     Projectile.ai[1] = 0f;
                     Projectile.netUpdate = true;
+                    OnReachedApex();
+                }
+            }
+            else if (Projectile.ai[0] == 1f) {
+                // AI state 2 - travelling back to player
+                // Should travel through tiles
+                Projectile.tileCollide = false;
+
+                // Check if projectile is too far away and should just be killed
+                float maxRange = 3000f;
+                if (Vector2.DistanceSquared(Owner.Center, Projectile.Center) > maxRange * maxRange) {
+                    Projectile.Kill();
                 }
 
-                return; // So this part can acts as a guard clause
-            }
+                // Add to our velocity 
+                float maxVelocity = ReturnSpeed * Owner.GetAttackSpeed(DamageClass.Melee);
+                float homingStrength = 4f;
+                Vector2 directionToPlayer = Owner.Center - Projectile.Center;
+                directionToPlayer.Normalize();
+                directionToPlayer *= homingStrength;
+                Projectile.velocity += directionToPlayer;
+                if (Projectile.velocity.LengthSquared() > maxVelocity * maxVelocity) {
+                    Projectile.velocity.Normalize();
+                    Projectile.velocity *= maxVelocity;
+                }
 
-            // AI state 2 - travelling back to player
-            // Should travel through tiles
-            Projectile.tileCollide = false;
-
-            // Check if projectile is too far away and should just be killed
-            float maxRange = 3000f;
-            if (Vector2.DistanceSquared(Owner.Center, Projectile.Center) > maxRange * maxRange) {
-                Projectile.Kill();
-            }
-
-            // Add to our velocity 
-            float maxVelocity = ReturnSpeed * Owner.GetAttackSpeed(DamageClass.Melee);
-            float homingStrength = 4f;
-            Vector2 directionToPlayer = Owner.Center - Projectile.Center;
-            directionToPlayer.Normalize();
-            directionToPlayer *= homingStrength;
-            Projectile.velocity += directionToPlayer;
-            if (Projectile.velocity.LengthSquared() > maxVelocity * maxVelocity) {
-                Projectile.velocity.Normalize();
-                Projectile.velocity *= maxVelocity;
-            }
-
-            // Catch our projectile
-            if (Main.myPlayer == Projectile.owner) {
-                if (Projectile.getRect().Intersects(Main.player[Projectile.owner].getRect())) {
-                    Projectile.Kill();
+                // Catch our projectile
+                if (Main.myPlayer == Projectile.owner) {
+                    if (Projectile.getRect().Intersects(Main.player[Projectile.owner].getRect())) {
+                        Projectile.Kill();
+                    }
                 }
             }
         }
