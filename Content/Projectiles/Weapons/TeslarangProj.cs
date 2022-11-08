@@ -84,7 +84,7 @@ namespace Bangarang.Content.Projectiles.Weapons {
     public class TeslarangGlobalNPC : GlobalNPC {
         public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot) {
             if (npc.type == NPCID.Frankenstein) {
-                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Teslarang>(), 40));
+                npcLoot.Add(ItemDropRule.ByCondition(new Conditions.DownedPlantera(), ModContent.ItemType<Teslarang>(), 40));
             }
         }
     }
