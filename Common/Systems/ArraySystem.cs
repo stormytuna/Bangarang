@@ -1,3 +1,5 @@
+using Bangarang.Content.Items.Weapons;
+using System.Collections.Generic;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -33,12 +35,37 @@ namespace Bangarang.Common.Systems {
             // TODO: Add modded boomerangs to here
         };
 
+        private static Dictionary<int, int> _boomerangMaxOutCount = new() {
+            { ItemID.WoodenBoomerang, 1 },
+            { ItemID.EnchantedBoomerang, 1 },
+            { ItemID.FruitcakeChakram, 1 },
+            { ItemID.BloodyMachete, 1 },
+            { ItemID.Shroomerang, 1 },
+            { ItemID.IceBoomerang, 1 },
+            { ItemID.ThornChakram, 1 },
+            { ItemID.CombatWrench, 1 },
+            { ItemID.Flamarang, 1 },
+            //{ ItemID.Bananarang, 10 }, // TODO: 1.4.4 remove this comment
+            { ItemID.FlyingKnife, 1 },
+            { ItemID.BouncingShield, 1 },
+            //{ ItemID.LightDisc, 5 }, // TODO: 1.4.4 remove this comment
+            { ItemID.PaladinsHammer, 1 },
+            { ItemID.PossessedHatchet, 1 },
+            // TODO: Add modded boomerangs to this
+            { ModContent.ItemType<Bananarang>(), 10 },
+            { ModContent.ItemType<LightDisc>(), 5 }
+        };
+
         public static int[] FruitcakeChakramDebuffs { get => _fruitcakeChakramDebuffs; }
 
         public static int[] ItemsThatShootBoomerangs { get => _itemsThatShootBoomerangs; }
 
+        public static Dictionary<int, int> BoomerangMaxOutCount { get => _boomerangMaxOutCount; }
+
         public override void Unload() {
             _fruitcakeChakramDebuffs = null;
+            _itemsThatShootBoomerangs = null;
+            _boomerangMaxOutCount = null;
         }
     }
 }
