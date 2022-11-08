@@ -1,0 +1,148 @@
+using Bangarang.Content.Items.Weapons;
+using Microsoft.Xna.Framework;
+using System.Collections.Generic;
+using Terraria;
+using Terraria.GameContent.ItemDropRules;
+using Terraria.ID;
+using Terraria.ModLoader;
+
+namespace Bangarang.Content.Projectiles.Weapons {
+    public class TeslarangProj : Boomerang {
+        public override void SetStaticDefaults() {
+            DisplayName.SetDefault("Teslarang");
+        }
+
+        public override void SetDefaults() {
+            Projectile.width = 18;
+            Projectile.height = 46;
+            Projectile.aiStyle = -1;
+
+            Projectile.DamageType = DamageClass.Melee;
+            Projectile.friendly = true;
+            Projectile.hostile = false;
+            Projectile.penetrate = -1;
+
+            Projectile.tileCollide = true;
+
+            ReturnSpeed = 16f;
+            HomingOnOwnerStrength = 8f;
+            TravelOutFrames = 30;
+            DoTurn = true;
+        }
+
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit) {
+            if (Projectile.ai[0] == 0f) {
+                LightningStrike(target.whoAmI, target.Center, damage);
+            }
+
+            base.OnHitNPC(target, damage, knockback, crit);
+        }
+
+        public override bool OnTileCollide(Vector2 oldVelocity) {
+            if (Projectile.ai[0] == 0f) {
+                LightningStrike(-1, Projectile.Center, Projectile.damage);
+            }
+
+            return base.OnTileCollide(oldVelocity);
+        }
+
+        private void LightningStrike(int whoAmIToIgnore, Vector2 startPos, int damage) {
+            List<NPC> closeNPCs = new();
+            if (whoAmIToIgnore == -1) {
+                closeNPCs = Helpers.GetNearbyEnemies(startPos, 16f * 16f, true, false);
+            }
+            else {
+                closeNPCs = Helpers.GetNearbyEnemies(startPos, 16f * 16f, true, false, new List<int>() { whoAmIToIgnore });
+            }
+
+            int numLightning = (int)MathHelper.Clamp(closeNPCs.Count, 0f, 3f);
+            for (int i = 0; i < numLightning; i++) {
+                Main.LocalPlayer.ApplyDamageToNPC(closeNPCs[i], damage, 0f, 0, false);
+                LightningHelper.MakeDust(startPos, closeNPCs[i].Center);
+            }
+        }
+    }
+
+    public class TeslarangDamageProj : ModProjectile {
+        public override void SetStaticDefaults() {
+            DisplayName.SetDefault("Teslarang Lightning");
+        }
+
+        public override void SetDefaults() {
+            Projectile.width = 2;
+            Projectile.height = 2;
+            Projectile.aiStyle = -1;
+            Projectile.timeLeft = 3;
+
+            Projectile.DamageType = DamageClass.Melee;
+            Projectile.friendly = true;
+            Projectile.hostile = false;
+            Projectile.penetrate = 1;
+        }
+    }
+
+    public class TeslarangGlobalNPC : GlobalNPC {
+        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot) {
+            if (npc.type == NPCID.Frankenstein) {
+                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Teslarang>(), 40));
+            }
+        }
+    }
+
+    // Code from here
+    // https://gamedevelopment.tutsplus.com/tutorials/how-to-generate-shockingly-good-2d-lightning-effects--gamedev-2681
+    // Thank fuck for this post
+    public class LightningHelper {
+        public static void MakeDust(Vector2 source, Vector2 dest) {
+            var dustPoints = CreateBolt(source, dest);
+            foreach (var point in dustPoints) {
+                Dust d = Dust.NewDustPerfect(point, DustID.Electric, Scale: 0.8f);
+                d.noGravity = true;
+                d.velocity = Vector2.Zero;
+            }
+        }
+
+        public static List<Vector2> CreateBolt(Vector2 source, Vector2 dest) {
+            var results = new List<Vector2>();
+            Vector2 tangent = dest - source;
+            Vector2 normal = Vector2.Normalize(new Vector2(tangent.Y, -tangent.X));
+            float length = tangent.Length();
+
+            List<float> positions = new List<float>();
+            positions.Add(0);
+
+            for (int i = 0; i < length; i++)
+                positions.Add(Main.rand.NextFloat(0f, 1f));
+
+            positions.Sort();
+
+            const float Sway = 1000;
+            const float Jaggedness = 1 / Sway;
+
+            Vector2 prevPoint = source;
+            float prevDisplacement = 0f;
+            for (int i = 1; i < positions.Count; i++) {
+                float pos = positions[i];
+
+                // used to prevent sharp angles by ensuring very close positions also have small perpendicular variation.
+                float scale = (length * Jaggedness) * (pos - positions[i - 1]);
+
+                // defines an envelope. Points near the middle of the bolt can be further from the central line.
+                float envelope = pos > 0.95f ? 20 * (1 - pos) : 1;
+
+                float displacement = Main.rand.NextFloat(-Sway, Sway);
+                displacement -= (displacement - prevDisplacement) * (1 - scale);
+                displacement *= envelope;
+
+                Vector2 point = source + pos * tangent + displacement * normal;
+                results.Add(point);
+                prevPoint = point;
+                prevDisplacement = displacement;
+            }
+
+            results.Add(prevPoint);
+
+            return results;
+        }
+    }
+}
