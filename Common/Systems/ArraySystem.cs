@@ -51,7 +51,7 @@ namespace Bangarang.Common.Systems {
             { ItemID.BouncingShield, 1 },
             //{ ItemID.LightDisc, 5 }, // TODO: 1.4.4 remove this comment
             { ItemID.PaladinsHammer, 1 },
-            { ItemID.PossessedHatchet, 1 },
+            { ItemID.PossessedHatchet, -1 },
             // TODO: Add modded boomerangs to this
             { ModContent.ItemType<Bananarang>(), 10 },
             { ModContent.ItemType<LightDisc>(), 5 }
