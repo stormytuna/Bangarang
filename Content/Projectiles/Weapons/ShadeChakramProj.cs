@@ -26,7 +26,7 @@ namespace Bangarang.Content.Projectiles.Weapons {
             Projectile.tileCollide = true;
 
             ReturnSpeed = 24f;
-            HomingOnOwnerStrength = 8f;
+            HomingOnOwnerStrength = 2f;
             TravelOutFrames = 25;
             DoTurn = true;
         }

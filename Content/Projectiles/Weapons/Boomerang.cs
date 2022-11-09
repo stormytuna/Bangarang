@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -7,10 +8,10 @@ using Terraria.ModLoader;
 namespace Bangarang.Content.Projectiles.Weapons {
     public abstract class Boomerang : ModProjectile {
         /// <summary>How quickly the boomerang will return to its owner. Default = 10f</summary>
-        public float ReturnSpeed { get; set; } = 10f;
+        public float ReturnSpeed { get; set; } = 9f;
 
         /// <summary>How strong the boomerang will home in on its owner when returning. Default = 4f</summary>
-        public float HomingOnOwnerStrength { get; set; } = 4f;
+        public float HomingOnOwnerStrength { get; set; } = 0.4f;
 
         /// <summary>How many frames the boomerang will travel away from the player for. Default = 30</summary>
         public int TravelOutFrames { get; set; } = 30;
@@ -54,22 +55,45 @@ namespace Bangarang.Content.Projectiles.Weapons {
                 // Should travel through tiles
                 Projectile.tileCollide = false;
 
-                // Check if projectile is too far away and should just be killed
-                float maxRange = 3000f;
-                if (Vector2.DistanceSquared(Owner.Center, Projectile.Center) > maxRange * maxRange) {
+                // See if our projectile is too far away
+                float xDif = Owner.Center.X - Projectile.Center.X;
+                float yDif = Owner.Center.Y - Projectile.Center.Y;
+                float dist = MathF.Sqrt(xDif * xDif + yDif * yDif);
+                if (dist > 3000f) {
                     Projectile.Kill();
                 }
 
-                // Add to our velocity 
-                float maxVelocity = ReturnSpeed * Owner.GetAttackSpeed(DamageClass.Melee);
-                float homingStrength = 4f;
-                Vector2 directionToPlayer = Owner.Center - Projectile.Center;
-                directionToPlayer.Normalize();
-                directionToPlayer *= homingStrength;
-                Projectile.velocity += directionToPlayer;
-                if (Projectile.velocity.LengthSquared() > maxVelocity * maxVelocity) {
-                    Projectile.velocity.Normalize();
-                    Projectile.velocity *= maxVelocity;
+                // Get our x and y velocity values
+                float mult = ReturnSpeed / dist;
+                float xVel = xDif * mult;
+                float yVel = yDif * mult;
+
+                // Increase or decrease our X velocity accordingly 
+                if (Projectile.velocity.X < xVel) {
+                    Projectile.velocity.X += HomingOnOwnerStrength;
+                    if (Projectile.velocity.X < 0f && xVel > 0f) {
+                        Projectile.velocity.X += HomingOnOwnerStrength;
+                    }
+                }
+                else if (Projectile.velocity.X > xVel) {
+                    Projectile.velocity.X -= HomingOnOwnerStrength;
+                    if (Projectile.velocity.X > 0f && xVel < 0f) {
+                        Projectile.velocity.X -= HomingOnOwnerStrength;
+                    }
+                }
+
+                // Same for our Y velocity
+                if (Projectile.velocity.Y < yVel) {
+                    Projectile.velocity.Y += HomingOnOwnerStrength;
+                    if (Projectile.velocity.Y < 0f && yVel > 0f) {
+                        Projectile.velocity.Y += HomingOnOwnerStrength;
+                    }
+                }
+                else if (Projectile.velocity.Y > yVel) {
+                    Projectile.velocity.Y -= HomingOnOwnerStrength;
+                    if (Projectile.velocity.Y > 0f && yVel < 0f) {
+                        Projectile.velocity.Y -= HomingOnOwnerStrength;
+                    }
                 }
 
                 // Catch our projectile
