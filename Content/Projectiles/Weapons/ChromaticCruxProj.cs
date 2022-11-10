@@ -2,7 +2,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
+using System.IO;
 using Terraria;
+using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent.Drawing;
 using Terraria.ID;
@@ -57,7 +59,7 @@ namespace Bangarang.Content.Projectiles.Weapons {
         }
 
         public override void OnSpawn(IEntitySource source) {
-            child = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<ChromaticCruxRainbowProj>(), Projectile.damage / 5, Projectile.knockBack / 5f, Projectile.owner, Projectile.whoAmI);
+            child = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<ChromaticCruxRainbowProj>(), Projectile.damage / 5, Projectile.knockBack / 5f, Projectile.owner, 0f, Projectile.whoAmI);
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit) {
@@ -75,10 +77,15 @@ namespace Bangarang.Content.Projectiles.Weapons {
                 rainbow.ai[1] = target.whoAmI;
                 rainbow.timeLeft = 2 * 60;
                 rainbow.velocity = Projectile.velocity;
+                rainbow.netUpdate = true;
+                Projectile.netUpdate = true;
             }
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity) {
+            Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
+            SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
+
             if (Projectile.velocity.X != oldVelocity.X)
                 Projectile.velocity.X = 0f - oldVelocity.X;
 
@@ -92,6 +99,14 @@ namespace Bangarang.Content.Projectiles.Weapons {
             if (Main.projectile[child].ai[0] == 0f) {
                 Main.projectile[child].Kill();
             }
+        }
+
+        public override void SendExtraAI(BinaryWriter writer) {
+            writer.Write(child);
+        }
+
+        public override void ReceiveExtraAI(BinaryReader reader) {
+            child = reader.ReadInt32();
         }
 
         private Asset<Texture2D> _texture;

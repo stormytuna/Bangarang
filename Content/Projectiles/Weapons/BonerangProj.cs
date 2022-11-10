@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -47,7 +48,12 @@ namespace Bangarang.Content.Projectiles.Weapons {
             Projectile.Kill();
         }
 
-        public override bool OnTileCollide(Vector2 oldVelocity) => true;
+        public override bool OnTileCollide(Vector2 oldVelocity) {
+            Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
+            SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
+
+            return true;
+        }
     }
 
     public class BoneShardProj : ModProjectile {

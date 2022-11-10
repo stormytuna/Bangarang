@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -45,11 +46,20 @@ namespace Bangarang.Content.Projectiles.Weapons {
             Projectile.Kill();
         }
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit) {
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit) { }
 
+        public override bool OnTileCollide(Vector2 oldVelocity) {
+            Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
+            SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
+
+            if (Projectile.velocity.X != oldVelocity.X)
+                Projectile.velocity.X = 0f - oldVelocity.X;
+
+            if (Projectile.velocity.Y != oldVelocity.Y)
+                Projectile.velocity.Y = 0f - oldVelocity.Y;
+
+            return false;
         }
-
-        public override bool OnTileCollide(Vector2 oldVelocity) => false;
 
         public override void Kill(int timeLeft) {
             // Smart fire at targets

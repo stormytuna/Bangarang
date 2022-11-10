@@ -32,6 +32,9 @@ namespace Bangarang.Content.Projectiles.Weapons {
         public override void OnReachedApex() => DoShotgunBlast();
 
         public override bool OnTileCollide(Vector2 oldVelocity) {
+            Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
+            SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
+
             if (Projectile.ai[0] == 0f) {
                 DoShotgunBlast();
             }

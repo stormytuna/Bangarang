@@ -2,6 +2,7 @@ using Bangarang.Content.Items.Weapons;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.Audio;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -13,8 +14,8 @@ namespace Bangarang.Content.Projectiles.Weapons {
         }
 
         public override void SetDefaults() {
-            Projectile.width = 18;
-            Projectile.height = 46;
+            Projectile.width = 38;
+            Projectile.height = 38;
             Projectile.aiStyle = -1;
 
             Projectile.DamageType = DamageClass.Melee;
@@ -39,6 +40,9 @@ namespace Bangarang.Content.Projectiles.Weapons {
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity) {
+            Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
+            SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
+
             if (Projectile.ai[0] == 0f) {
                 LightningStrike(-1, Projectile.Center, Projectile.damage);
             }
