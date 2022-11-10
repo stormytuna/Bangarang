@@ -106,10 +106,12 @@ namespace Bangarang.Content.Projectiles.Weapons {
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit) {
-            Projectile.ai[0] = 1f;
-            Projectile.ai[1] = 0f;
-            Projectile.netUpdate = true;
-            Projectile.velocity = -Projectile.velocity;
+            if (Projectile.ai[0] == 0f) {
+                Projectile.ai[0] = 1f;
+                Projectile.ai[1] = 0f;
+                Projectile.netUpdate = true;
+                Projectile.velocity = -Projectile.velocity;
+            }
         }
 
         public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac) {
@@ -120,10 +122,12 @@ namespace Bangarang.Content.Projectiles.Weapons {
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity) {
-            Projectile.ai[0] = 1f;
-            Projectile.ai[1] = 0f;
-            Projectile.netUpdate = true;
-            Projectile.velocity = -Projectile.velocity;
+            if (Projectile.ai[0] == 0f) {
+                Projectile.ai[0] = 1f;
+                Projectile.ai[1] = 0f;
+                Projectile.netUpdate = true;
+                Projectile.velocity = -Projectile.velocity;
+            }
 
             return false;
         }
