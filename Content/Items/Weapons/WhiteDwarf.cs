@@ -17,8 +17,8 @@ namespace Bangarang.Content.Items.Weapons {
             Item.value = Item.sellPrice(gold: 10);
 
             Item.useStyle = ItemUseStyleID.Swing;
-            Item.useAnimation = 15;
-            Item.useTime = 15;
+            Item.useAnimation = 12;
+            Item.useTime = 12;
             Item.autoReuse = true;
             Item.UseSound = SoundID.Item1;
             Item.noMelee = true;
@@ -33,7 +33,8 @@ namespace Bangarang.Content.Items.Weapons {
 
         public override void AddRecipes() {
             CreateRecipe()
-                .AddIngredient(ItemID.FragmentSolar, 18)
+                .AddIngredient(ItemID.FragmentSolar, 12)
+                .AddIngredient(ItemID.LunarBar, 8)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }
