@@ -31,7 +31,7 @@ namespace Bangarang.Content.Items.Weapons {
             Item.shootSpeed = 18f;
             Item.damage = 70;
             Item.knockBack = 7f;
-            Item.DamageType = DamageClass.Melee;
+            Item.DamageType = DamageClass.MeleeNoSpeed;
         }
 
         public int Projectile { get => ModContent.ProjectileType<ChromaticCruxProj>(); }

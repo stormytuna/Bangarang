@@ -22,7 +22,7 @@ namespace Bangarang.Content.Items.Weapons {
             Item.shootSpeed = 13f;
             Item.damage = 57;
             Item.knockBack = 6.5f;
-            Item.DamageType = DamageClass.Melee;
+            Item.DamageType = DamageClass.MeleeNoSpeed;
         }
 
         public override void AddRecipes() {

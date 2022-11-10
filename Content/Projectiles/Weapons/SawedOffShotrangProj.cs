@@ -15,7 +15,7 @@ namespace Bangarang.Content.Projectiles.Weapons {
             Projectile.height = 14;
             Projectile.aiStyle = -1;
 
-            Projectile.DamageType = DamageClass.Melee;
+            Projectile.DamageType = DamageClass.MeleeNoSpeed;
             Projectile.friendly = true;
             Projectile.hostile = false;
             Projectile.penetrate = -1;

@@ -28,7 +28,7 @@ namespace Bangarang.Content.Items.Weapons {
             Item.shootSpeed = 20;
             Item.damage = 50;
             Item.knockBack = 12f;
-            Item.DamageType = DamageClass.Melee;
+            Item.DamageType = DamageClass.MeleeNoSpeed;
         }
 
         public int Projectile { get => ModContent.ProjectileType<TheChloroplastProj>(); }
