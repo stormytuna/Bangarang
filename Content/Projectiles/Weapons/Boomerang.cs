@@ -24,9 +24,7 @@ namespace Bangarang.Content.Projectiles.Weapons {
 
         public Player Owner { get => Main.player[Projectile.owner]; }
 
-        public virtual void OnReachedApex() {
-
-        }
+        public virtual void OnReachedApex() { }
 
         public override void AI() {
             // Funky sound
