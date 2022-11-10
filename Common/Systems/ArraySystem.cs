@@ -1,6 +1,5 @@
 using Bangarang.Content.Items.Weapons;
 using System.Collections.Generic;
-using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -55,6 +54,19 @@ namespace Bangarang.Common.Systems {
             // TODO: Add modded boomerangs to this
             { ModContent.ItemType<Bananarang>(), 10 },
             { ModContent.ItemType<LightDisc>(), 5 }
+            /*
+            { ModContent.ItemType<Beemerang>(), -1 },
+            { ModContent.ItemType<Bonerang>(), -1 },
+            { ModContent.ItemType<ChromaticCrux>(), -1 },
+            { ModContent.ItemType<Rangaboom>(), -1 },
+            { ModContent.ItemType<SawedOffShotrang>(), -1 },
+            { ModContent.ItemType<ShadeChakram>(), -1 },
+            { ModContent.ItemType<Synapse>(), -1 },
+            { ModContent.ItemType<Teslarang>(), -1 },
+            { ModContent.ItemType<TheChloroplast>(), -1 },
+            { ModContent.ItemType<WhiteDwarf>(), -1 },
+            { ModContent.ItemType<YinAndRang>(), -1 },
+            */
         };
 
         public static int[] FruitcakeChakramDebuffs { get => _fruitcakeChakramDebuffs; }
@@ -70,15 +82,7 @@ namespace Bangarang.Common.Systems {
         }
 
         public override void PostSetupContent() {
-            for (int i = 0; i < ContentSamples.ItemsByType.Count; i++) {
-                Item item = ContentSamples.ItemsByType[i];
-                Projectile proj = ContentSamples.ProjectilesByType[item.shoot];
-                if (proj.friendly && !proj.hostile && proj.aiStyle == 3 && proj.CountsAsClass(DamageClass.Melee)) {
-                    if (!_boomerangMaxOutCount.ContainsKey(item.type)) {
-                        _boomerangMaxOutCount.Add(item.type, -1);
-                    }
-                }
-            }
+
         }
     }
 }
