@@ -79,12 +79,33 @@ namespace Bangarang.Common.Systems {
             { ModContent.ItemType<YinAndRang>(), -1 }
         };
 
+        private static int[] _veryRareItemIds = new int[]
+        {
+            ItemID.BedazzledNectar,
+            ItemID.ExoticEasternChewToy,
+            ItemID.BirdieRattle,
+            ItemID.AntiPortalBlock,
+            ItemID.CompanionCube,
+            ItemID.SittingDucksFishingRod,
+            ItemID.HunterCloak,
+            ItemID.WinterCape,
+            ItemID.RedCape,
+            ItemID.MysteriousCape,
+            ItemID.CrimsonCloak,
+            ItemID.DiamondRing,
+            ItemID.CelestialMagnet,
+            ItemID.WaterGun,
+            ItemID.PulseBow,
+            ItemID.YellowCounterweight
+        };
+
         public static int[] FruitcakeChakramDebuffs { get => _fruitcakeChakramDebuffs; }
 
         public static int[] ProjectilesThatAreBoomerangs { get => _projectilesThatAreBoomerangs; }
 
         public static Dictionary<int, int> BoomerangMaxOutCount { get => _boomerangMaxOutCount; }
 
+        public static int[] VeryRareItemIds { get => _veryRareItemIds; }
         public override void Unload() {
             _fruitcakeChakramDebuffs = null;
             _projectilesThatAreBoomerangs = null;
