@@ -1,3 +1,4 @@
+using Bangarang.Common.Configs;
 using Bangarang.Common.Systems;
 using Bangarang.Content.Projectiles;
 using Microsoft.Xna.Framework;
@@ -11,7 +12,7 @@ namespace Bangarang.Common.Players {
     public class BangarangGlobalProjectile : GlobalProjectile {
         public override bool InstancePerEntity => true;
 
-        public override bool AppliesToEntity(Projectile entity, bool lateInstantiation) => ArraySystem.ProjectilesThatAreBoomerangs.Contains(entity.type);
+        public override bool AppliesToEntity(Projectile entity, bool lateInstantiation) => ArraySystem.ProjectilesThatAreBoomerangs.Contains(entity.type) || (ServerConfig.Instance.AssumeModdedBoomerangs && entity.aiStyle == 3 && entity.CountsAsClass(DamageClass.Melee));
 
         public override void OnSpawn(Projectile projectile, IEntitySource source) {
             if (Main.player[projectile.owner].GetModPlayer<BangarangPlayer>().BoomerangSpectralGlaives) {
