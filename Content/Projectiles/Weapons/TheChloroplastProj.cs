@@ -67,8 +67,8 @@ namespace Bangarang.Content.Projectiles.Weapons {
             var closeNPCs = Helpers.GetNearbyEnemies(Projectile.Center, 30f * 16f, true, false);
 
             for (int i = 0; i < 3; i++) {
-                bool isRandom = i < 3 - closeNPCs.Count;
-                Vector2 velocity = isRandom ? new(0f, 1f) : closeNPCs[i].Center - Projectile.Center;
+                bool isRandom = i >= closeNPCs.Count;
+                Vector2 velocity = isRandom ? new Vector2(0f, 1f) : closeNPCs[i].Center - Projectile.Center;
                 velocity.Normalize();
                 if (isRandom) {
                     velocity = velocity.RotatedByRandom(MathHelper.TwoPi);
@@ -76,6 +76,7 @@ namespace Bangarang.Content.Projectiles.Weapons {
                 velocity *= Main.rand.NextFloat(16f, 20f);
                 Projectile stinger = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center, velocity, ProjectileID.Stinger, Projectile.damage / 2, Projectile.knockBack / 3f, Projectile.owner);
                 stinger.DamageType = DamageClass.Melee;
+                stinger.penetrate = 1;
                 stinger.hostile = false;
                 stinger.friendly = true;
                 stinger.timeLeft = 5 * 60;
