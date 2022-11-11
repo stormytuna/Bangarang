@@ -6,11 +6,13 @@ namespace Bangarang.Common.Players {
         public float BoomerangReturnSpeedMult { get; set; }
         public float BoomerangKnockbackMult { get; set; }
         public bool BoomerangGlowAndDust { get; set; }
+        public bool BoomerangSpectralGlaives { get; set; }
 
         public override void ResetEffects() {
             ExtraBoomerangs = 0;
             BoomerangReturnSpeedMult = 0f;
             BoomerangKnockbackMult = 1f;
+            BoomerangSpectralGlaives = false;
         }
     }
 }

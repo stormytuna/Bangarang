@@ -13,6 +13,15 @@ namespace Bangarang.Common.Players {
 
         public override bool AppliesToEntity(Projectile entity, bool lateInstantiation) => ArraySystem.ProjectilesThatAreBoomerangs.Contains(entity.type);
 
+        public override void OnSpawn(Projectile projectile, IEntitySource source) {
+            if (Main.player[projectile.owner].GetModPlayer<BangarangPlayer>().BoomerangSpectralGlaives) {
+                Projectile proj = Projectile.NewProjectileDirect(projectile.GetSource_FromAI(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<SpectralGlaiveProj>(), projectile.damage / 3, 0f, projectile.owner, projectile.whoAmI, MathHelper.Pi);
+                proj.extraUpdates = projectile.extraUpdates;
+                proj = Projectile.NewProjectileDirect(projectile.GetSource_FromAI(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<SpectralGlaiveProj>(), projectile.damage / 3, 0f, projectile.owner, projectile.whoAmI, 0f);
+                proj.extraUpdates = projectile.extraUpdates;
+            }
+        }
+
         public override void PostAI(Projectile projectile) {
             var modPlayer = Main.player[projectile.owner].GetModPlayer<BangarangPlayer>();
 
