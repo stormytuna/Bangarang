@@ -26,5 +26,13 @@ namespace Bangarang.Content.Items.Accessories {
             modPlayer.BoomerangGlowAndDust = !hideVisual;
             modPlayer.BoomerangSpectralGlaives = true;
         }
+
+        public override void AddRecipes() {
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<FluorescentLicense>())
+                .AddIngredient(ModContent.ItemType<SpectralAmulet>())
+                .AddTile(TileID.TinkerersWorkbench)
+                .Register();
+        }
     }
 }
