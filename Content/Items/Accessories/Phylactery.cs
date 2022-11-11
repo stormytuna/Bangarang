@@ -1,35 +1,30 @@
 using Bangarang.Common.Players;
 using Terraria;
-using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Bangarang.Content.Items.Accessories {
     public class Phylactery : ModItem {
         public override void SetStaticDefaults() {
-            Tooltip.SetDefault("Your boomerangs are orbited by a pair of spectral glaives");
+            Tooltip.SetDefault("Throw an extra boomerang\nYour boomerangs glow, return faster and have increased knockback\nYour boomerangs are orbited by a pair of spectral glaives");
         }
 
         public override void SetDefaults() {
-            Item.width = 26;
-            Item.height = 26;
-            Item.rare = ItemRarityID.LightRed;
-            Item.value = Item.sellPrice(gold: 1);
+            Item.width = 18;
+            Item.height = 28;
+            Item.rare = ItemRarityID.Lime;
+            Item.value = Item.sellPrice(gold: 4);
 
             Item.accessory = true;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual) {
             var modPlayer = player.GetModPlayer<BangarangPlayer>();
+            modPlayer.ExtraBoomerangs++;
+            modPlayer.BoomerangReturnSpeedMult += 0.5f;
+            modPlayer.BoomerangKnockbackMult += 0.2f;
+            modPlayer.BoomerangGlowAndDust = !hideVisual;
             modPlayer.BoomerangSpectralGlaives = true;
-        }
-    }
-
-    public class PhylacteryGlobalNPC : GlobalNPC {
-        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot) {
-            if (npc.type == NPCID.Necromancer || npc.type == NPCID.NecromancerArmored || npc.type == NPCID.RaggedCaster || npc.type == NPCID.RaggedCasterOpenCoat || npc.type == NPCID.DiabolistRed || npc.type == NPCID.DiabolistWhite) {
-                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Phylactery>(), 80));
-            }
         }
     }
 }
