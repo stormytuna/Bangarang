@@ -15,7 +15,7 @@ namespace Bangarang.Common.Players {
             bool ret = orig(self, sItem);
 
             foreach (var kvp in ArraySystem.BoomerangMaxOutCount) {
-                if (sItem.type == kvp.Key && kvp.Key != -1) {
+                if (sItem.type == kvp.Key && kvp.Value != -1) {
                     return self.ownedProjectileCounts[sItem.shoot] < kvp.Value + self.GetModPlayer<BangarangPlayer>().ExtraBoomerangs;
                 }
             }
