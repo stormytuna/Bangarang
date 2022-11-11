@@ -1,5 +1,8 @@
+using Bangarang.Common.Configs;
 using Bangarang.Content.Items.Weapons;
+using Bangarang.Content.Projectiles.Weapons;
 using System.Collections.Generic;
+using System.Linq;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -16,23 +19,33 @@ namespace Bangarang.Common.Systems {
             BuffID.ShadowFlame
         };
 
-        private static int[] _itemsThatShootBoomerangs = new int[] {
-            ItemID.WoodenBoomerang,
-            ItemID.EnchantedBoomerang,
-            ItemID.FruitcakeChakram,
-            ItemID.BloodyMachete,
-            ItemID.Shroomerang,
-            ItemID.IceBoomerang,
-            ItemID.ThornChakram,
-            ItemID.CombatWrench,
-            ItemID.Flamarang,
-            //ItemID.Bananarang // Technically making this impossible to acquire. TODO: in 1.4.4 remove the added light disc
-            ItemID.FlyingKnife,
-            ItemID.BouncingShield,
-            //ItemID.LightDisc // Also technically removing this, TODO: in 1.4.4 remove the added light disc
-            ItemID.PaladinsHammer,
-            ItemID.PossessedHatchet
-            // TODO: Add modded boomerangs to here
+        private static int[] _projectilesThatAreBoomerangs = new int[] {
+            ProjectileID.WoodenBoomerang,
+            ProjectileID.EnchantedBoomerang,
+            ProjectileID.FruitcakeChakram,
+            ProjectileID.BloodyMachete,
+            ProjectileID.Shroomerang,
+            ProjectileID.IceBoomerang,
+            ProjectileID.ThornChakram,
+            ProjectileID.CombatWrench,
+            ProjectileID.Flamarang,
+            ProjectileID.Bananarang,
+            ProjectileID.FlyingKnife,
+            ProjectileID.BouncingShield,
+            ProjectileID.LightDisc,
+            ProjectileID.PaladinsHammerFriendly,
+            ProjectileID.PossessedHatchet,
+            ModContent.ProjectileType<BeemerangProj>(),
+            ModContent.ProjectileType<BonerangProj>(),
+            ModContent.ProjectileType<ChromaticCruxProj>(),
+            ModContent.ProjectileType<RangaboomProj>(),
+            ModContent.ProjectileType<SawedOffShotrangProj>(),
+            ModContent.ProjectileType<ShadeChakramProj>(),
+            ModContent.ProjectileType<SynapseProj>(),
+            ModContent.ProjectileType<TeslarangProj>(),
+            ModContent.ProjectileType<TheChloroplastProj>(),
+            ModContent.ProjectileType<WhiteDwarfProj>(),
+            ModContent.ProjectileType<YinAndRangProj>()
         };
 
         private static Dictionary<int, int> _boomerangMaxOutCount = new() {
@@ -51,10 +64,8 @@ namespace Bangarang.Common.Systems {
             //{ ItemID.LightDisc, 5 }, // TODO: 1.4.4 remove this comment
             { ItemID.PaladinsHammer, 1 },
             { ItemID.PossessedHatchet, -1 },
-            // TODO: Add modded boomerangs to this
             { ModContent.ItemType<Bananarang>(), 10 },
-            { ModContent.ItemType<LightDisc>(), 5 }
-            /*
+            { ModContent.ItemType<LightDisc>(), 5 },
             { ModContent.ItemType<Beemerang>(), -1 },
             { ModContent.ItemType<Bonerang>(), -1 },
             { ModContent.ItemType<ChromaticCrux>(), -1 },
@@ -65,24 +76,37 @@ namespace Bangarang.Common.Systems {
             { ModContent.ItemType<Teslarang>(), -1 },
             { ModContent.ItemType<TheChloroplast>(), -1 },
             { ModContent.ItemType<WhiteDwarf>(), -1 },
-            { ModContent.ItemType<YinAndRang>(), -1 },
-            */
+            { ModContent.ItemType<YinAndRang>(), -1 }
         };
 
         public static int[] FruitcakeChakramDebuffs { get => _fruitcakeChakramDebuffs; }
 
-        public static int[] ItemsThatShootBoomerangs { get => _itemsThatShootBoomerangs; }
+        public static int[] ProjectilesThatAreBoomerangs { get => _projectilesThatAreBoomerangs; }
 
         public static Dictionary<int, int> BoomerangMaxOutCount { get => _boomerangMaxOutCount; }
 
         public override void Unload() {
             _fruitcakeChakramDebuffs = null;
-            _itemsThatShootBoomerangs = null;
+            _projectilesThatAreBoomerangs = null;
             _boomerangMaxOutCount = null;
         }
 
         public override void PostSetupContent() {
+            if (ServerConfig.Instance.AssumeModdedBoomerangs) {
+                List<int> temp = _projectilesThatAreBoomerangs.ToList();
+                foreach (var proj in ContentSamples.ProjectilesByType.Values) {
+                    if (proj.aiStyle == 3 && !_projectilesThatAreBoomerangs.Contains(proj.type)) {
+                        temp.Add(proj.type);
+                    }
+                }
+                _projectilesThatAreBoomerangs = temp.ToArray();
+            }
+        }
 
+        public static void RegisterBoomerang(int type, int numBoomerangs) {
+            if (!_boomerangMaxOutCount.ContainsKey(type)) {
+                _boomerangMaxOutCount.Add(type, numBoomerangs);
+            }
         }
     }
 }
