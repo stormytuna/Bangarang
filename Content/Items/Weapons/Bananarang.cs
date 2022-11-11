@@ -6,10 +6,6 @@ using Terraria.ModLoader;
 
 namespace Bangarang.Content.Items.Weapons {
     public class Bananarang : ModItem {
-        public override void SetStaticDefaults() {
-            Tooltip.SetDefault("Inflicts confusion");
-        }
-
         public override void SetDefaults() {
             Item.width = 14;
             Item.height = 28;
