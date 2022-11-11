@@ -1,13 +1,14 @@
 using Bangarang.Common.Players;
 using Bangarang.Content.Projectiles.Weapons;
 using Terraria;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Bangarang.Content.Items.Weapons {
     public class Teslarang : ModItem {
         public override void SetStaticDefaults() {
-            Tooltip.SetDefault("Fires lightning at nearby enemies");
+            Tooltip.SetDefault("Discharges bolts of electricity when it hits an enemy");
         }
 
         public override void SetDefaults() {
@@ -31,12 +32,12 @@ namespace Bangarang.Content.Items.Weapons {
             Item.DamageType = DamageClass.MeleeNoSpeed;
         }
 
-        public override void AddRecipes() {
-            CreateRecipe()
-                .AddIngredient(ItemID.CrimtaneBar, 8)
-                .AddIngredient(ItemID.TissueSample, 5)
-                .AddTile(TileID.Anvils)
-                .Register();
+        public class TeslarangGlobalNPC : GlobalNPC {
+            public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot) {
+                if (npc.type == NPCID.Frankenstein) {
+                    npcLoot.Add(ItemDropRule.ByCondition(new Conditions.DownedPlantera(), ModContent.ItemType<Teslarang>(), 40));
+                }
+            }
         }
 
         public int Projectile { get => ModContent.ProjectileType<TeslarangProj>(); }

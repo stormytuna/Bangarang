@@ -1,9 +1,7 @@
-using Bangarang.Content.Items.Weapons;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.Audio;
-using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -82,14 +80,6 @@ namespace Bangarang.Content.Projectiles.Weapons {
             Projectile.friendly = true;
             Projectile.hostile = false;
             Projectile.penetrate = 1;
-        }
-    }
-
-    public class TeslarangGlobalNPC : GlobalNPC {
-        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot) {
-            if (npc.type == NPCID.Frankenstein) {
-                npcLoot.Add(ItemDropRule.ByCondition(new Conditions.DownedPlantera(), ModContent.ItemType<Teslarang>(), 40));
-            }
         }
     }
 
