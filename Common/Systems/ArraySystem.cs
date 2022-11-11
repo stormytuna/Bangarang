@@ -107,6 +107,9 @@ namespace Bangarang.Common.Systems {
             if (!_boomerangMaxOutCount.ContainsKey(type)) {
                 _boomerangMaxOutCount.Add(type, numBoomerangs);
             }
+            var temp = _projectilesThatAreBoomerangs.ToList();
+            temp.Add(type);
+            _projectilesThatAreBoomerangs = temp.ToArray();
         }
     }
 }
