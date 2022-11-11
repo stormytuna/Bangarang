@@ -20,7 +20,7 @@ namespace Bangarang.Common.Boomerangs {
         public override bool AppliesToEntity(Projectile entity, bool lateInstantiation) => entity.type == ProjectileID.BloodyMachete && ServerConfig.Instance.VanillaChanges;
 
         public override void ModifyHitNPC(Projectile projectile, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection) {
-            // Bloody Machete uses ai[0] as a frame counter in vanilla so we can just reuse that
+            // Bloody Machete uses ai[1] as a frame counter in vanilla so we can just reuse that
             // Should get us a value between 0 and 1 when the frame counter is between 30 and 60
             float lerpAmount = (MathHelper.Clamp(projectile.ai[1], 30f, 60f) - 30f) / 30f;
             float damageMult = MathHelper.Lerp(1f, 1.5f, lerpAmount);
