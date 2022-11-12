@@ -1,3 +1,4 @@
+using Bangarang.Common.Configs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -13,6 +14,8 @@ namespace Bangarang.Content.Projectiles.Weapons {
         public override void SetStaticDefaults() {
             DisplayName.SetDefault("Rangaboom");
         }
+
+        public override bool IsLoadingEnabled(Mod mod) => ServerConfig.Instance.ModdedBoomerangs;
 
         public override void SetDefaults() {
             Projectile.width = 42;

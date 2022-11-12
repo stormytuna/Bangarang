@@ -1,3 +1,4 @@
+using Bangarang.Common.Configs;
 using Microsoft.Xna.Framework;
 using System.IO;
 using Terraria;
@@ -10,6 +11,8 @@ namespace Bangarang.Content.Projectiles.Weapons {
             DisplayName.SetDefault("Synapse");
             ProjectileID.Sets.CultistIsResistantTo[Type] = true;
         }
+
+        public override bool IsLoadingEnabled(Mod mod) => ServerConfig.Instance.ModdedBoomerangs;
 
         public override void SetDefaults() {
             Projectile.width = 32;

@@ -1,3 +1,4 @@
+using Bangarang.Common.Configs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -13,6 +14,8 @@ namespace Bangarang.Content.Projectiles.Weapons {
             ProjectileID.Sets.TrailCacheLength[Type] = 3;
             ProjectileID.Sets.TrailingMode[Type] = 0;
         }
+
+        public override bool IsLoadingEnabled(Mod mod) => ServerConfig.Instance.ModdedBoomerangs;
 
         public override void SetDefaults() {
             Projectile.width = 40;

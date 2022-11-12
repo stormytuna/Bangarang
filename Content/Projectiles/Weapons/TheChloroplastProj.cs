@@ -1,3 +1,4 @@
+using Bangarang.Common.Configs;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -9,6 +10,8 @@ namespace Bangarang.Content.Projectiles.Weapons {
         public override void SetStaticDefaults() {
             DisplayName.SetDefault("The Chloroplast");
         }
+
+        public override bool IsLoadingEnabled(Mod mod) => ServerConfig.Instance.ModdedBoomerangs;
 
         public override void SetDefaults() {
             Projectile.width = 54;
