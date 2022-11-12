@@ -16,9 +16,9 @@ namespace Bangarang.Common.Players {
 
         public override void OnSpawn(Projectile projectile, IEntitySource source) {
             if (Main.player[projectile.owner].GetModPlayer<BangarangPlayer>().BoomerangSpectralGlaives) {
-                Projectile proj = Projectile.NewProjectileDirect(projectile.GetSource_FromAI(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<SpectralGlaiveProj>(), projectile.damage / 3, 0f, projectile.owner, projectile.whoAmI, MathHelper.Pi);
+                Projectile proj = Projectile.NewProjectileDirect(projectile.GetSource_FromAI(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<SpectralGlaiveProj>(), projectile.damage / 5, 0f, projectile.owner, projectile.whoAmI, MathHelper.Pi);
                 proj.extraUpdates = projectile.extraUpdates;
-                proj = Projectile.NewProjectileDirect(projectile.GetSource_FromAI(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<SpectralGlaiveProj>(), projectile.damage / 3, 0f, projectile.owner, projectile.whoAmI, 0f);
+                proj = Projectile.NewProjectileDirect(projectile.GetSource_FromAI(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<SpectralGlaiveProj>(), projectile.damage / 5, 0f, projectile.owner, projectile.whoAmI, 0f);
                 proj.extraUpdates = projectile.extraUpdates;
             }
         }
