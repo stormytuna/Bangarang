@@ -49,28 +49,21 @@ New boomerangs are available throughout your entire progression. From the Shade 
 <details>
 <summary>Mod Call template</summary>
 <br>
-This mod only has one mod call, it expects 2 args, both ints. It expects the first int to be the type of your boomerang projectile, while the second int is how many of those boomerangs you're allowed out at a time. Here's a template that you can throw in a <code>PostSetupContent</code> override
+
+Alrighty, this mod call takes 3 parameters that are all integers. First arg should be the item type of your boomerang, the second arg should be the projectile type of your boomerang, the third arg should be the maximum number of that boomerang the player can shoot
 
 
         public override void PostSetupContent() {
             if (ModLoader.TryGetMod("Bangarang", out Mod bangarang)) {
-                bangarang.Call(ModContent.ProjectileType<X>(), Y);
-                // X is the name of your boomerang projectile
-                // Y is the maximum amount of boomerangs the player should be able to throw
+                bangarang.Call(ModContent.ItemType<X>(), ModContent.ProjectileType<Y>(), Z);
+                // X is your item class
+                // Y is your projectile class
+                // Z is the amount of boomerangs the player can throw
             }
         }
 
-<details>
-<summary>If you care how your code here is used, open this!</summary>
-<br>
 
-Okay so, [here](https://github.com/stormytuna/Bangarang/blob/main/Bangarang.cs#L8) is where your call will be parsed. It then calls [this](https://github.com/stormytuna/Bangarang/blob/main/Common/Systems/ArraySystem.cs) function, registering your projectile type to an internal dict and array. 
-<br>
-The dict is used by [this](https://github.com/stormytuna/Bangarang/blob/main/Common/Players/DetourPlayer.cs#L14) detour, that just lets the player throw extra boomerangs
-<br>
-The array is used by [this](https://github.com/stormytuna/Bangarang/blob/main/Common/GlobalProjectiles/BangarangGlobalProjectile.cs#L15) global projectile override and [this](https://github.com/stormytuna/Bangarang/blob/main/Common/GlobalItems/BangarangGlobalItem.cs#L11) global item override, the former lets projetiles be recognised as boomerangs and the latter just enables auto-reuse
 
-</details>
 </details>
 
 ***

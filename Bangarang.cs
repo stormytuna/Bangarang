@@ -15,9 +15,14 @@ namespace Bangarang {
             }
 
             if (args[0] is int itemType) {
-                if (args[1] is int numBoomerangs) {
-                    ArraySystem.RegisterBoomerang(itemType, numBoomerangs);
-                    return true;
+                if (args[1] is int projectileType) {
+                    if (args[2] is int numBoomerangs) {
+                        ArraySystem.RegisterBoomerang(itemType, projectileType, numBoomerangs);
+                        return true;
+                    }
+                    else {
+                        throw new Exception($"Expected an argument of type int, but got type {args[0].GetType().Name} instead");
+                    }
                 }
                 else {
                     throw new Exception($"Expected an argument of type int, but got type {args[0].GetType().Name} instead");

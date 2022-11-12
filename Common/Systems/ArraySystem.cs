@@ -124,12 +124,12 @@ namespace Bangarang.Common.Systems {
             }
         }
 
-        public static void RegisterBoomerang(int type, int numBoomerangs) {
-            if (!_boomerangMaxOutCount.ContainsKey(type)) {
-                _boomerangMaxOutCount.Add(type, numBoomerangs);
+        public static void RegisterBoomerang(int itemType, int projectileType, int numBoomerangs) {
+            if (!_boomerangMaxOutCount.ContainsKey(itemType)) {
+                _boomerangMaxOutCount.Add(itemType, numBoomerangs);
             }
             var temp = _projectilesThatAreBoomerangs.ToList();
-            temp.Add(type);
+            temp.Add(projectileType);
             _projectilesThatAreBoomerangs = temp.ToArray();
         }
     }
