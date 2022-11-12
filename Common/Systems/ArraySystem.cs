@@ -9,7 +9,6 @@ using Terraria.ModLoader;
 namespace Bangarang.Common.Systems {
     public class ArraySystem : ModSystem {
         private static int[] _fruitcakeChakramDebuffs = new[] {
-            BuffID.Bleeding,
             BuffID.Confused,
             BuffID.CursedInferno,
             BuffID.Ichor,

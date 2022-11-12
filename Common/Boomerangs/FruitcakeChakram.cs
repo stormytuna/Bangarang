@@ -26,7 +26,7 @@ namespace Bangarang.Common.Boomerangs {
 
             if (Main.rand.NextBool(4)) {
                 int buff = buffs[Main.rand.Next(buffs.Length)];
-                int time = (int)(Main.rand.NextFloat(3, 5) * 60f);
+                int time = (int)(Main.rand.NextFloat(1, 3) * 60f);
                 target.AddBuff(buff, time);
             }
         }
