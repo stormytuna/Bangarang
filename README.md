@@ -40,7 +40,7 @@ New boomerangs are available throughout your entire progression. From the Shade 
 * Illuminant Coating - Your boomerangs glow, return faster and have increased knockback. 2% drop from Illuminant Bat and Slime
 * Spectral Amulet - Your boomerangs are orbited by a pair of spectral glaives. 1.25% drop from any magic Post-Plantera Dungeon skeleton
 * Fluorescent License - Effects of Boomerang License and Illuminant Coating. Crafted with both of them @ Tinkerer's Workbench
-* Phylactery - Effects of all 3. Crafted with Fluorescent License and Spectral Amulet @ Tinkerer's Workbench
+* Ranger's Talisman - Effects of all 3. Crafted with Fluorescent License and Spectral Amulet @ Tinkerer's Workbench
 
 ***
 
