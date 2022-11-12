@@ -12,6 +12,7 @@ namespace Bangarang.Common.Players {
             ExtraBoomerangs = 0;
             BoomerangReturnSpeedMult = 0f;
             BoomerangKnockbackMult = 1f;
+            BoomerangGlowAndDust = false;
             BoomerangSpectralGlaives = false;
         }
     }
