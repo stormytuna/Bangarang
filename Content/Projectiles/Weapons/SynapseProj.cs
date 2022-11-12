@@ -44,7 +44,7 @@ namespace Bangarang.Content.Projectiles.Weapons {
                     DoTurn = false;
                     // Add to our velocity 
                     float maxVelocity = ReturnSpeed * Owner.GetAttackSpeed(DamageClass.Melee);
-                    float homingStrength = 1.5f;
+                    float homingStrength = 0.7f;
                     Vector2 toEnemy = target.Center - Projectile.Center;
                     toEnemy.Normalize();
                     toEnemy *= homingStrength;

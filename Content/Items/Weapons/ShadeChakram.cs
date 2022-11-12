@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 namespace Bangarang.Content.Items.Weapons {
     public class ShadeChakram : ModItem {
         public override void SetStaticDefaults() {
-            Tooltip.SetDefault("Returns faster");
+            Tooltip.SetDefault("Exceptionally quick");
         }
 
         public override void SetDefaults() {
@@ -25,7 +25,7 @@ namespace Bangarang.Content.Items.Weapons {
             Item.noUseGraphic = true;
 
             Item.shoot = Projectile;
-            Item.shootSpeed = 14f;
+            Item.shootSpeed = 24f;
             Item.damage = 27;
             Item.knockBack = 8f;
             Item.DamageType = DamageClass.MeleeNoSpeed;

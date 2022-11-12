@@ -25,7 +25,7 @@ namespace Bangarang.Content.Items.Weapons {
             Item.noUseGraphic = true;
 
             Item.shoot = Projectile;
-            Item.shootSpeed = 20;
+            Item.shootSpeed = 20f;
             Item.damage = 50;
             Item.knockBack = 12f;
             Item.DamageType = DamageClass.MeleeNoSpeed;
@@ -33,7 +33,7 @@ namespace Bangarang.Content.Items.Weapons {
 
         public int Projectile { get => ModContent.ProjectileType<TheChloroplastProj>(); }
 
-        public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Projectile] < player.GetModPlayer<BangarangPlayer>().ExtraBoomerangs + 1;
+        public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Projectile] < player.GetModPlayer<BangarangPlayer>().ExtraBoomerangs + 3;
 
         public override void AddRecipes() {
             CreateRecipe()

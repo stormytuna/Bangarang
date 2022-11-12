@@ -28,7 +28,7 @@ namespace Bangarang.Content.Items.Weapons {
             Item.noUseGraphic = true;
 
             Item.shoot = Projectile;
-            Item.shootSpeed = 21f;
+            Item.shootSpeed = 25f;
             Item.damage = 75;
             Item.knockBack = 8f;
             Item.DamageType = DamageClass.MeleeNoSpeed;
@@ -36,7 +36,7 @@ namespace Bangarang.Content.Items.Weapons {
 
         public int Projectile { get => ModContent.ProjectileType<RangaboomProj>(); }
 
-        public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Projectile] < player.GetModPlayer<BangarangPlayer>().ExtraBoomerangs + 1;
+        public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Projectile] < player.GetModPlayer<BangarangPlayer>().ExtraBoomerangs + 5;
 
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback) {
             position += velocity * 25f;

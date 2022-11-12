@@ -40,6 +40,6 @@ namespace Bangarang.Content.Items.Weapons {
 
         public int Projectile { get => ModContent.ProjectileType<WhiteDwarfProj>(); }
 
-        public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Projectile] < player.GetModPlayer<BangarangPlayer>().ExtraBoomerangs + 1;
+        public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Projectile] < player.GetModPlayer<BangarangPlayer>().ExtraBoomerangs + 3;
     }
 }

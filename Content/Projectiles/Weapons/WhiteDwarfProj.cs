@@ -60,7 +60,9 @@ namespace Bangarang.Content.Projectiles.Weapons {
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit) {
-            Explode(target.Center);
+            if (Projectile.ai[0] == 0f) {
+                Explode(target.Center);
+            }
 
             base.OnHitNPC(target, damage, knockback, crit);
         }
