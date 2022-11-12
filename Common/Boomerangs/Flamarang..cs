@@ -11,7 +11,7 @@ namespace Bangarang.Common.Boomerangs {
 
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips) {
             int index = tooltips.FindLastIndex(t => t.Mod == "Terraria");
-            tooltips.Insert(index + 1, new(Mod, "Tooltip0", "Spews molten sparks and inflicts On Fire! when it hits an enemy"));
+            tooltips.Insert(index + 1, new(Mod, "Tooltip0", "Spews molten sparks when it hits an enemy"));
         }
     }
 
