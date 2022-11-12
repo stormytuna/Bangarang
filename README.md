@@ -23,16 +23,16 @@ New boomerangs are available throughout your entire progression. From the Shade 
 ## **Added boomerangs**
 
 * Synapse - Homes in on enemies. Crafted with 8 Crimtane Bars, 5 Tissue Samples @ Anvil
-* Shade Chakram - Returns quickly. Crafted with 8 Demonite Bars, 5 Shadow Scales @ Anvil
+* Shade Chakram - Travels exceptionally quick. Crafted with 8 Demonite Bars, 5 Shadow Scales @ Anvil
 * Beemerang - Releases bees on impact. Crafted with 14 Bee Wax @ Anvil
-* Bonerang - Breaks into bone shards on impact. Crafted with 30 Bones @ Anvil
+* Bonerang - Breaks into bone shards on impact. Crafted with 90 Bones @ Anvil
 * Sawed Off Shotrang - Fires a shotgun blast at its apex. Crafted with 1 Shotgun, 1 Illegal Gun Parts @ Anvil
 * Yin and Rang - Breaks into two homing shards at its apex. Crafted with 1 Light Shard, 1 Dark Shard, 5 Titanium Bars @ Hardmode Anvil
 * The Chloroplast - Bursts into stingers at its apex. Crafted with 14 Chlorophyte Bars @ Hardmode Anvil
 * Teslarang - Discharges bolts of electricity when it hits an enemy. 2.5% drop from Frankenstein after Plantera has been defeated
 * Chromatic Crux - Leaves a homing rainbow chakram when it hits an enemy. Drops from Empress of Light
 * Rangaboom - Starts at its apex and travels to you. Drops from Martian Saucer
-* White Dwarf - Incinerates enemies with stellar energy. Crafted with 12 Solar Fragments, 8 Luminite Bars @ Ancient Manipulator
+* White Dwarf - Incinerates enemies with stellar energy. Crafted with 16 Solar Fragments @ Ancient Manipulator
 
 ## **Added accessories**
 
