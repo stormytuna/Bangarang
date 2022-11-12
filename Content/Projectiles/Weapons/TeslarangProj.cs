@@ -68,24 +68,6 @@ namespace Bangarang.Content.Projectiles.Weapons {
         }
     }
 
-    public class TeslarangDamageProj : ModProjectile {
-        public override void SetStaticDefaults() {
-            DisplayName.SetDefault("Teslarang Lightning");
-        }
-
-        public override void SetDefaults() {
-            Projectile.width = 2;
-            Projectile.height = 2;
-            Projectile.aiStyle = -1;
-            Projectile.timeLeft = 3;
-
-            Projectile.DamageType = DamageClass.MeleeNoSpeed;
-            Projectile.friendly = true;
-            Projectile.hostile = false;
-            Projectile.penetrate = 1;
-        }
-    }
-
     // Code from here
     // https://gamedevelopment.tutsplus.com/tutorials/how-to-generate-shockingly-good-2d-lightning-effects--gamedev-2681
     // Thank fuck for this post
