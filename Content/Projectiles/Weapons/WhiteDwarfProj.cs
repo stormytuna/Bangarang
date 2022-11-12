@@ -54,20 +54,20 @@ namespace Bangarang.Content.Projectiles.Weapons {
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity) {
-            Explode();
+            Explode(Projectile.Center);
 
             return base.OnTileCollide(oldVelocity);
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit) {
-            Explode();
+            Explode(target.Center);
 
             base.OnHitNPC(target, damage, knockback, crit);
         }
 
-        private void Explode() {
+        private void Explode(Vector2 position) {
             // Explosion
-            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center.X, Projectile.Center.Y, 0f, 0f, ProjectileID.SolarWhipSwordExplosion, Projectile.damage, 10f, Projectile.owner, 0f, 0.85f + Main.rand.NextFloat() * 1.15f);
+            Projectile.NewProjectile(Projectile.GetSource_FromAI(), position.X, position.Y, 0f, 0f, ProjectileID.SolarWhipSwordExplosion, Projectile.damage, 10f, Projectile.owner, 0f, 0.85f + Main.rand.NextFloat() * 1.15f);
 
             // Dust
             int numDust = Main.rand.Next(4, 7);
