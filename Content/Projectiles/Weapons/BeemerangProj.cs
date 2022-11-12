@@ -30,7 +30,10 @@ namespace Bangarang.Content.Projectiles.Weapons {
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit) {
-            int numBees = Main.rand.Next(3);
+            int numBees = 1;
+            if (Main.rand.NextBool(3)) {
+                numBees++;
+            }
             for (int i = 0; i < numBees; i++) {
                 Vector2 velocity = new(Main.rand.NextFloat(0f, 0.3f), 0f);
                 velocity = velocity.RotatedByRandom(MathHelper.TwoPi);
