@@ -33,7 +33,7 @@ namespace Bangarang.Content.Items.Weapons {
 
         public override void AddRecipes() {
             CreateRecipe()
-                .AddIngredient(ItemID.Bone, 30)
+                .AddIngredient(ItemID.Bone, 90)
                 .AddTile(TileID.Anvils)
                 .Register();
         }
