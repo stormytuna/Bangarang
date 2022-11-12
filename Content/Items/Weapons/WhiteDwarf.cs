@@ -33,8 +33,7 @@ namespace Bangarang.Content.Items.Weapons {
 
         public override void AddRecipes() {
             CreateRecipe()
-                .AddIngredient(ItemID.FragmentSolar, 12)
-                .AddIngredient(ItemID.LunarBar, 8)
+                .AddIngredient(ItemID.FragmentSolar, 16)
                 .AddTile(TileID.LunarCraftingStation)
                 .Register();
         }
