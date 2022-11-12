@@ -27,6 +27,7 @@ namespace Bangarang.Content.Projectiles.Weapons {
         public virtual void OnReachedApex() { }
 
         public override bool PreAI() {
+            AI();
             return false;
         }
 
