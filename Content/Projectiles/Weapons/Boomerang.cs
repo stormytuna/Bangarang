@@ -26,12 +26,7 @@ namespace Bangarang.Content.Projectiles.Weapons {
 
         public virtual void OnReachedApex() { }
 
-        public override bool PreAI() {
-            AI();
-            return false;
-        }
-
-        new public virtual void AI() {
+        public override void AI() {
             // Funky sound
             if (Projectile.soundDelay == 0) {
                 Projectile.soundDelay = 8;

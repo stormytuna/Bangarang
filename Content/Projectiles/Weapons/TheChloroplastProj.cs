@@ -16,7 +16,7 @@ namespace Bangarang.Content.Projectiles.Weapons {
         public override void SetDefaults() {
             Projectile.width = 54;
             Projectile.height = 54;
-            Projectile.aiStyle = 3;
+            Projectile.aiStyle = -1;
 
             Projectile.DamageType = DamageClass.MeleeNoSpeed;
             Projectile.friendly = true;
