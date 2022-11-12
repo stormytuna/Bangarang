@@ -1,4 +1,4 @@
 displayName = Bangarang - A Boomerang Overhaul
 author = stormytuna
 homepage = https://github.com/stormytuna/Bangarang
-version = 1.0.0
+version = 1.0.1
