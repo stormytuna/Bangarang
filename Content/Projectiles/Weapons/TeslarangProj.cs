@@ -62,7 +62,7 @@ namespace Bangarang.Content.Projectiles.Weapons {
 
             int numLightning = (int)MathHelper.Clamp(closeNPCs.Count, 0f, 3f);
             for (int i = 0; i < numLightning; i++) {
-                Main.LocalPlayer.ApplyDamageToNPC(closeNPCs[i], damage, 0f, 0, false);
+                Main.LocalPlayer.ApplyDamageToNPC(closeNPCs[i], damage / 3, 0f, 0, false);
                 LightningHelper.MakeDust(startPos, closeNPCs[i].Center);
             }
         }
