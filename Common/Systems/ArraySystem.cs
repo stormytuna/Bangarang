@@ -105,6 +105,7 @@ namespace Bangarang.Common.Systems {
         public static Dictionary<int, int> BoomerangMaxOutCount { get => _boomerangMaxOutCount; }
 
         public static int[] VeryRareItemIds { get => _veryRareItemIds; }
+
         public override void Unload() {
             _fruitcakeChakramDebuffs = null;
             _projectilesThatAreBoomerangs = null;
