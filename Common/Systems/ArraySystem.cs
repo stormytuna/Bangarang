@@ -110,6 +110,7 @@ namespace Bangarang.Common.Systems {
             _fruitcakeChakramDebuffs = null;
             _projectilesThatAreBoomerangs = null;
             _boomerangMaxOutCount = null;
+            _veryRareItemIds = null;
         }
 
         public override void PostSetupContent() {
