@@ -117,7 +117,7 @@ namespace Bangarang.Common.Systems {
             if (ServerConfig.Instance.AssumeModdedBoomerangs) {
                 List<int> temp = _projectilesThatAreBoomerangs.ToList();
                 foreach (var proj in ContentSamples.ProjectilesByType.Values) {
-                    if (proj.aiStyle == 3 && !_projectilesThatAreBoomerangs.Contains(proj.type)) {
+                    if (proj.aiStyle == 3 && !_projectilesThatAreBoomerangs.Contains(proj.type) && proj.CountsAsClass(DamageClass.Melee)) {
                         temp.Add(proj.type);
                     }
                 }
