@@ -2,7 +2,7 @@ Bangarang is a mod that overhauls the Boomerang subclass of melee weapons, makin
 
 Vanilla changes are pretty small in this mod, giving some boomerangs minor effects, giving a couple boomerangs crafting recipes and allowing stacking boomerangs to receive modifiers
 
-New boomerangs are available throughout your entire progression. From the Shade Chakram, an early hardmode boomerang that returns faster, to the White Dwarf, an endgame boomerang that incinerates all it touches. This mod also adds a handful of accessories that support Boomerangs, increasing how many you can throw, how fast they return and more
+New boomerangs are available throughout your entire progression. From the Synapse, an early pre-hardmode boomerang that slightly homes on enemies, to the White Dwarf, an endgame boomerang that incinerates all it touches. This mod also adds a handful of accessories that support Boomerangs, increasing how many you can throw, how fast they return and more
 
 For a full list of changes see the Workshop description or GitHub readme
 
