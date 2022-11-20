@@ -1,6 +1,7 @@
 using Bangarang.Common.Systems;
 using Bangarang.Content.Items;
 using System;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace Bangarang {
@@ -14,23 +15,29 @@ namespace Bangarang {
                 throw new ArgumentException("Arguments cannot be empty!");
             }
 
-            if (args[0] is int itemType) {
-                if (args[1] is int projectileType) {
-                    if (args[2] is int numBoomerangs) {
-                        ArraySystem.RegisterBoomerang(itemType, projectileType, numBoomerangs);
-                        return true;
-                    }
-                    else {
-                        throw new Exception($"Expected an argument of type int, but got type {args[0].GetType().Name} instead");
-                    }
-                }
-                else {
-                    throw new Exception($"Expected an argument of type int, but got type {args[0].GetType().Name} instead");
-                }
-            }
-            else {
+            if (args[0] is not int) {
                 throw new Exception($"Expected an argument of type int, but got type {args[0].GetType().Name} instead");
             }
+            if (args[1] is not int[] && args[1] is not int) {
+                throw new Exception($"Expected an argument of type int or int[], but got type {args[0].GetType().Name} instead");
+            }
+            if (args[2] is not int) {
+                throw new Exception($"Expected an argument of type int, but got type {args[0].GetType().Name} instead");
+            }
+            if (args[3] is not Func<Player, Item, bool> && args[3] is not null) {
+                throw new Exception($"Expected an argument of type Func<Player, Item, bool> or null, but got type {args[0].GetType().Name} instead");
+            }
+
+            int itemType = (int)args[0];
+            int boomerangCount = (int)args[2];
+            var canUseItemFunc = (Func<Player, Item, bool>)args[3];
+            if (args[1] is int projectileType) {
+                ArraySystem.RegisterBoomerang(itemType, projectileType, boomerangCount, canUseItemFunc);
+            }
+            else if (args[1] is int[] projectileTypes) {
+                ArraySystem.RegisterBoomerang(itemType, projectileTypes, boomerangCount, canUseItemFunc);
+            }
+            return true;
         }
 
         public override void Load() {
