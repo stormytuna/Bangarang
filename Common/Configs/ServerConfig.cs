@@ -18,10 +18,5 @@ namespace Bangarang.Common.Configs {
         [Label("$Mods.Bangarang.Config.ModdedAccessories")]
         [DefaultValue(true)]
         public bool ModdedAccessory { get; set; }
-
-        [Label("$Mods.Bangarang.Config.AutoSupport")]
-        [Tooltip("This will use data from the projectile to guess which projectiles are boomerangs\nThis may have some unintended behaviour with some mods")]
-        [DefaultValue(false)]
-        public bool AssumeModdedBoomerangs { get; set; }
     }
 }
