@@ -11,7 +11,7 @@ namespace Bangarang.Common.Players {
     public class BangarangGlobalProjectile : GlobalProjectile {
         public override bool InstancePerEntity => true;
 
-        public override bool AppliesToEntity(Projectile entity, bool lateInstantiation) => ArraySystem.ProjectilesThatAreBoomerangs.Contains(entity.type));
+        public override bool AppliesToEntity(Projectile entity, bool lateInstantiation) => ArraySystem.ProjectilesThatAreBoomerangs.Contains(entity.type);
 
         public override void OnSpawn(Projectile projectile, IEntitySource source) {
             if (Main.player[projectile.owner].GetModPlayer<BangarangPlayer>().BoomerangSpectralGlaives) {
