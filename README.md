@@ -50,15 +50,21 @@ New boomerangs are available throughout your entire progression. From the Shade 
 <summary>Mod Call template</summary>
 <br>
 
-Alrighty, this mod call takes 3 parameters that are all integers. First arg should be the item type of your boomerang, the second arg should be the projectile type of your boomerang, the third arg should be the maximum number of that boomerang the player can shoot
-
 
         public override void PostSetupContent() {
             if (ModLoader.TryGetMod("Bangarang", out Mod bangarang)) {
-                bangarang.Call(ModContent.ItemType<X>(), ModContent.ProjectileType<Y>(), Z);
-                // X is your item class
-                // Y is your projectile class
-                // Z is the amount of boomerangs the player can throw
+                bangarang.Call(arg1, arg2, arg3, arg4)
+                // arg1 should be an int equal to the item type
+                // arg2 can be an int equal to the projectile type
+                // arg2 can also be an int[] of all the projectile types that item shoots
+                // arg3 should be an int equal to the number of boomerangs you can have out at once
+                    // -1 is explicitly infinite boomerangs
+                    // -2 is explicitly no extra boomerangs from this mods accessories
+                // arg4 can be a Func<Player, Item, bool>, ie a function that takes a Player and Item as parameters and returns a bool
+                    // If your boomerang is prevented from shooting based on anything except count you will want to use this
+                    // This is also called if arg3 is -1 or -2
+                // arg4 can also be null if you don't need to add this sort of extra functionality
+                    // However it's important to actually pass in null here, not doing so results in an index out of range exception 
             }
         }
 
