@@ -4,9 +4,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Bangarang.Content.Items.Accessories {
-    public class RangersTalisman : ModItem {
+    public class GlaiveLordsGift : ModItem {
         public override void SetStaticDefaults() {
-            DisplayName.SetDefault("Ranger's Talisman");
+            DisplayName.SetDefault("Glaive Lord's Gift");
             Tooltip.SetDefault("Throw an extra boomerang\nYour boomerangs glow, return faster and have increased knockback\nYour boomerangs are orbited by a pair of spectral glaives");
         }
 
