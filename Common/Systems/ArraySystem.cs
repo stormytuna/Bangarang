@@ -98,18 +98,11 @@ namespace Bangarang.Common.Systems {
             RegisterBoomerang(ModContent.ItemType<Rangaboom>(), ModContent.ProjectileType<RangaboomProj>(), 5, null);
             RegisterBoomerang(ModContent.ItemType<SawedOffShotrang>(), ModContent.ProjectileType<SawedOffShotrangProj>(), 2, null);
             RegisterBoomerang(ModContent.ItemType<ShadeChakram>(), ModContent.ProjectileType<ShadeChakramProj>(), 1, null);
-            //RegisterBoomerang(ModContent.ItemType<Synapse>(), ModContent.ProjectileType<SynapseProj>(), 1, null);
+            RegisterBoomerang(ModContent.ItemType<Synapse>(), ModContent.ProjectileType<SynapseProj>(), 1, null);
             RegisterBoomerang(ModContent.ItemType<Teslarang>(), ModContent.ProjectileType<TeslarangProj>(), 3, null);
             RegisterBoomerang(ModContent.ItemType<TheChloroplast>(), ModContent.ProjectileType<TheChloroplastProj>(), 3, null);
             RegisterBoomerang(ModContent.ItemType<WhiteDwarf>(), ModContent.ProjectileType<WhiteDwarfProj>(), 3, null);
             RegisterBoomerang(ModContent.ItemType<YinAndRang>(), ModContent.ProjectileType<YinAndRangProj>(), 2, null);
-
-            // Debug 
-            int itemType = ModContent.ItemType<Synapse>();
-            int projType = ModContent.ProjectileType<SynapseProj>();
-            int numRangs = 5;
-            Func<Player, Item, bool> func = (Player player, Item item) => player.statLifeMax2 > 500 && item.prefix != PrefixID.Broken;
-            RegisterBoomerang(itemType, projType, numRangs, func);
         }
 
         public static void RegisterBoomerang(int itemType, int projectileType, int numBoomerangs, Func<Player, Item, bool> canUseItemFunc) {
