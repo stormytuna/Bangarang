@@ -14,9 +14,35 @@ namespace Bangarang.Common.Players {
         private bool Player_ItemCheck_CheckCanUse(On.Terraria.Player.orig_ItemCheck_CheckCanUse orig, Player self, Item sItem) {
             bool ret = orig(self, sItem);
 
-            foreach (var kvp in ArraySystem.BoomerangMaxOutCount) {
-                if (sItem.type == kvp.Key && kvp.Value != -1) {
-                    return self.ownedProjectileCounts[sItem.shoot] < kvp.Value + self.GetModPlayer<BangarangPlayer>().ExtraBoomerangs;
+            if (ArraySystem.BoomerangInfoDict.ContainsKey(sItem.type)) {
+                var bi = ArraySystem.BoomerangInfoDict[sItem.type];
+                // -2 == just return our orig
+                if (bi.numBoomerangs == -2) {
+                    if (bi.canUseItemFunc is not null) {
+                        return bi.canUseItemFunc(self, sItem);
+                    }
+                    return ret;
+                }
+                // -1 == explicitly infinite boomerangs
+                if (bi.numBoomerangs == -1) {
+                    if (bi.canUseItemFunc is not null) {
+                        return bi.canUseItemFunc(self, sItem);
+                    }
+                    return true;
+                }
+
+                // Gets our max owned projectiles for any boomerang in our boomerang info
+                int ownedProj = 0;
+                foreach (int projType in bi.projectileTypes) {
+                    if (ownedProj < self.ownedProjectileCounts[projType]) {
+                        ownedProj = self.ownedProjectileCounts[projType];
+                    }
+                }
+                if (ownedProj < bi.numBoomerangs + self.GetModPlayer<BangarangPlayer>().ExtraBoomerangs) {
+                    if (bi.canUseItemFunc is not null) {
+                        return bi.canUseItemFunc(self, sItem);
+                    }
+                    return true;
                 }
             }
 
