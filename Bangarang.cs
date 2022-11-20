@@ -16,16 +16,16 @@ namespace Bangarang {
             }
 
             if (args[0] is not int) {
-                throw new Exception($"Expected an argument of type int, but got type {args[0].GetType().Name} instead");
+                throw new Exception($"Expected an argument of type int for args[0], but got type {args[0].GetType().Name} instead");
             }
             if (args[1] is not int[] && args[1] is not int) {
-                throw new Exception($"Expected an argument of type int or int[], but got type {args[0].GetType().Name} instead");
+                throw new Exception($"Expected an argument of type int or int[] for args[1], but got type {args[1].GetType().Name} instead");
             }
             if (args[2] is not int) {
-                throw new Exception($"Expected an argument of type int, but got type {args[0].GetType().Name} instead");
+                throw new Exception($"Expected an argument of type int for args[2], but got type {args[2].GetType().Name} instead");
             }
             if (args[3] is not Func<Player, Item, bool> && args[3] is not null) {
-                throw new Exception($"Expected an argument of type Func<Player, Item, bool> or null, but got type {args[0].GetType().Name} instead");
+                throw new Exception($"Expected an argument of type Func<Player, Item, bool> or null for args[3], but got type {args[3].GetType().Name} instead");
             }
 
             int itemType = (int)args[0];
