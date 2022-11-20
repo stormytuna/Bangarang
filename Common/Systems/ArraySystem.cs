@@ -1,13 +1,26 @@
-using Bangarang.Common.Configs;
 using Bangarang.Content.Items.Weapons;
 using Bangarang.Content.Projectiles.Weapons;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Bangarang.Common.Systems {
     public class ArraySystem : ModSystem {
+        public struct BoomerangInfo {
+            public int[] projectileTypes;
+            public int numBoomerangs;
+            public Func<Player, Item, bool> canUseItemFunc;
+
+            public BoomerangInfo(int[] projectileTypes, int numBoomerangs, Func<Player, Item, bool> canUseItemFunc) {
+                this.projectileTypes = projectileTypes;
+                this.numBoomerangs = numBoomerangs;
+                this.canUseItemFunc = canUseItemFunc;
+            }
+        }
+
         private static int[] _fruitcakeChakramDebuffs = new[] {
             BuffID.Confused,
             BuffID.CursedInferno,
@@ -18,65 +31,9 @@ namespace Bangarang.Common.Systems {
             BuffID.ShadowFlame
         };
 
-        private static int[] _projectilesThatAreBoomerangs = new int[] {
-            ProjectileID.WoodenBoomerang,
-            ProjectileID.EnchantedBoomerang,
-            ProjectileID.FruitcakeChakram,
-            ProjectileID.BloodyMachete,
-            ProjectileID.Shroomerang,
-            ProjectileID.IceBoomerang,
-            ProjectileID.ThornChakram,
-            ProjectileID.CombatWrench,
-            ProjectileID.Flamarang,
-            ProjectileID.Bananarang,
-            ProjectileID.FlyingKnife,
-            ProjectileID.BouncingShield,
-            ProjectileID.LightDisc,
-            ProjectileID.PaladinsHammerFriendly,
-            ProjectileID.PossessedHatchet,
-            ModContent.ProjectileType<BeemerangProj>(),
-            ModContent.ProjectileType<BonerangProj>(),
-            ModContent.ProjectileType<ChromaticCruxProj>(),
-            ModContent.ProjectileType<RangaboomProj>(),
-            ModContent.ProjectileType<SawedOffShotrangProj>(),
-            ModContent.ProjectileType<ShadeChakramProj>(),
-            ModContent.ProjectileType<SynapseProj>(),
-            ModContent.ProjectileType<TeslarangProj>(),
-            ModContent.ProjectileType<TheChloroplastProj>(),
-            ModContent.ProjectileType<WhiteDwarfProj>(),
-            ModContent.ProjectileType<YinAndRangProj>()
-        };
+        private static int[] _projectilesThatAreBoomerangs = new int[] { };
 
-        private static Dictionary<int, int> _boomerangMaxOutCount = new() {
-            { ItemID.WoodenBoomerang, 1 },
-            { ItemID.EnchantedBoomerang, 1 },
-            { ItemID.FruitcakeChakram, 1 },
-            { ItemID.BloodyMachete, 1 },
-            { ItemID.Shroomerang, 1 },
-            { ItemID.IceBoomerang, 1 },
-            { ItemID.ThornChakram, 1 },
-            { ItemID.CombatWrench, 1 },
-            { ItemID.Flamarang, 1 },
-            //{ ItemID.Bananarang, 10 }, // TODO: 1.4.4 remove this comment
-            { ItemID.FlyingKnife, 1 },
-            { ItemID.BouncingShield, 1 },
-            //{ ItemID.LightDisc, 5 }, // TODO: 1.4.4 remove this comment
-            { ItemID.PaladinsHammer, 1 },
-            { ItemID.PossessedHatchet, -1 },
-            { ModContent.ItemType<Bananarang>(), 10 },
-            { ModContent.ItemType<LightDisc>(), 5 },
-            { ModContent.ItemType<Beemerang>(), -1 },
-            { ModContent.ItemType<Bonerang>(), -1 },
-            { ModContent.ItemType<ChromaticCrux>(), -1 },
-            { ModContent.ItemType<Rangaboom>(), -1 },
-            { ModContent.ItemType<SawedOffShotrang>(), -1 },
-            { ModContent.ItemType<ShadeChakram>(), -1 },
-            { ModContent.ItemType<Synapse>(), -1 },
-            { ModContent.ItemType<Teslarang>(), -1 },
-            { ModContent.ItemType<TheChloroplast>(), -1 },
-            { ModContent.ItemType<WhiteDwarf>(), -1 },
-            { ModContent.ItemType<YinAndRang>(), -1 }
-        };
+        private static Dictionary<int, BoomerangInfo> _boomerangInfo = new() { };
 
         private static int[] _veryRareItemIds = new int[]
         {
@@ -102,36 +59,79 @@ namespace Bangarang.Common.Systems {
 
         public static int[] ProjectilesThatAreBoomerangs { get => _projectilesThatAreBoomerangs; }
 
-        public static Dictionary<int, int> BoomerangMaxOutCount { get => _boomerangMaxOutCount; }
+        public static Dictionary<int, BoomerangInfo> BoomerangInfoDict { get => _boomerangInfo; }
 
         public static int[] VeryRareItemIds { get => _veryRareItemIds; }
 
         public override void Unload() {
             _fruitcakeChakramDebuffs = null;
             _projectilesThatAreBoomerangs = null;
-            _boomerangMaxOutCount = null;
+            _boomerangInfo = null;
             _veryRareItemIds = null;
         }
 
         public override void PostSetupContent() {
-            if (ServerConfig.Instance.AssumeModdedBoomerangs) {
-                List<int> temp = _projectilesThatAreBoomerangs.ToList();
-                foreach (var proj in ContentSamples.ProjectilesByType.Values) {
-                    if (proj.aiStyle == 3 && !_projectilesThatAreBoomerangs.Contains(proj.type) && proj.CountsAsClass(DamageClass.Melee)) {
-                        temp.Add(proj.type);
-                    }
-                }
-                _projectilesThatAreBoomerangs = temp.ToArray();
-            }
+            // Adds vanilla boomerangs
+            RegisterBoomerang(ItemID.WoodenBoomerang, ProjectileID.WoodenBoomerang, 1, null);
+            RegisterBoomerang(ItemID.FruitcakeChakram, ProjectileID.FruitcakeChakram, 1, null);
+            RegisterBoomerang(ItemID.BloodyMachete, ProjectileID.BloodyMachete, 1, null);
+            RegisterBoomerang(ItemID.IceBoomerang, ProjectileID.IceBoomerang, 1, null);
+            RegisterBoomerang(ItemID.EnchantedBoomerang, ProjectileID.EnchantedBoomerang, 1, null);
+            //RegisterBoomerang(ItemID.Trimarang, ProjectileID.Trimarang, 1, null); // TODO: Add Trimarang
+            RegisterBoomerang(ItemID.Shroomerang, ProjectileID.Shroomerang, 1, null);
+            RegisterBoomerang(ItemID.CombatWrench, ProjectileID.CombatWrench, 1, null);
+            RegisterBoomerang(ItemID.ThornChakram, ProjectileID.ThornChakram, 1, null);
+            RegisterBoomerang(ItemID.Flamarang, ProjectileID.Flamarang, 1, null);
+            RegisterBoomerang(ItemID.FlyingKnife, ProjectileID.FlyingKnife, 1, null);
+            RegisterBoomerang(ItemID.LightDisc, ProjectileID.LightDisc, 5, null);
+            RegisterBoomerang(ItemID.PossessedHatchet, ProjectileID.PossessedHatchet, -1, null);
+            RegisterBoomerang(ItemID.BouncingShield, ProjectileID.BouncingShield, 1, null);
+            RegisterBoomerang(ItemID.PaladinsHammer, ProjectileID.PaladinsHammerFriendly, -1, null);
+            RegisterBoomerang(ItemID.Bananarang, ProjectileID.Bananarang, 10, null);
+
+            // Adds this mods boomerangs
+            RegisterBoomerang(ModContent.ItemType<Bananarang>(), ProjectileID.Bananarang, 10, null);
+            RegisterBoomerang(ModContent.ItemType<LightDisc>(), ProjectileID.LightDisc, 5, null);
+            RegisterBoomerang(ModContent.ItemType<Beemerang>(), ModContent.ProjectileType<BeemerangProj>(), 1, null);
+            RegisterBoomerang(ModContent.ItemType<Bonerang>(), ModContent.ProjectileType<BonerangProj>(), 1, null);
+            RegisterBoomerang(ModContent.ItemType<ChromaticCrux>(), ModContent.ProjectileType<ChromaticCruxProj>(), 3, null);
+            RegisterBoomerang(ModContent.ItemType<Rangaboom>(), ModContent.ProjectileType<RangaboomProj>(), 5, null);
+            RegisterBoomerang(ModContent.ItemType<SawedOffShotrang>(), ModContent.ProjectileType<SawedOffShotrangProj>(), 2, null);
+            RegisterBoomerang(ModContent.ItemType<ShadeChakram>(), ModContent.ProjectileType<ShadeChakramProj>(), 1, null);
+            //RegisterBoomerang(ModContent.ItemType<Synapse>(), ModContent.ProjectileType<SynapseProj>(), 1, null);
+            RegisterBoomerang(ModContent.ItemType<Teslarang>(), ModContent.ProjectileType<TeslarangProj>(), 3, null);
+            RegisterBoomerang(ModContent.ItemType<TheChloroplast>(), ModContent.ProjectileType<TheChloroplastProj>(), 3, null);
+            RegisterBoomerang(ModContent.ItemType<WhiteDwarf>(), ModContent.ProjectileType<WhiteDwarfProj>(), 3, null);
+            RegisterBoomerang(ModContent.ItemType<YinAndRang>(), ModContent.ProjectileType<YinAndRangProj>(), 2, null);
+
+            // Debug 
+            int itemType = ModContent.ItemType<Synapse>();
+            int projType = ModContent.ProjectileType<SynapseProj>();
+            int numRangs = 5;
+            Func<Player, Item, bool> func = (Player player, Item item) => player.statLifeMax2 > 500 && item.prefix != PrefixID.Broken;
+            RegisterBoomerang(itemType, projType, numRangs, func);
         }
 
-        public static void RegisterBoomerang(int itemType, int projectileType, int numBoomerangs) {
-            if (!_boomerangMaxOutCount.ContainsKey(itemType)) {
-                _boomerangMaxOutCount.Add(itemType, numBoomerangs);
-            }
-            var temp = _projectilesThatAreBoomerangs.ToList();
-            temp.Add(projectileType);
-            _projectilesThatAreBoomerangs = temp.ToArray();
+        public static void RegisterBoomerang(int itemType, int projectileType, int numBoomerangs, Func<Player, Item, bool> canUseItemFunc) {
+            // Adds to our projectile list
+            List<int> maxOutList = _projectilesThatAreBoomerangs.ToList();
+            maxOutList.Add(projectileType);
+            _projectilesThatAreBoomerangs = maxOutList.ToArray();
+
+            // Adds to our dict
+            BoomerangInfo bi = new(new int[] { projectileType }, numBoomerangs, canUseItemFunc);
+            _boomerangInfo.Add(itemType, bi);
+        }
+
+        public static void RegisterBoomerang(int itemType, int[] projectileTypes, int numBoomerangs, Func<Player, Item, bool> canUseItemFunc) {
+            // Adds to our projectile list
+            List<int> maxOutList = _projectilesThatAreBoomerangs.ToList();
+            maxOutList.AddRange(projectileTypes);
+            _projectilesThatAreBoomerangs = maxOutList.ToArray();
+
+            // Adds to our dict
+            BoomerangInfo bi = new(projectileTypes, numBoomerangs, canUseItemFunc);
+            _boomerangInfo.Add(itemType, bi);
         }
     }
 }
