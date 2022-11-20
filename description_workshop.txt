@@ -40,7 +40,7 @@ New boomerangs are available throughout your entire progression. From the Shade 
 [*]Illuminant Coating - Your boomerangs glow, return faster and have increased knockback. 2% drop from Illuminant Bat and Slime
 [*]Spectral Amulet - Your boomerangs are orbited by a pair of spectral glaives. 1.25% drop from any magic Post-Plantera Dungeon skeleton
 [*]Fluorescent License - Effects of Boomerang License and Illuminant Coating. Crafted with both of them @ Tinkerer's Workbench
-[*]Ranger's Talisman - Effects of all 3. Crafted with Fluorescent License and Spectral Amulet @ Tinkerer's Workbench
+[*]Glaive Lord's Gift - Effects of all 3. Crafted with Fluorescent License and Spectral Amulet @ Tinkerer's Workbench
 [/list]
 
 [hr][/hr]
@@ -48,3 +48,17 @@ New boomerangs are available throughout your entire progression. From the Shade 
 If you're a modder and want to add explicit support for your boomerangs, you'll want to see [url=https://github.com/stormytuna/Bangarang#for-modders]this section[/url] of the readme on github
 
 To report any bugs or give feedback, you can post a comment on the Steam Workshop or message me on Discord (stormytuna#2688). You can report bugs using GitHub issues as well.
+
+Changelog
+[list]
+[*][i]v1.1.0[/i]
+[list]
+[*]Renamed Ranger's Talisman to Glaive Lord's Gift
+[*]Extended the functionality of mod calls, see [url=https://github.com/stormytuna/Bangarang#for-modders]here[/url] for instructions on using it
+[*]Removed auto support feature - Refactored a lot of backend stuff and it isn't possible for me to have this feature and the extended mod calls
+[/list]
+[*][i]v1.0.5[/i]
+[list]
+[*]Various balance changes and fixes
+[/list]
+[/list]
