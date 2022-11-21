@@ -51,6 +51,10 @@ To report any bugs or give feedback, you can post a comment on the Steam Worksho
 
 Changelog
 [list]
+[*][i]v1.1.1[/i]
+[list]
+[*]Fixed an issue where Ranger's Talisman items were not being renamed to Glaive Lord's Gift
+[/list]
 [*][i]v1.1.0[/i]
 [list]
 [*]Renamed Ranger's Talisman to Glaive Lord's Gift
