@@ -53,6 +53,7 @@ New boomerangs are available throughout your entire progression. From the Shade 
 
         // You can use this mod call to register your boomerangs to this mod's list of boomerangs
         // This allows accessories from this mod to work with your boomerangs
+        // While this mod only adds melee boomerangs, nothing in the code defines boomerangs as melee, so if you'd like to support non-melee boomerangs you absolutely can
         // You can see how your mod call is interpreted and used here - https://github.com/stormytuna/Bangarang/blob/main/Bangarang.cs
         public override void PostSetupContent() {
             if (ModLoader.TryGetMod("Bangarang", out Mod bangarang)) {
