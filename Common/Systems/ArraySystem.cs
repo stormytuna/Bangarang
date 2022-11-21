@@ -12,9 +12,9 @@ namespace Bangarang.Common.Systems {
         public struct BoomerangInfo {
             public int[] projectileTypes;
             public int numBoomerangs;
-            public Func<Player, Item, bool> canUseItemFunc;
+            public Func<Player, Item, int, bool> canUseItemFunc;
 
-            public BoomerangInfo(int[] projectileTypes, int numBoomerangs, Func<Player, Item, bool> canUseItemFunc) {
+            public BoomerangInfo(int[] projectileTypes, int numBoomerangs, Func<Player, Item, int, bool> canUseItemFunc) {
                 this.projectileTypes = projectileTypes;
                 this.numBoomerangs = numBoomerangs;
                 this.canUseItemFunc = canUseItemFunc;
@@ -105,7 +105,7 @@ namespace Bangarang.Common.Systems {
             RegisterBoomerang(ModContent.ItemType<YinAndRang>(), ModContent.ProjectileType<YinAndRangProj>(), 2, null);
         }
 
-        public static void RegisterBoomerang(int itemType, int projectileType, int numBoomerangs, Func<Player, Item, bool> canUseItemFunc) {
+        public static void RegisterBoomerang(int itemType, int projectileType, int numBoomerangs, Func<Player, Item, int, bool> canUseItemFunc) {
             // Adds to our projectile list
             List<int> maxOutList = _projectilesThatAreBoomerangs.ToList();
             maxOutList.Add(projectileType);
@@ -116,7 +116,7 @@ namespace Bangarang.Common.Systems {
             _boomerangInfo.Add(itemType, bi);
         }
 
-        public static void RegisterBoomerang(int itemType, int[] projectileTypes, int numBoomerangs, Func<Player, Item, bool> canUseItemFunc) {
+        public static void RegisterBoomerang(int itemType, int[] projectileTypes, int numBoomerangs, Func<Player, Item, int, bool> canUseItemFunc) {
             // Adds to our projectile list
             List<int> maxOutList = _projectilesThatAreBoomerangs.ToList();
             maxOutList.AddRange(projectileTypes);

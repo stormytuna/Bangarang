@@ -24,13 +24,13 @@ namespace Bangarang {
             if (args[2] is not int) {
                 throw new Exception($"Expected an argument of type int for args[2], but got type {args[2].GetType().Name} instead");
             }
-            if (args[3] is not Func<Player, Item, bool> && args[3] is not null) {
-                throw new Exception($"Expected an argument of type Func<Player, Item, bool> or null for args[3], but got type {args[3].GetType().Name} instead");
+            if (args[3] is not Func<Player, Item, int, bool> && args[3] is not null) {
+                throw new Exception($"Expected an argument of type Func<Player, Item, int, bool> or null for args[3], but got type {args[3].GetType().Name} instead");
             }
 
             int itemType = (int)args[0];
             int boomerangCount = (int)args[2];
-            var canUseItemFunc = (Func<Player, Item, bool>)args[3];
+            var canUseItemFunc = (Func<Player, Item, int, bool>)args[3];
             if (args[1] is int projectileType) {
                 ArraySystem.RegisterBoomerang(itemType, projectileType, boomerangCount, canUseItemFunc);
             }

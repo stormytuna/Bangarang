@@ -16,17 +16,18 @@ namespace Bangarang.Common.Players {
 
             if (ArraySystem.BoomerangInfoDict.ContainsKey(sItem.type)) {
                 var bi = ArraySystem.BoomerangInfoDict[sItem.type];
+                int extraBoomerangs = self.GetModPlayer<BangarangPlayer>().ExtraBoomerangs;
                 // -2 == just return our orig
                 if (bi.numBoomerangs == -2) {
                     if (bi.canUseItemFunc is not null) {
-                        return bi.canUseItemFunc(self, sItem);
+                        return bi.canUseItemFunc(self, sItem, extraBoomerangs);
                     }
                     return ret;
                 }
                 // -1 == explicitly infinite boomerangs
                 if (bi.numBoomerangs == -1) {
                     if (bi.canUseItemFunc is not null) {
-                        return bi.canUseItemFunc(self, sItem);
+                        return bi.canUseItemFunc(self, sItem, extraBoomerangs);
                     }
                     return true;
                 }
@@ -38,9 +39,9 @@ namespace Bangarang.Common.Players {
                         ownedProj = self.ownedProjectileCounts[projType];
                     }
                 }
-                if (ownedProj < bi.numBoomerangs + self.GetModPlayer<BangarangPlayer>().ExtraBoomerangs) {
+                if (ownedProj < bi.numBoomerangs + extraBoomerangs) {
                     if (bi.canUseItemFunc is not null) {
-                        return bi.canUseItemFunc(self, sItem);
+                        return bi.canUseItemFunc(self, sItem, extraBoomerangs);
                     }
                     return true;
                 }
