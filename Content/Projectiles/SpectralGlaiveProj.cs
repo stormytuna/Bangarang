@@ -19,7 +19,7 @@ namespace Bangarang.Content.Projectiles {
             Projectile.aiStyle = -1;
             Projectile.alpha = 130;
 
-            Projectile.DamageType = DamageClass.MeleeNoSpeed;
+            Projectile.DamageType = DamageClass.Generic;
             Projectile.friendly = true;
             Projectile.hostile = false;
             Projectile.penetrate = -1;
