@@ -4,6 +4,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Bangarang.Content.Items.Accessories {
+    [LegacyName("RangersTalisman")]
     public class GlaiveLordsGift : ModItem {
         public override void SetStaticDefaults() {
             DisplayName.SetDefault("Glaive Lord's Gift");
