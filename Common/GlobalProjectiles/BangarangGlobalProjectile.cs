@@ -17,8 +17,10 @@ namespace Bangarang.Common.Players {
             if (Main.player[projectile.owner].GetModPlayer<BangarangPlayer>().BoomerangSpectralGlaives) {
                 Projectile proj = Projectile.NewProjectileDirect(projectile.GetSource_FromAI(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<SpectralGlaiveProj>(), projectile.damage / 5, 0f, projectile.owner, projectile.whoAmI, MathHelper.Pi);
                 proj.extraUpdates = projectile.extraUpdates;
+                proj.DamageType = projectile.DamageType;
                 proj = Projectile.NewProjectileDirect(projectile.GetSource_FromAI(), projectile.Center, Vector2.Zero, ModContent.ProjectileType<SpectralGlaiveProj>(), projectile.damage / 5, 0f, projectile.owner, projectile.whoAmI, 0f);
                 proj.extraUpdates = projectile.extraUpdates;
+                proj.DamageType = projectile.DamageType;
             }
         }
 
