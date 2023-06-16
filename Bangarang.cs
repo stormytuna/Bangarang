@@ -37,9 +37,9 @@ public class Bangarang : Mod
 		int boomerangCount = (int)args[2];
 		Func<Player, Item, int, bool> canUseItemFunc = (Func<Player, Item, int, bool>)args[3];
 		if (args[1] is int projectileType) {
-			ArraySystem.RegisterBoomerang(itemType, projectileType, boomerangCount, canUseItemFunc);
+			BoomerangInfoSystem.RegisterBoomerang(itemType, projectileType, boomerangCount, canUseItemFunc);
 		} else if (args[1] is int[] projectileTypes) {
-			ArraySystem.RegisterBoomerang(itemType, projectileTypes, boomerangCount, canUseItemFunc);
+			BoomerangInfoSystem.RegisterBoomerang(itemType, projectileTypes, boomerangCount, canUseItemFunc);
 		}
 
 		return true;

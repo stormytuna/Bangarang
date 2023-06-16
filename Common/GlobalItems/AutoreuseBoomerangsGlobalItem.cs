@@ -8,7 +8,7 @@ namespace Bangarang.Common.GlobalItems;
 public class AutoreuseBoomerangsGlobalItem : GlobalItem
 {
 	public override void SetDefaults(Item item) {
-		if (ArraySystem.ProjectilesThatAreBoomerangs.Contains(item.shoot)) {
+		if (BoomerangInfoSystem.ProjectilesThatAreBoomerangs.Contains(item.shoot)) {
 			item.autoReuse = true;
 		}
 	}

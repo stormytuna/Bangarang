@@ -26,7 +26,7 @@ public class FruitcakeChakramGlobalProjetile : GlobalProjectile
 	public override bool AppliesToEntity(Projectile entity, bool lateInstantiation) => entity.type == ProjectileID.FruitcakeChakram && ServerConfig.Instance.VanillaChanges;
 
 	public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockback, bool crit) {
-		int[] buffs = ArraySystem.FruitcakeChakramDebuffs;
+		int[] buffs = BoomerangInfoSystem.FruitcakeChakramDebuffs;
 
 		if (Main.rand.NextBool(4)) {
 			int buff = buffs[Main.rand.Next(buffs.Length)];

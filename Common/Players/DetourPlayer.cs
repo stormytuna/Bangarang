@@ -14,22 +14,22 @@ public class DetourPlayer : ModPlayer
 	private bool Player_ItemCheck_CheckCanUse(Player.orig_ItemCheck_CheckCanUse orig, Terraria.Player self, Item sItem) {
 		bool ret = orig(self, sItem);
 
-		if (ArraySystem.BoomerangInfoDict.ContainsKey(sItem.type)) {
-			ArraySystem.BoomerangInfo bi = ArraySystem.BoomerangInfoDict[sItem.type];
+		if (BoomerangInfoSystem.BoomerangInfoDict.ContainsKey(sItem.type)) {
+			BoomerangInfoSystem.BoomerangInfo bi = BoomerangInfoSystem.BoomerangInfoDict[sItem.type];
 			int extraBoomerangs = self.GetModPlayer<BangarangPlayer>().ExtraBoomerangs;
 			// -2 == just return our orig
-			if (bi.numBoomerangs == -2) {
-				if (bi.canUseItemFunc is not null) {
-					return bi.canUseItemFunc(self, sItem, extraBoomerangs);
+			if (bi.NumBoomerangs == -2) {
+				if (bi.CanUseItemFunc is not null) {
+					return bi.CanUseItemFunc(self, sItem, extraBoomerangs);
 				}
 
 				return ret;
 			}
 
 			// -1 == explicitly infinite boomerangs
-			if (bi.numBoomerangs == -1) {
-				if (bi.canUseItemFunc is not null) {
-					return bi.canUseItemFunc(self, sItem, extraBoomerangs);
+			if (bi.NumBoomerangs == -1) {
+				if (bi.CanUseItemFunc is not null) {
+					return bi.CanUseItemFunc(self, sItem, extraBoomerangs);
 				}
 
 				return true;
@@ -37,15 +37,15 @@ public class DetourPlayer : ModPlayer
 
 			// Gets our max owned projectiles for any boomerang in our boomerang info
 			int ownedProj = 0;
-			foreach (int projType in bi.projectileTypes) {
+			foreach (int projType in bi.ProjectileTypes) {
 				if (ownedProj < self.ownedProjectileCounts[projType]) {
 					ownedProj = self.ownedProjectileCounts[projType];
 				}
 			}
 
-			if (ownedProj < bi.numBoomerangs + extraBoomerangs) {
-				if (bi.canUseItemFunc is not null) {
-					return bi.canUseItemFunc(self, sItem, extraBoomerangs);
+			if (ownedProj < bi.NumBoomerangs + extraBoomerangs) {
+				if (bi.CanUseItemFunc is not null) {
+					return bi.CanUseItemFunc(self, sItem, extraBoomerangs);
 				}
 
 				return true;

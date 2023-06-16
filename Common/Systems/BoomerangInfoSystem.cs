@@ -9,24 +9,24 @@ using Terraria.ModLoader;
 
 namespace Bangarang.Common.Systems;
 
-public class ArraySystem : ModSystem
+public class BoomerangInfoSystem : ModSystem
 {
-	public struct BoomerangInfo
+	public class BoomerangInfo
 	{
-		public int[] projectileTypes;
-		public int numBoomerangs;
-		public Func<Player, Item, int, bool> canUseItemFunc;
+		public int[] ProjectileTypes { get; }
+		public int NumBoomerangs { get; }
+		public Func<Player, Item, int, bool> CanUseItemFunc { get; }
 
 		public BoomerangInfo(int[] projectileTypes, int numBoomerangs, Func<Player, Item, int, bool> canUseItemFunc) {
-			this.projectileTypes = projectileTypes;
-			this.numBoomerangs = numBoomerangs;
-			this.canUseItemFunc = canUseItemFunc;
+			ProjectileTypes = projectileTypes;
+			NumBoomerangs = numBoomerangs;
+			CanUseItemFunc = canUseItemFunc;
 		}
 	}
 
 	public static int[] FruitcakeChakramDebuffs { get; private set; } = { BuffID.Confused, BuffID.CursedInferno, BuffID.Ichor, BuffID.Frostburn, BuffID.OnFire, BuffID.Poisoned, BuffID.ShadowFlame };
 
-	public static int[] ProjectilesThatAreBoomerangs { get; private set; } = { };
+	public static int[] ProjectilesThatAreBoomerangs { get; private set; } = Array.Empty<int>();
 
 	public static Dictionary<int, BoomerangInfo> BoomerangInfoDict { get; private set; } = new();
 
@@ -75,14 +75,7 @@ public class ArraySystem : ModSystem
 	}
 
 	public static void RegisterBoomerang(int itemType, int projectileType, int numBoomerangs, Func<Player, Item, int, bool> canUseItemFunc) {
-		// Adds to our projectile list
-		List<int> maxOutList = ProjectilesThatAreBoomerangs.ToList();
-		maxOutList.Add(projectileType);
-		ProjectilesThatAreBoomerangs = maxOutList.ToArray();
-
-		// Adds to our dict
-		BoomerangInfo bi = new(new[] { projectileType }, numBoomerangs, canUseItemFunc);
-		BoomerangInfoDict.Add(itemType, bi);
+		RegisterBoomerang(itemType, new[] { projectileType }, numBoomerangs, canUseItemFunc);
 	}
 
 	public static void RegisterBoomerang(int itemType, int[] projectileTypes, int numBoomerangs, Func<Player, Item, int, bool> canUseItemFunc) {

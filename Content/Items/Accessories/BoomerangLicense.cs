@@ -33,7 +33,7 @@ public class BoomerangLicenseGNPC : GlobalNPC
 		bool downedAnyBoss = NPC.downedBoss1 || NPC.downedBoss2 || NPC.downedBoss3 || NPC.downedDeerclops || NPC.downedQueenBee || NPC.downedSlimeKing || Main.hardMode;
 		if (downedAnyBoss) {
 			for (int i = 0; i < shop.Length; i++) {
-				if (ArraySystem.VeryRareItemIds.Contains(shop[i]) && Main.rand.NextBool(17)) {
+				if (BoomerangInfoSystem.VeryRareItemIds.Contains(shop[i]) && Main.rand.NextBool(17)) {
 					shop[i] = ModContent.ItemType<BoomerangLicense>();
 					return;
 				}
