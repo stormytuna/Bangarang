@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace Bangarang.Common.Boomerangs;
 
-public class CombatWrenchGI : GlobalItem
+public class CombatWrenchGlobalItem : GlobalItem
 {
 	public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.CombatWrench && ServerConfig.Instance.VanillaChanges;
 
@@ -17,7 +17,7 @@ public class CombatWrenchGI : GlobalItem
 	}
 }
 
-public class CombatWrenchGP : GlobalProjectile
+public class CombatWrenchGlobalProjectile : GlobalProjectile
 {
 	public override bool AppliesToEntity(Projectile entity, bool lateInstantiation) => entity.type == ProjectileID.CombatWrench && ServerConfig.Instance.VanillaChanges;
 
@@ -28,13 +28,13 @@ public class CombatWrenchGP : GlobalProjectile
 	}
 }
 
-public class CombatWrenchGNPC : GlobalNPC
+public class CombatWrenchGlobalNPC : GlobalNPC
 {
 	public override bool AppliesToEntity(NPC entity, bool lateInstantiation) => entity.type == NPCID.Mechanic && ServerConfig.Instance.VanillaChanges;
 
 	public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot) {
 		foreach (IItemDropRule rule in npcLoot.Get()) {
-			if (rule is CommonDrop drop && drop.itemId == ItemID.CombatWrench) {
+			if (rule is CommonDrop { itemId: ItemID.CombatWrench } drop) {
 				drop.chanceDenominator = 1;
 			}
 		}

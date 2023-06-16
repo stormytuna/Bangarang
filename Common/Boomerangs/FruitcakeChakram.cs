@@ -10,7 +10,7 @@ using WorldGen = On.Terraria.WorldGen;
 
 namespace Bangarang.Common.Boomerangs;
 
-public class FruitcakeChakramGI : GlobalItem
+public class FruitcakeChakramGlobalItem : GlobalItem
 {
 	public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.FruitcakeChakram && ServerConfig.Instance.VanillaChanges;
 
@@ -21,7 +21,7 @@ public class FruitcakeChakramGI : GlobalItem
 	}
 }
 
-public class FruitcakeChakramGP : GlobalProjectile
+public class FruitcakeChakramGlobalProjetile : GlobalProjectile
 {
 	public override bool AppliesToEntity(Projectile entity, bool lateInstantiation) => entity.type == ProjectileID.FruitcakeChakram && ServerConfig.Instance.VanillaChanges;
 
@@ -44,12 +44,6 @@ public class FruitcakeChakramDetour : ModSystem
 		}
 	}
 
-	public override void Unload() {
-		if (ServerConfig.Instance.VanillaChanges) {
-			WorldGen.ShakeTree -= WorldGen_ShakeTree;
-		}
-	}
-
 	private void WorldGen_ShakeTree(WorldGen.orig_ShakeTree orig, int i, int j) {
 		orig(i, j);
 
@@ -57,18 +51,13 @@ public class FruitcakeChakramDetour : ModSystem
 		// Copied from vanilla: Terraria.Worldgen.cs:40444
 		int x = i;
 		int y = j;
-		Tile tileSafely = Framing.GetTileSafely(x, y);
-		if (tileSafely.TileType == 323) {
-			while (y < Main.maxTilesY - 50 && (!tileSafely.HasTile || tileSafely.TileType == 323)) {
-				y++;
-				tileSafely = Framing.GetTileSafely(x, y);
-			}
-
+		Tile tile = Framing.GetTileSafely(x, y);
+		if (tile.TileType == 323) {
 			return;
 		}
 
-		int num = tileSafely.TileFrameX / 22;
-		int num2 = tileSafely.TileFrameY / 22;
+		int num = tile.TileFrameX / 22;
+		int num2 = tile.TileFrameY / 22;
 		if (num == 3 && num2 <= 2) {
 			x++;
 		} else if (num == 4 && num2 >= 3 && num2 <= 5) {
@@ -83,10 +72,10 @@ public class FruitcakeChakramDetour : ModSystem
 			x--;
 		}
 
-		tileSafely = Framing.GetTileSafely(x, y);
-		while (y < Main.maxTilesY - 50 && (!tileSafely.HasTile || TileID.Sets.IsATreeTrunk[tileSafely.TileType] || tileSafely.TileType == 72)) {
+		tile = Framing.GetTileSafely(x, y);
+		while (y < Main.maxTilesY - 50 && (!tile.HasTile || TileID.Sets.IsATreeTrunk[tile.TileType] || tile.TileType == TileID.MushroomTrees)) {
 			y++;
-			tileSafely = Framing.GetTileSafely(x, y);
+			tile = Framing.GetTileSafely(x, y);
 		}
 
 		TreeTypes treeType = Terraria.WorldGen.GetTreeType(Main.tile[x, y].TileType);

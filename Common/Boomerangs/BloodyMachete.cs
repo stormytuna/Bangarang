@@ -2,12 +2,13 @@
 using Bangarang.Common.Configs;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Enums;
 using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Bangarang.Common.Boomerangs;
 
-public class BloodyMacheteGI : GlobalItem
+public class BloodyMacheteGlobalItem : GlobalItem
 {
 	public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.BloodyMachete && ServerConfig.Instance.VanillaChanges;
 
@@ -18,7 +19,7 @@ public class BloodyMacheteGI : GlobalItem
 	}
 }
 
-public class BloodyMacheteGP : GlobalProjectile
+public class BloodyMacheteGlobalProjectile : GlobalProjectile
 {
 	public override bool AppliesToEntity(Projectile entity, bool lateInstantiation) => entity.type == ProjectileID.BloodyMachete && ServerConfig.Instance.VanillaChanges;
 
@@ -31,12 +32,10 @@ public class BloodyMacheteGP : GlobalProjectile
 	}
 }
 
-public class BloodyMacheteGNPC : GlobalNPC
+public class BloodyMacheteGlobalNPC : GlobalNPC
 {
-	public override bool AppliesToEntity(NPC entity, bool lateInstantiation) => ServerConfig.Instance.VanillaChanges;
-
 	public override void SetupShop(int type, Chest shop, ref int nextSlot) {
-		if (type == NPCID.SkeletonMerchant && Main.moonPhase <= 3) {
+		if (type == NPCID.SkeletonMerchant && Main.moonPhase <= (int)MoonPhase.HalfAtLeft && ServerConfig.Instance.VanillaChanges) {
 			shop.item[nextSlot].SetDefaults(ItemID.BloodyMachete);
 			nextSlot++;
 		}
