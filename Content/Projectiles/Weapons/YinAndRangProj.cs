@@ -1,4 +1,5 @@
 using Bangarang.Common.Configs;
+using Bangarang.Helpers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -177,9 +178,8 @@ public class YinAndRangShardProj : ModProjectile
 		float rotation = MathHelper.ToRadians(1f);
 		Projectile.velocity = Projectile.velocity.RotatedBy(rotation);
 		// Check for target
-		NPC npc = Helpers.GetClosestEnemy(Projectile.Center, 20f * 16f, true, true);
-		if (npc is not null) {
-			AI_Target = npc.whoAmI;
+		if (NPCHelpers.TryGetClosestEnemy(Projectile.Center, 20f * 16f, out NPC closestEnemy)) {
+			AI_Target = closestEnemy.whoAmI;
 			Projectile.timeLeft += 10 * 60;
 			Projectile.netUpdate = true;
 		}

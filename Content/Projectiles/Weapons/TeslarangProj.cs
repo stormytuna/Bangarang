@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Bangarang.Common.Configs;
+using Bangarang.Helpers;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -54,14 +55,9 @@ public class TeslarangProj : Boomerang
 	}
 
 	private void LightningStrike(int whoAmIToIgnore, Vector2 startPos, int damage) {
-		List<NPC> closeNPCs = new();
-		if (whoAmIToIgnore == -1) {
-			closeNPCs = Helpers.GetNearbyEnemies(startPos, 16f * 16f, true, false);
-		} else {
-			closeNPCs = Helpers.GetNearbyEnemies(startPos, 16f * 16f, true, false, new List<int> {
-				whoAmIToIgnore
-			});
-		}
+		List<NPC> closeNPCs = NPCHelpers.GetNearbyEnemies(startPos, 16f * 16f, true, new List<int> {
+			whoAmIToIgnore
+		});
 
 		int numLightning = (int)MathHelper.Clamp(closeNPCs.Count, 0f, 3f);
 		for (int i = 0; i < numLightning; i++) {
@@ -86,7 +82,7 @@ public class LightningHelper
 	}
 
 	public static List<Vector2> CreateBolt(Vector2 source, Vector2 dest) {
-		List<Vector2> results = new List<Vector2>();
+		List<Vector2> results = new();
 		Vector2 tangent = dest - source;
 		Vector2 normal = Vector2.Normalize(new Vector2(tangent.Y, -tangent.X));
 		float length = tangent.Length();

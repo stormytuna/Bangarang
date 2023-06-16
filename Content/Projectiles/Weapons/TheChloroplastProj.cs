@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Bangarang.Common.Configs;
+using Bangarang.Helpers;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Audio;
@@ -72,7 +73,7 @@ public class TheChloroplastProj : Boomerang
 	public override void Kill(int timeLeft) {
 		// Smart fire at targets
 		// Get our list of nearby enemies
-		List<NPC> closeNPCs = Helpers.GetNearbyEnemies(Projectile.Center, 30f * 16f, true, false);
+		List<NPC> closeNPCs = NPCHelpers.GetNearbyEnemies(Projectile.Center, 30f * 16f);
 
 		for (int i = 0; i < 3; i++) {
 			bool isRandom = i >= closeNPCs.Count;

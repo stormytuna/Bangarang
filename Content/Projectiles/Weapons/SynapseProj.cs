@@ -1,5 +1,6 @@
 using System.IO;
 using Bangarang.Common.Configs;
+using Bangarang.Helpers;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -39,15 +40,13 @@ public class SynapseProj : Boomerang
 	public override void AI() {
 		// Only want to home in on enemies while travelling out
 		if (Projectile.ai[0] == 0f) {
-			NPC target = Helpers.GetClosestEnemy(Projectile.Center, 20f * 16f, true, true);
-
 			// If there's an npc near the boomerang, we want to move towards it
-			if (target != null) {
+			if (NPCHelpers.TryGetClosestEnemy(Projectile.Center, 20f * 16f, out NPC closestEnemy)) {
 				DoTurn = false;
 				// Add to our velocity 
 				float maxVelocity = ReturnSpeed * Owner.GetAttackSpeed(DamageClass.Melee);
 				float homingStrength = 0.7f;
-				Vector2 toEnemy = target.Center - Projectile.Center;
+				Vector2 toEnemy = closestEnemy.Center - Projectile.Center;
 				toEnemy.Normalize();
 				toEnemy *= homingStrength;
 				Projectile.velocity += toEnemy;

@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using Bangarang.Common.Configs;
+using Bangarang.Helpers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -69,7 +70,7 @@ public class ChromaticCruxProj : Boomerang
 
 	public override void OnHitNPC(NPC target, int damage, float knockback, bool crit) {
 		// Visuals - just copies the rainbow rod because I am uninspired :)
-		ParticleOrchestraSettings settings = new ParticleOrchestraSettings {
+		ParticleOrchestraSettings settings = new() {
 			PositionInWorld = target.Center,
 			MovementVector = Projectile.velocity
 		};
@@ -217,8 +218,7 @@ public class ChromaticCruxRainbowProj : ModProjectile
 
 			// Check our enemy is still alive, if not find a new one
 			if (!EnemyToFollow.active) {
-				NPC closestEnemy = Helpers.GetClosestEnemy(Projectile.Center, 20f * 16f, false, true);
-				if (closestEnemy is not null) {
+				if (NPCHelpers.TryGetClosestEnemy(Projectile.Center, 20f * 16f, out NPC closestEnemy)) {
 					Projectile.ai[1] = closestEnemy.whoAmI;
 				} else {
 					Projectile.velocity /= 1.1f;
@@ -273,7 +273,7 @@ public class ChromaticCruxRainbowProj : ModProjectile
 
 	public override void OnHitNPC(NPC target, int damage, float knockback, bool crit) {
 		// Visuals - just copies the rainbow rod because I am uninspired :)
-		ParticleOrchestraSettings settings = new ParticleOrchestraSettings {
+		ParticleOrchestraSettings settings = new() {
 			PositionInWorld = target.Center,
 			MovementVector = Projectile.velocity
 		};

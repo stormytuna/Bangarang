@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Bangarang.Common.Configs;
+using Bangarang.Helpers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -39,7 +40,7 @@ public class WhiteDwarfProj : Boomerang
 
 	public override void AI() {
 		// If an enemy is nearby, apply daybroken
-		List<NPC> nearbyNPCs = Helpers.GetNearbyEnemies(Projectile.Center, 3f * 16f, true, false);
+		List<NPC> nearbyNPCs = NPCHelpers.GetNearbyEnemies(Projectile.Center, 3f * 16f);
 		foreach (NPC npc in nearbyNPCs) {
 			npc.AddBuff(BuffID.Daybreak, 60);
 		}
