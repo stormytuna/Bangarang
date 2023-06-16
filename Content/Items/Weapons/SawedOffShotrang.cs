@@ -4,43 +4,44 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Bangarang.Content.Items.Weapons {
-    public class SawedOffShotrang : ModItem {
-        public override void SetStaticDefaults() {
-            Tooltip.SetDefault("Fires a shotgun blast at its apex\n'Who said guns were ranged weapons?'");
-        }
+namespace Bangarang.Content.Items.Weapons;
 
-        public override void SetDefaults() {
-            Item.width = 38;
-            Item.height = 14;
-            Item.rare = ItemRarityID.LightRed;
-            Item.value = Item.sellPrice(gold: 3);
+public class SawedOffShotrang : ModItem
+{
+	public override void SetStaticDefaults() {
+		Tooltip.SetDefault("Fires a shotgun blast at its apex\n'Who said guns were ranged weapons?'");
+	}
 
-            Item.useStyle = ItemUseStyleID.Swing;
-            Item.useAnimation = 15;
-            Item.useTime = 15;
-            Item.autoReuse = true;
-            Item.UseSound = SoundID.Item1;
-            Item.noMelee = true;
-            Item.noUseGraphic = true;
+	public override void SetDefaults() {
+		Item.width = 38;
+		Item.height = 14;
+		Item.rare = ItemRarityID.LightRed;
+		Item.value = Item.sellPrice(gold: 3);
 
-            Item.shoot = Projectile;
-            Item.shootSpeed = 14f;
-            Item.damage = 34;
-            Item.knockBack = 6f;
-            Item.DamageType = DamageClass.MeleeNoSpeed;
-        }
+		Item.useStyle = ItemUseStyleID.Swing;
+		Item.useAnimation = 15;
+		Item.useTime = 15;
+		Item.autoReuse = true;
+		Item.UseSound = SoundID.Item1;
+		Item.noMelee = true;
+		Item.noUseGraphic = true;
 
-        public override void AddRecipes() {
-            CreateRecipe()
-                .AddIngredient(ItemID.Shotgun)
-                .AddIngredient(ItemID.IllegalGunParts)
-                .AddTile(TileID.Anvils)
-                .Register();
-        }
+		Item.shoot = Projectile;
+		Item.shootSpeed = 14f;
+		Item.damage = 34;
+		Item.knockBack = 6f;
+		Item.DamageType = DamageClass.MeleeNoSpeed;
+	}
 
-        public int Projectile { get => ModContent.ProjectileType<SawedOffShotrangProj>(); }
+	public override void AddRecipes() {
+		CreateRecipe()
+			.AddIngredient(ItemID.Shotgun)
+			.AddIngredient(ItemID.IllegalGunParts)
+			.AddTile(TileID.Anvils)
+			.Register();
+	}
 
-        public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Projectile] < player.GetModPlayer<BangarangPlayer>().ExtraBoomerangs + 2;
-    }
+	public int Projectile => ModContent.ProjectileType<SawedOffShotrangProj>();
+
+	public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Projectile] < player.GetModPlayer<BangarangPlayer>().ExtraBoomerangs + 2;
 }

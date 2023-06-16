@@ -3,44 +3,46 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace Bangarang.Content.Projectiles.Weapons {
-    public class BeemerangProj : Boomerang {
-        public override void SetStaticDefaults() {
-            DisplayName.SetDefault("Beemerang");
-        }
+namespace Bangarang.Content.Projectiles.Weapons;
 
-        public override bool IsLoadingEnabled(Mod mod) => ServerConfig.Instance.ModdedBoomerangs;
+public class BeemerangProj : Boomerang
+{
+	public override void SetStaticDefaults() {
+		DisplayName.SetDefault("Beemerang");
+	}
 
-        public override void SetDefaults() {
-            Projectile.width = 36;
-            Projectile.height = 36;
-            Projectile.aiStyle = -1;
+	public override bool IsLoadingEnabled(Mod mod) => ServerConfig.Instance.ModdedBoomerangs;
 
-            Projectile.DamageType = DamageClass.MeleeNoSpeed;
-            Projectile.friendly = true;
-            Projectile.hostile = false;
-            Projectile.penetrate = -1;
+	public override void SetDefaults() {
+		Projectile.width = 36;
+		Projectile.height = 36;
+		Projectile.aiStyle = -1;
 
-            Projectile.tileCollide = true;
+		Projectile.DamageType = DamageClass.MeleeNoSpeed;
+		Projectile.friendly = true;
+		Projectile.hostile = false;
+		Projectile.penetrate = -1;
 
-            ReturnSpeed = 17f;
-            HomingOnOwnerStrength = 1.2f;
-            TravelOutFrames = 30;
-            DoTurn = true;
-        }
+		Projectile.tileCollide = true;
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit) {
-            int numBees = 1;
-            if (Main.rand.NextBool(3)) {
-                numBees++;
-            }
-            for (int i = 0; i < numBees; i++) {
-                Vector2 velocity = new(Main.rand.NextFloat(0f, 0.3f), 0f);
-                velocity = velocity.RotatedByRandom(MathHelper.TwoPi);
-                Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, velocity, Owner.beeType(), Owner.beeDamage(damage), Owner.beeKB(knockback), Projectile.owner);
-            }
+		ReturnSpeed = 17f;
+		HomingOnOwnerStrength = 1.2f;
+		TravelOutFrames = 30;
+		DoTurn = true;
+	}
 
-            base.OnHitNPC(target, damage, knockback, crit);
-        }
-    }
+	public override void OnHitNPC(NPC target, int damage, float knockback, bool crit) {
+		int numBees = 1;
+		if (Main.rand.NextBool(3)) {
+			numBees++;
+		}
+
+		for (int i = 0; i < numBees; i++) {
+			Vector2 velocity = new(Main.rand.NextFloat(0f, 0.3f), 0f);
+			velocity = velocity.RotatedByRandom(MathHelper.TwoPi);
+			Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, velocity, Owner.beeType(), Owner.beeDamage(damage), Owner.beeKB(knockback), Projectile.owner);
+		}
+
+		base.OnHitNPC(target, damage, knockback, crit);
+	}
 }

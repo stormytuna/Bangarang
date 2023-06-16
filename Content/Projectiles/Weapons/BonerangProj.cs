@@ -5,99 +5,101 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Bangarang.Content.Projectiles.Weapons {
-    public class BonerangProj : Boomerang {
-        public override void SetStaticDefaults() {
-            DisplayName.SetDefault("Bonerang");
-        }
+namespace Bangarang.Content.Projectiles.Weapons;
 
-        public override bool IsLoadingEnabled(Mod mod) => ServerConfig.Instance.ModdedBoomerangs;
+public class BonerangProj : Boomerang
+{
+	public override void SetStaticDefaults() {
+		DisplayName.SetDefault("Bonerang");
+	}
 
-        public override void SetDefaults() {
-            Projectile.width = 24;
-            Projectile.height = 36;
-            Projectile.aiStyle = -1;
+	public override bool IsLoadingEnabled(Mod mod) => ServerConfig.Instance.ModdedBoomerangs;
 
-            Projectile.DamageType = DamageClass.MeleeNoSpeed;
-            Projectile.friendly = true;
-            Projectile.hostile = false;
-            Projectile.penetrate = -1;
+	public override void SetDefaults() {
+		Projectile.width = 24;
+		Projectile.height = 36;
+		Projectile.aiStyle = -1;
 
-            Projectile.tileCollide = true;
+		Projectile.DamageType = DamageClass.MeleeNoSpeed;
+		Projectile.friendly = true;
+		Projectile.hostile = false;
+		Projectile.penetrate = -1;
 
-            ReturnSpeed = 16f;
-            HomingOnOwnerStrength = 1.5f;
-            TravelOutFrames = 30;
-            DoTurn = true;
-        }
+		Projectile.tileCollide = true;
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit) {
-            int numShards = Main.rand.Next(1, 4);
-            for (int i = 0; i < numShards; i++) {
-                Vector2 velocity = Projectile.velocity;
-                velocity = velocity.RotatedByRandom(MathHelper.ToRadians(30f));
-                Projectile shard = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, velocity, ModContent.ProjectileType<BoneShardProj>(), Projectile.damage / 2, Projectile.knockBack / 3f, Projectile.owner, target.whoAmI);
-                shard.frame = Main.rand.Next(0, 4);
-            }
+		ReturnSpeed = 16f;
+		HomingOnOwnerStrength = 1.5f;
+		TravelOutFrames = 30;
+		DoTurn = true;
+	}
 
-            // Dust
-            int numDust = Main.rand.Next(4, 7);
-            for (int i = 0; i < numDust; i++) {
-                Vector2 velocity = Projectile.velocity;
-                velocity *= 0.3f;
-                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Bone, velocity.X, velocity.Y, 0, default, Main.rand.NextFloat(0.8f, 1.2f));
-            }
+	public override void OnHitNPC(NPC target, int damage, float knockback, bool crit) {
+		int numShards = Main.rand.Next(1, 4);
+		for (int i = 0; i < numShards; i++) {
+			Vector2 velocity = Projectile.velocity;
+			velocity = velocity.RotatedByRandom(MathHelper.ToRadians(30f));
+			Projectile shard = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, velocity, ModContent.ProjectileType<BoneShardProj>(), Projectile.damage / 2, Projectile.knockBack / 3f, Projectile.owner, target.whoAmI);
+			shard.frame = Main.rand.Next(0, 4);
+		}
 
-            Projectile.Kill();
-        }
+		// Dust
+		int numDust = Main.rand.Next(4, 7);
+		for (int i = 0; i < numDust; i++) {
+			Vector2 velocity = Projectile.velocity;
+			velocity *= 0.3f;
+			Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Bone, velocity.X, velocity.Y, 0, default, Main.rand.NextFloat(0.8f, 1.2f));
+		}
 
-        public override bool OnTileCollide(Vector2 oldVelocity) {
-            Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
-            SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
+		Projectile.Kill();
+	}
 
-            return true;
-        }
-    }
+	public override bool OnTileCollide(Vector2 oldVelocity) {
+		Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
+		SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
 
-    public class BoneShardProj : ModProjectile {
-        public override void SetStaticDefaults() {
-            DisplayName.SetDefault("Bone Shard");
-            Main.projFrames[Type] = 4;
-        }
+		return true;
+	}
+}
 
-        public override void SetDefaults() {
-            Projectile.width = 10;
-            Projectile.height = 10;
-            Projectile.aiStyle = -1;
+public class BoneShardProj : ModProjectile
+{
+	public override void SetStaticDefaults() {
+		DisplayName.SetDefault("Bone Shard");
+		Main.projFrames[Type] = 4;
+	}
 
-            Projectile.DamageType = DamageClass.MeleeNoSpeed;
-            Projectile.friendly = true;
-            Projectile.hostile = false;
-            Projectile.penetrate = 1;
-            Projectile.timeLeft = 10;
+	public override void SetDefaults() {
+		Projectile.width = 10;
+		Projectile.height = 10;
+		Projectile.aiStyle = -1;
 
-            Projectile.tileCollide = true;
-        }
+		Projectile.DamageType = DamageClass.MeleeNoSpeed;
+		Projectile.friendly = true;
+		Projectile.hostile = false;
+		Projectile.penetrate = 1;
+		Projectile.timeLeft = 10;
 
-        private ref float AI_IgnoreNPC => ref Projectile.ai[0];
+		Projectile.tileCollide = true;
+	}
 
-        public override void AI() {
-            // Face where it's travelling 
-            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
-        }
+	private ref float AI_IgnoreNPC => ref Projectile.ai[0];
 
-        public override bool? CanHitNPC(NPC target) => target.whoAmI != (int)AI_IgnoreNPC && target.CanBeChasedBy();
+	public override void AI() {
+		// Face where it's travelling 
+		Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+	}
 
-        public override bool OnTileCollide(Vector2 oldVelocity) => true;
+	public override bool? CanHitNPC(NPC target) => target.whoAmI != (int)AI_IgnoreNPC && target.CanBeChasedBy();
 
-        public override void Kill(int timeLeft) {
-            // Make some dust
-            int numDust = Main.rand.Next(2, 6);
-            for (int i = 0; i < numDust; i++) {
-                Vector2 velocity = Projectile.velocity;
-                velocity *= 0.3f;
-                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Bone, velocity.X, velocity.Y, 0, default, Main.rand.NextFloat(0.6f, 1f));
-            }
-        }
-    }
+	public override bool OnTileCollide(Vector2 oldVelocity) => true;
+
+	public override void Kill(int timeLeft) {
+		// Make some dust
+		int numDust = Main.rand.Next(2, 6);
+		for (int i = 0; i < numDust; i++) {
+			Vector2 velocity = Projectile.velocity;
+			velocity *= 0.3f;
+			Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Bone, velocity.X, velocity.Y, 0, default, Main.rand.NextFloat(0.6f, 1f));
+		}
+	}
 }

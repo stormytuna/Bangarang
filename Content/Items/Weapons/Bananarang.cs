@@ -4,46 +4,48 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Bangarang.Content.Items.Weapons {
-    public class Bananarang : ModItem {
-        public override void SetDefaults() {
-            Item.width = 14;
-            Item.height = 28;
-            Item.rare = ItemRarityID.Pink;
-            Item.value = 75000;
+namespace Bangarang.Content.Items.Weapons;
 
-            Item.useStyle = ItemUseStyleID.Swing;
-            Item.useAnimation = 11;
-            Item.useTime = 11;
-            Item.autoReuse = true;
-            Item.UseSound = SoundID.Item1;
-            Item.noMelee = true;
-            Item.noUseGraphic = true;
+public class Bananarang : ModItem
+{
+	public override void SetDefaults() {
+		Item.width = 14;
+		Item.height = 28;
+		Item.rare = ItemRarityID.Pink;
+		Item.value = 75000;
 
-            Item.shoot = Projectile;
-            Item.shootSpeed = 16f;
-            Item.damage = 55;
-            Item.knockBack = 6.5f;
-            Item.DamageType = DamageClass.MeleeNoSpeed;
-        }
+		Item.useStyle = ItemUseStyleID.Swing;
+		Item.useAnimation = 11;
+		Item.useTime = 11;
+		Item.autoReuse = true;
+		Item.UseSound = SoundID.Item1;
+		Item.noMelee = true;
+		Item.noUseGraphic = true;
 
-        public int Projectile { get => ProjectileID.Bananarang; }
+		Item.shoot = Projectile;
+		Item.shootSpeed = 16f;
+		Item.damage = 55;
+		Item.knockBack = 6.5f;
+		Item.DamageType = DamageClass.MeleeNoSpeed;
+	}
 
-        public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Projectile] < player.GetModPlayer<BangarangPlayer>().ExtraBoomerangs + 10;
-    }
+	public int Projectile => ProjectileID.Bananarang;
 
-    // Replaces vanilla bananarang with ours
-    public class BananarangGlobalNPC : GlobalNPC {
-        public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot) {
-            if (npc.type == NPCID.Clown) {
-                foreach (var rule in npcLoot.Get()) {
-                    if (rule is CommonDrop drop && drop.itemId == ItemID.Bananarang) {
-                        npcLoot.Remove(rule);
-                    }
-                }
+	public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Projectile] < player.GetModPlayer<BangarangPlayer>().ExtraBoomerangs + 10;
+}
 
-                npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Bananarang>(), 6));
-            }
-        }
-    }
+// Replaces vanilla bananarang with ours
+public class BananarangGlobalNPC : GlobalNPC
+{
+	public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot) {
+		if (npc.type == NPCID.Clown) {
+			foreach (IItemDropRule rule in npcLoot.Get()) {
+				if (rule is CommonDrop drop && drop.itemId == ItemID.Bananarang) {
+					npcLoot.Remove(rule);
+				}
+			}
+
+			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<Bananarang>(), 6));
+		}
+	}
 }

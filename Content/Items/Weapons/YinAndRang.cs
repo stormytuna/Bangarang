@@ -4,44 +4,45 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Bangarang.Content.Items.Weapons {
-    public class YinAndRang : ModItem {
-        public override void SetStaticDefaults() {
-            Tooltip.SetDefault("Releases two homing shards at its apex");
-        }
+namespace Bangarang.Content.Items.Weapons;
 
-        public override void SetDefaults() {
-            Item.width = 40;
-            Item.height = 40;
-            Item.rare = ItemRarityID.Pink;
-            Item.value = Item.sellPrice(gold: 1, silver: 50);
+public class YinAndRang : ModItem
+{
+	public override void SetStaticDefaults() {
+		Tooltip.SetDefault("Releases two homing shards at its apex");
+	}
 
-            Item.useStyle = ItemUseStyleID.Swing;
-            Item.useAnimation = 15;
-            Item.useTime = 15;
-            Item.autoReuse = true;
-            Item.UseSound = SoundID.Item1;
-            Item.noMelee = true;
-            Item.noUseGraphic = true;
+	public override void SetDefaults() {
+		Item.width = 40;
+		Item.height = 40;
+		Item.rare = ItemRarityID.Pink;
+		Item.value = Item.sellPrice(gold: 1, silver: 50);
 
-            Item.shoot = Projectile;
-            Item.shootSpeed = 16f;
-            Item.damage = 38;
-            Item.knockBack = 8f;
-            Item.DamageType = DamageClass.MeleeNoSpeed;
-        }
+		Item.useStyle = ItemUseStyleID.Swing;
+		Item.useAnimation = 15;
+		Item.useTime = 15;
+		Item.autoReuse = true;
+		Item.UseSound = SoundID.Item1;
+		Item.noMelee = true;
+		Item.noUseGraphic = true;
 
-        public override void AddRecipes() {
-            CreateRecipe()
-                .AddIngredient(ItemID.LightShard)
-                .AddIngredient(ItemID.DarkShard)
-                .AddIngredient(ItemID.TitaniumBar, 5)
-                .AddTile(TileID.MythrilAnvil)
-                .Register();
-        }
+		Item.shoot = Projectile;
+		Item.shootSpeed = 16f;
+		Item.damage = 38;
+		Item.knockBack = 8f;
+		Item.DamageType = DamageClass.MeleeNoSpeed;
+	}
 
-        public int Projectile { get => ModContent.ProjectileType<YinAndRangProj>(); }
+	public override void AddRecipes() {
+		CreateRecipe()
+			.AddIngredient(ItemID.LightShard)
+			.AddIngredient(ItemID.DarkShard)
+			.AddIngredient(ItemID.TitaniumBar, 5)
+			.AddTile(TileID.MythrilAnvil)
+			.Register();
+	}
 
-        public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Projectile] < player.GetModPlayer<BangarangPlayer>().ExtraBoomerangs + 2;
-    }
+	public int Projectile => ModContent.ProjectileType<YinAndRangProj>();
+
+	public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Projectile] < player.GetModPlayer<BangarangPlayer>().ExtraBoomerangs + 2;
 }

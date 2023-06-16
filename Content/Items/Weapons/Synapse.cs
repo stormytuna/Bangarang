@@ -4,43 +4,44 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Bangarang.Content.Items.Weapons {
-    public class Synapse : ModItem {
-        public override void SetStaticDefaults() {
-            Tooltip.SetDefault("Chases down nearby enemies");
-        }
+namespace Bangarang.Content.Items.Weapons;
 
-        public override void SetDefaults() {
-            Item.width = 32;
-            Item.height = 30;
-            Item.rare = ItemRarityID.Blue;
-            Item.value = Item.sellPrice(gold: 1, silver: 50);
+public class Synapse : ModItem
+{
+	public override void SetStaticDefaults() {
+		Tooltip.SetDefault("Chases down nearby enemies");
+	}
 
-            Item.useStyle = ItemUseStyleID.Swing;
-            Item.useAnimation = 15;
-            Item.useTime = 15;
-            Item.autoReuse = true;
-            Item.UseSound = SoundID.Item1;
-            Item.noMelee = true;
-            Item.noUseGraphic = true;
+	public override void SetDefaults() {
+		Item.width = 32;
+		Item.height = 30;
+		Item.rare = ItemRarityID.Blue;
+		Item.value = Item.sellPrice(gold: 1, silver: 50);
 
-            Item.shoot = Projectile;
-            Item.shootSpeed = 12f;
-            Item.damage = 25;
-            Item.knockBack = 8f;
-            Item.DamageType = DamageClass.MeleeNoSpeed;
-        }
+		Item.useStyle = ItemUseStyleID.Swing;
+		Item.useAnimation = 15;
+		Item.useTime = 15;
+		Item.autoReuse = true;
+		Item.UseSound = SoundID.Item1;
+		Item.noMelee = true;
+		Item.noUseGraphic = true;
 
-        public override void AddRecipes() {
-            CreateRecipe()
-                .AddIngredient(ItemID.CrimtaneBar, 8)
-                .AddIngredient(ItemID.TissueSample, 5)
-                .AddTile(TileID.Anvils)
-                .Register();
-        }
+		Item.shoot = Projectile;
+		Item.shootSpeed = 12f;
+		Item.damage = 25;
+		Item.knockBack = 8f;
+		Item.DamageType = DamageClass.MeleeNoSpeed;
+	}
 
-        public int Projectile { get => ModContent.ProjectileType<SynapseProj>(); }
+	public override void AddRecipes() {
+		CreateRecipe()
+			.AddIngredient(ItemID.CrimtaneBar, 8)
+			.AddIngredient(ItemID.TissueSample, 5)
+			.AddTile(TileID.Anvils)
+			.Register();
+	}
 
-        public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Projectile] < player.GetModPlayer<BangarangPlayer>().ExtraBoomerangs + 1;
-    }
+	public int Projectile => ModContent.ProjectileType<SynapseProj>();
+
+	public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Projectile] < player.GetModPlayer<BangarangPlayer>().ExtraBoomerangs + 1;
 }
