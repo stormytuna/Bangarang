@@ -11,10 +11,6 @@ public class DetourPlayer : ModPlayer
 		On.Terraria.Player.ItemCheck_CheckCanUse += Player_ItemCheck_CheckCanUse;
 	}
 
-	public override void Unload() {
-		On.Terraria.Player.ItemCheck_CheckCanUse -= Player_ItemCheck_CheckCanUse;
-	}
-
 	private bool Player_ItemCheck_CheckCanUse(Player.orig_ItemCheck_CheckCanUse orig, Terraria.Player self, Item sItem) {
 		bool ret = orig(self, sItem);
 
