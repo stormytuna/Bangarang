@@ -36,7 +36,7 @@ New boomerangs are available throughout your entire progression. From the Shade 
 
 [h2][b]Added accessories[/b][/h2]
 [list]
-[*]Boomerang License - Lets you throw an extra boomerang. Bought from the Travelling Merchant after any boss has been defeated
+[*]Boomerang License - Lets you throw an extra boomerang. Bought from the Travelling Merchant after any boss has been defeated, 10% chance to appear
 [*]Illuminant Coating - Your boomerangs glow, return faster and have increased knockback. 2% drop from Illuminant Bat and Slime
 [*]Spectral Amulet - Your boomerangs are orbited by a pair of spectral glaives. 1.25% drop from any magic Post-Plantera Dungeon skeleton
 [*]Fluorescent License - Effects of Boomerang License and Illuminant Coating. Crafted with both of them @ Tinkerer's Workbench
@@ -51,6 +51,12 @@ To report any bugs or give feedback, you can post a comment on the Steam Worksho
 
 Changelog
 [list]
+[*][i]v2.0.0[/i]
+[list]
+[*]Boomerang License is no longer integrated into the Travelling Merchant's stock and will instead just show up 10% of the time
+[*]Fixed [b]many[/b] issues with config options not working properly
+[*]Major backend changes
+[/list]
 [*][i]v1.1.2[/i]
 [list]
 [*]Changed Spectral Glaives to copy their parents damage type to support other mods adding non-melee boomerangs

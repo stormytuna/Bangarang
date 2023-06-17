@@ -1,6 +1,6 @@
 ﻿using Terraria.ModLoader;
 
-namespace Bangarang.Content.Items;
+namespace Bangarang.Common.Configs;
 
 public class CONFIG_Cog : ModItem
 {

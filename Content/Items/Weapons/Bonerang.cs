@@ -1,3 +1,4 @@
+using Bangarang.Common.Configs;
 using Bangarang.Common.Players;
 using Bangarang.Content.Projectiles.Weapons;
 using Terraria;
@@ -8,6 +9,8 @@ namespace Bangarang.Content.Items.Weapons;
 
 public class Bonerang : ModItem
 {
+	public override bool IsLoadingEnabled(Mod mod) => ServerConfig.Instance.ModdedBoomerangs;
+
 	public override void SetStaticDefaults() {
 		Tooltip.SetDefault("Breaks into bone shards on impact");
 	}
@@ -26,7 +29,8 @@ public class Bonerang : ModItem
 		Item.noMelee = true;
 		Item.noUseGraphic = true;
 
-		Item.shoot = Projectile;
+		Item.shoot = ModContent.ProjectileType<BonerangProj>();
+		;
 		Item.shootSpeed = 14f;
 		Item.damage = 28;
 		Item.knockBack = 6f;
@@ -40,7 +44,5 @@ public class Bonerang : ModItem
 			.Register();
 	}
 
-	public int Projectile => ModContent.ProjectileType<BonerangProj>();
-
-	public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Projectile] < player.GetModPlayer<BangarangPlayer>().ExtraBoomerangs + 1;
+	public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Item.shoot] < player.GetModPlayer<BangarangPlayer>().ExtraBoomerangs + 1;
 }

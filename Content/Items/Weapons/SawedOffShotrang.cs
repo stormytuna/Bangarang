@@ -1,3 +1,4 @@
+using Bangarang.Common.Configs;
 using Bangarang.Common.Players;
 using Bangarang.Content.Projectiles.Weapons;
 using Terraria;
@@ -8,6 +9,8 @@ namespace Bangarang.Content.Items.Weapons;
 
 public class SawedOffShotrang : ModItem
 {
+	public override bool IsLoadingEnabled(Mod mod) => ServerConfig.Instance.ModdedBoomerangs;
+
 	public override void SetStaticDefaults() {
 		Tooltip.SetDefault("Fires a shotgun blast at its apex\n'Who said guns were ranged weapons?'");
 	}
@@ -26,7 +29,7 @@ public class SawedOffShotrang : ModItem
 		Item.noMelee = true;
 		Item.noUseGraphic = true;
 
-		Item.shoot = Projectile;
+		Item.shoot = ModContent.ProjectileType<SawedOffShotrangProj>();
 		Item.shootSpeed = 14f;
 		Item.damage = 34;
 		Item.knockBack = 6f;
@@ -41,7 +44,5 @@ public class SawedOffShotrang : ModItem
 			.Register();
 	}
 
-	public int Projectile => ModContent.ProjectileType<SawedOffShotrangProj>();
-
-	public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Projectile] < player.GetModPlayer<BangarangPlayer>().ExtraBoomerangs + 2;
+	public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Item.shoot] < player.GetModPlayer<BangarangPlayer>().ExtraBoomerangs + 2;
 }

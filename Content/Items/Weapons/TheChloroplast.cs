@@ -1,3 +1,4 @@
+using Bangarang.Common.Configs;
 using Bangarang.Common.Players;
 using Bangarang.Content.Projectiles.Weapons;
 using Terraria;
@@ -8,6 +9,8 @@ namespace Bangarang.Content.Items.Weapons;
 
 public class TheChloroplast : ModItem
 {
+	public override bool IsLoadingEnabled(Mod mod) => ServerConfig.Instance.ModdedBoomerangs;
+
 	public override void SetStaticDefaults() {
 		Tooltip.SetDefault("Bursts into stingers at its apex");
 	}
@@ -26,16 +29,14 @@ public class TheChloroplast : ModItem
 		Item.noMelee = true;
 		Item.noUseGraphic = true;
 
-		Item.shoot = Projectile;
+		Item.shoot = ModContent.ProjectileType<TheChloroplastProj>();
 		Item.shootSpeed = 20f;
 		Item.damage = 50;
 		Item.knockBack = 12f;
 		Item.DamageType = DamageClass.MeleeNoSpeed;
 	}
 
-	public int Projectile => ModContent.ProjectileType<TheChloroplastProj>();
-
-	public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Projectile] < player.GetModPlayer<BangarangPlayer>().ExtraBoomerangs + 3;
+	public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Item.shoot] < player.GetModPlayer<BangarangPlayer>().ExtraBoomerangs + 3;
 
 	public override void AddRecipes() {
 		CreateRecipe()

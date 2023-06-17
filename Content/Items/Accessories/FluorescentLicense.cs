@@ -1,3 +1,4 @@
+using Bangarang.Common.Configs;
 using Bangarang.Common.Players;
 using Terraria;
 using Terraria.ID;
@@ -7,6 +8,8 @@ namespace Bangarang.Content.Items.Accessories;
 
 public class FluorescentLicense : ModItem
 {
+	public override bool IsLoadingEnabled(Mod mod) => ServerConfig.Instance.ModdedAccessory;
+
 	public override void SetStaticDefaults() {
 		Tooltip.SetDefault("Throw an extra boomerang\nYour boomerangs glow, return faster and have increased knockback");
 	}

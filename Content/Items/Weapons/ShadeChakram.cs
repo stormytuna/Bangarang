@@ -1,3 +1,4 @@
+using Bangarang.Common.Configs;
 using Bangarang.Common.Players;
 using Bangarang.Content.Projectiles.Weapons;
 using Terraria;
@@ -8,6 +9,8 @@ namespace Bangarang.Content.Items.Weapons;
 
 public class ShadeChakram : ModItem
 {
+	public override bool IsLoadingEnabled(Mod mod) => ServerConfig.Instance.ModdedBoomerangs;
+
 	public override void SetStaticDefaults() {
 		Tooltip.SetDefault("Exceptionally quick");
 	}
@@ -26,7 +29,7 @@ public class ShadeChakram : ModItem
 		Item.noMelee = true;
 		Item.noUseGraphic = true;
 
-		Item.shoot = Projectile;
+		Item.shoot = ModContent.ProjectileType<ShadeChakramProj>();
 		Item.shootSpeed = 24f;
 		Item.damage = 27;
 		Item.knockBack = 8f;
@@ -41,7 +44,5 @@ public class ShadeChakram : ModItem
 			.Register();
 	}
 
-	public int Projectile => ModContent.ProjectileType<ShadeChakramProj>();
-
-	public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Projectile] < player.GetModPlayer<BangarangPlayer>().ExtraBoomerangs + 1;
+	public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Item.shoot] < player.GetModPlayer<BangarangPlayer>().ExtraBoomerangs + 1;
 }

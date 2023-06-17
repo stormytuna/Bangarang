@@ -1,3 +1,4 @@
+using System.Linq;
 using Bangarang.Common.Players;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
@@ -29,9 +30,15 @@ public class SpectralAmulet : ModItem
 
 public class PhylacteryGlobalNPC : GlobalNPC
 {
+	private static int[] magicDungeonNPCs = { NPCID.Necromancer, NPCID.NecromancerArmored, NPCID.RaggedCaster, NPCID.RaggedCasterOpenCoat, NPCID.DiabolistRed, NPCID.DiabolistWhite };
+
+	public override void Unload() {
+		magicDungeonNPCs = null;
+	}
+
+	public override bool AppliesToEntity(NPC entity, bool lateInstantiation) => magicDungeonNPCs.Contains(entity.type);
+
 	public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot) {
-		if (npc.type == NPCID.Necromancer || npc.type == NPCID.NecromancerArmored || npc.type == NPCID.RaggedCaster || npc.type == NPCID.RaggedCasterOpenCoat || npc.type == NPCID.DiabolistRed || npc.type == NPCID.DiabolistWhite) {
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SpectralAmulet>(), 80));
-		}
+		npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SpectralAmulet>(), 40));
 	}
 }

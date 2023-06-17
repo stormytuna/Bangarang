@@ -1,3 +1,4 @@
+using Bangarang.Common.Configs;
 using Bangarang.Common.Players;
 using Bangarang.Content.Projectiles.Weapons;
 using Terraria;
@@ -8,6 +9,8 @@ namespace Bangarang.Content.Items.Weapons;
 
 public class Beemerang : ModItem
 {
+	public override bool IsLoadingEnabled(Mod mod) => ServerConfig.Instance.ModdedBoomerangs;
+
 	public override void SetStaticDefaults() {
 		Tooltip.SetDefault("Releases bees on impact");
 	}
@@ -26,7 +29,7 @@ public class Beemerang : ModItem
 		Item.noMelee = true;
 		Item.noUseGraphic = true;
 
-		Item.shoot = Projectile;
+		Item.shoot = ModContent.ProjectileType<BeemerangProj>();
 		Item.shootSpeed = 13f;
 		Item.damage = 30;
 		Item.knockBack = 8f;
@@ -40,7 +43,5 @@ public class Beemerang : ModItem
 			.Register();
 	}
 
-	public int Projectile => ModContent.ProjectileType<BeemerangProj>();
-
-	public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Projectile] < player.GetModPlayer<BangarangPlayer>().ExtraBoomerangs + 1;
+	public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Item.shoot] < player.GetModPlayer<BangarangPlayer>().ExtraBoomerangs + 1;
 }

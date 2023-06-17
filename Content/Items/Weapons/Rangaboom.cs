@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Bangarang.Common.Configs;
 using Bangarang.Common.Players;
 using Bangarang.Content.Projectiles.Weapons;
 using Microsoft.Xna.Framework;
@@ -12,6 +13,8 @@ namespace Bangarang.Content.Items.Weapons;
 
 public class Rangaboom : ModItem
 {
+	public override bool IsLoadingEnabled(Mod mod) => ServerConfig.Instance.ModdedBoomerangs;
+
 	public override void SetStaticDefaults() {
 		Tooltip.SetDefault("Starts at its apex and flies to you");
 	}
@@ -30,16 +33,14 @@ public class Rangaboom : ModItem
 		Item.noMelee = true;
 		Item.noUseGraphic = true;
 
-		Item.shoot = Projectile;
+		Item.shoot = ModContent.ProjectileType<RangaboomProj>();
 		Item.shootSpeed = 25f;
 		Item.damage = 75;
 		Item.knockBack = 8f;
 		Item.DamageType = DamageClass.MeleeNoSpeed;
 	}
 
-	public int Projectile => ModContent.ProjectileType<RangaboomProj>();
-
-	public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Projectile] < player.GetModPlayer<BangarangPlayer>().ExtraBoomerangs + 5;
+	public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Item.shoot] < player.GetModPlayer<BangarangPlayer>().ExtraBoomerangs + 5;
 
 	public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback) {
 		position += velocity * 25f;
@@ -49,14 +50,14 @@ public class Rangaboom : ModItem
 
 public class RangaboomGlobalNPC : GlobalNPC
 {
+	public override bool AppliesToEntity(NPC entity, bool lateInstantiation) => entity.type == NPCID.MartianSaucerCore && ServerConfig.Instance.ModdedBoomerangs;
+
 	public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot) {
-		if (npc.type == NPCID.MartianSaucerCore) {
-			foreach (IItemDropRule rule in npcLoot.Get()) {
-				if (rule is OneFromOptionsNotScaledWithLuckDropRule oneFromOptions) {
-					List<int> original = oneFromOptions.dropIds.ToList();
-					original.Add(ModContent.ItemType<Rangaboom>());
-					oneFromOptions.dropIds = original.ToArray();
-				}
+		foreach (IItemDropRule rule in npcLoot.Get()) {
+			if (rule is OneFromOptionsNotScaledWithLuckDropRule oneFromOptions) {
+				List<int> original = oneFromOptions.dropIds.ToList();
+				original.Add(ModContent.ItemType<Rangaboom>());
+				oneFromOptions.dropIds = original.ToArray();
 			}
 		}
 	}

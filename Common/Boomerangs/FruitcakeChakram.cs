@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Bangarang.Common.Configs;
-using Bangarang.Common.Systems;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Enums;
@@ -23,13 +22,17 @@ public class FruitcakeChakramGlobalItem : GlobalItem
 
 public class FruitcakeChakramGlobalProjetile : GlobalProjectile
 {
+	private static int[] fruitcakeChakramDebuffs = { BuffID.Confused, BuffID.CursedInferno, BuffID.Ichor, BuffID.Frostburn, BuffID.OnFire, BuffID.Poisoned, BuffID.ShadowFlame };
+
+	public override void Unload() {
+		fruitcakeChakramDebuffs = null;
+	}
+
 	public override bool AppliesToEntity(Projectile entity, bool lateInstantiation) => entity.type == ProjectileID.FruitcakeChakram && ServerConfig.Instance.VanillaChanges;
 
 	public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockback, bool crit) {
-		int[] buffs = BoomerangInfoSystem.FruitcakeChakramDebuffs;
-
 		if (Main.rand.NextBool(4)) {
-			int buff = buffs[Main.rand.Next(buffs.Length)];
+			int buff = Main.rand.Next(fruitcakeChakramDebuffs);
 			int time = (int)(Main.rand.NextFloat(1, 3) * 60f);
 			target.AddBuff(buff, time);
 		}

@@ -24,19 +24,13 @@ public class BoomerangInfoSystem : ModSystem
 		}
 	}
 
-	public static int[] FruitcakeChakramDebuffs { get; private set; } = { BuffID.Confused, BuffID.CursedInferno, BuffID.Ichor, BuffID.Frostburn, BuffID.OnFire, BuffID.Poisoned, BuffID.ShadowFlame };
-
 	public static int[] ProjectilesThatAreBoomerangs { get; private set; } = Array.Empty<int>();
 
 	public static Dictionary<int, BoomerangInfo> BoomerangInfoDict { get; private set; } = new();
 
-	public static int[] VeryRareItemIds { get; private set; } = { ItemID.BedazzledNectar, ItemID.ExoticEasternChewToy, ItemID.BirdieRattle, ItemID.AntiPortalBlock, ItemID.CompanionCube, ItemID.SittingDucksFishingRod, ItemID.HunterCloak, ItemID.WinterCape, ItemID.RedCape, ItemID.MysteriousCape, ItemID.CrimsonCloak, ItemID.DiamondRing, ItemID.CelestialMagnet, ItemID.WaterGun, ItemID.PulseBow, ItemID.YellowCounterweight };
-
 	public override void Unload() {
-		FruitcakeChakramDebuffs = null;
 		ProjectilesThatAreBoomerangs = null;
 		BoomerangInfoDict = null;
-		VeryRareItemIds = null;
 	}
 
 	public override void PostSetupContent() {

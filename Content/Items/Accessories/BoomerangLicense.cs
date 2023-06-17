@@ -1,6 +1,5 @@
-using System.Linq;
+using Bangarang.Common.Configs;
 using Bangarang.Common.Players;
-using Bangarang.Common.Systems;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -9,6 +8,8 @@ namespace Bangarang.Content.Items.Accessories;
 
 public class BoomerangLicense : ModItem
 {
+	public override bool IsLoadingEnabled(Mod mod) => ServerConfig.Instance.ModdedAccessory;
+
 	public override void SetStaticDefaults() {
 		Tooltip.SetDefault("Throw an extra boomerang");
 	}
@@ -31,13 +32,11 @@ public class BoomerangLicenseGNPC : GlobalNPC
 {
 	public override void SetupTravelShop(int[] shop, ref int nextSlot) {
 		bool downedAnyBoss = NPC.downedBoss1 || NPC.downedBoss2 || NPC.downedBoss3 || NPC.downedDeerclops || NPC.downedQueenBee || NPC.downedSlimeKing || Main.hardMode;
-		if (downedAnyBoss) {
-			for (int i = 0; i < shop.Length; i++) {
-				if (BoomerangInfoSystem.VeryRareItemIds.Contains(shop[i]) && Main.rand.NextBool(17)) {
-					shop[i] = ModContent.ItemType<BoomerangLicense>();
-					return;
-				}
-			}
+		if (!downedAnyBoss || !Main.rand.NextBool(10) || !ServerConfig.Instance.ModdedAccessory) {
+			return;
 		}
+
+		shop[nextSlot] = ModContent.ItemType<BoomerangLicense>();
+		nextSlot++;
 	}
 }

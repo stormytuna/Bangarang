@@ -1,3 +1,4 @@
+using Bangarang.Common.Configs;
 using Bangarang.Common.Players;
 using Bangarang.Content.Projectiles.Weapons;
 using Terraria;
@@ -6,8 +7,10 @@ using Terraria.ModLoader;
 
 namespace Bangarang.Content.Items.Weapons;
 
-public class WhiteDwarf : ModItem
-{
+public class WhiteDwarf : ModItem {
+
+public override bool IsLoadingEnabled(Mod mod) => ServerConfig.Instance.ModdedBoomerangs;
+
 	public override void SetStaticDefaults() {
 		Tooltip.SetDefault("Incinerates enemies with stellar energy");
 	}
@@ -26,7 +29,7 @@ public class WhiteDwarf : ModItem
 		Item.noMelee = true;
 		Item.noUseGraphic = true;
 
-		Item.shoot = Projectile;
+		Item.shoot = ModContent.ProjectileType<WhiteDwarfProj>();
 		Item.shootSpeed = 21f;
 		Item.damage = 80;
 		Item.knockBack = 4f;
@@ -40,7 +43,5 @@ public class WhiteDwarf : ModItem
 			.Register();
 	}
 
-	public int Projectile => ModContent.ProjectileType<WhiteDwarfProj>();
-
-	public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Projectile] < player.GetModPlayer<BangarangPlayer>().ExtraBoomerangs + 3;
+	public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Item.shoot] < player.GetModPlayer<BangarangPlayer>().ExtraBoomerangs + 3;
 }

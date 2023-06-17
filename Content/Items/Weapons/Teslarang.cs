@@ -1,3 +1,4 @@
+using Bangarang.Common.Configs;
 using Bangarang.Common.Players;
 using Bangarang.Content.Projectiles.Weapons;
 using Terraria;
@@ -9,6 +10,8 @@ namespace Bangarang.Content.Items.Weapons;
 
 public class Teslarang : ModItem
 {
+	public override bool IsLoadingEnabled(Mod mod) => ServerConfig.Instance.ModdedBoomerangs;
+
 	public override void SetStaticDefaults() {
 		Tooltip.SetDefault("Discharges bolts of electricity when it hits an enemy");
 	}
@@ -27,7 +30,7 @@ public class Teslarang : ModItem
 		Item.noMelee = true;
 		Item.noUseGraphic = true;
 
-		Item.shoot = Projectile;
+		Item.shoot = ModContent.ProjectileType<TeslarangProj>();
 		Item.shootSpeed = 16f;
 		Item.damage = 50;
 		Item.knockBack = 5f;
@@ -36,14 +39,12 @@ public class Teslarang : ModItem
 
 	public class TeslarangGlobalNPC : GlobalNPC
 	{
+		public override bool AppliesToEntity(NPC entity, bool lateInstantiation) => entity.type == NPCID.Frankenstein && ServerConfig.Instance.ModdedBoomerangs;
+
 		public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot) {
-			if (npc.type == NPCID.Frankenstein) {
-				npcLoot.Add(ItemDropRule.ByCondition(new Conditions.DownedPlantera(), ModContent.ItemType<Teslarang>(), 40));
-			}
+			npcLoot.Add(ItemDropRule.ByCondition(new Conditions.DownedPlantera(), ModContent.ItemType<Teslarang>(), 40));
 		}
 	}
 
-	public int Projectile => ModContent.ProjectileType<TeslarangProj>();
-
-	public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Projectile] < player.GetModPlayer<BangarangPlayer>().ExtraBoomerangs + 3;
+	public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Item.shoot] < player.GetModPlayer<BangarangPlayer>().ExtraBoomerangs + 3;
 }

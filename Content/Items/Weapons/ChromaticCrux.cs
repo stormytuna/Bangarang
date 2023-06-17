@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Bangarang.Common.Configs;
 using Bangarang.Common.Players;
 using Bangarang.Content.Projectiles.Weapons;
 using Terraria;
@@ -12,6 +13,8 @@ namespace Bangarang.Content.Items.Weapons;
 
 public class ChromaticCrux : ModItem
 {
+	public override bool IsLoadingEnabled(Mod mod) => ServerConfig.Instance.ModdedBoomerangs;
+
 	public override void SetStaticDefaults() {
 		Tooltip.SetDefault("Leaves a homing rainbow chakram when it hits an enemy");
 	}
@@ -30,30 +33,29 @@ public class ChromaticCrux : ModItem
 		Item.noMelee = true;
 		Item.noUseGraphic = true;
 
-		Item.shoot = Projectile;
+		Item.shoot = ModContent.ProjectileType<ChromaticCruxProj>();
+		;
 		Item.shootSpeed = 18f;
 		Item.damage = 58;
 		Item.knockBack = 7f;
 		Item.DamageType = DamageClass.MeleeNoSpeed;
 	}
 
-	public int Projectile => ModContent.ProjectileType<ChromaticCruxProj>();
-
-	public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Projectile] < player.GetModPlayer<BangarangPlayer>().ExtraBoomerangs + 3;
+	public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Item.shoot] < player.GetModPlayer<BangarangPlayer>().ExtraBoomerangs + 3;
 }
 
 public class ChromaticCruxGlobalNPC : GlobalNPC
 {
+	public override bool AppliesToEntity(NPC entity, bool lateInstantiation) => entity.type == NPCID.HallowBoss && ServerConfig.Instance.ModdedBoomerangs;
+
 	public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot) {
-		if (npc.type == NPCID.HallowBoss) {
-			foreach (IItemDropRule rule in npcLoot.Get()) {
-				if (rule is LeadingConditionRule leadingConditionRule && leadingConditionRule.condition is Conditions.NotExpert) {
-					foreach (IItemDropRuleChainAttempt chain in leadingConditionRule.ChainedRules) {
-						if (chain is TryIfSucceeded chainRule && chainRule.RuleToChain is OneFromOptionsDropRule oneFromOptions) {
-							List<int> original = oneFromOptions.dropIds.ToList();
-							original.Add(ModContent.ItemType<ChromaticCrux>());
-							oneFromOptions.dropIds = original.ToArray();
-						}
+		foreach (IItemDropRule rule in npcLoot.Get()) {
+			if (rule is LeadingConditionRule leadingConditionRule && leadingConditionRule.condition is Conditions.NotExpert) {
+				foreach (IItemDropRuleChainAttempt chain in leadingConditionRule.ChainedRules) {
+					if (chain is TryIfSucceeded chainRule && chainRule.RuleToChain is OneFromOptionsDropRule oneFromOptions) {
+						List<int> original = oneFromOptions.dropIds.ToList();
+						original.Add(ModContent.ItemType<ChromaticCrux>());
+						oneFromOptions.dropIds = original.ToArray();
 					}
 				}
 			}
@@ -63,14 +65,14 @@ public class ChromaticCruxGlobalNPC : GlobalNPC
 
 public class ChromaticCruxGlobalItem : GlobalItem
 {
+	public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.FairyQueenBossBag && ServerConfig.Instance.ModdedBoomerangs;
+
 	public override void ModifyItemLoot(Item item, ItemLoot itemLoot) {
-		if (item.type == ItemID.FairyQueenBossBag) {
-			foreach (IItemDropRule rule in itemLoot.Get()) {
-				if (rule is OneFromOptionsNotScaledWithLuckDropRule oneFromOptions) {
-					List<int> original = oneFromOptions.dropIds.ToList();
-					original.Add(ModContent.ItemType<ChromaticCrux>());
-					oneFromOptions.dropIds = original.ToArray();
-				}
+		foreach (IItemDropRule rule in itemLoot.Get()) {
+			if (rule is OneFromOptionsNotScaledWithLuckDropRule oneFromOptions) {
+				List<int> original = oneFromOptions.dropIds.ToList();
+				original.Add(ModContent.ItemType<ChromaticCrux>());
+				oneFromOptions.dropIds = original.ToArray();
 			}
 		}
 	}

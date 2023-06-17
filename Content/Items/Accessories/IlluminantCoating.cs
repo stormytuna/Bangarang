@@ -1,3 +1,4 @@
+using Bangarang.Common.Configs;
 using Bangarang.Common.Players;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
@@ -8,6 +9,8 @@ namespace Bangarang.Content.Items.Accessories;
 
 public class IlluminantCoating : ModItem
 {
+	public override bool IsLoadingEnabled(Mod mod) => ServerConfig.Instance.ModdedAccessory;
+
 	public override void SetStaticDefaults() {
 		Tooltip.SetDefault("Your boomerangs glow, return faster and have increased knockback");
 	}
@@ -31,9 +34,9 @@ public class IlluminantCoating : ModItem
 
 public class IlluminantCoatingGlobalNPC : GlobalNPC
 {
+	public override bool AppliesToEntity(NPC entity, bool lateInstantiation) => (entity.type == NPCID.IlluminantBat || entity.type == NPCID.IlluminantSlime) && ServerConfig.Instance.ModdedAccessory;
+
 	public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot) {
-		if (npc.type == NPCID.IlluminantBat || npc.type == NPCID.IlluminantSlime) {
-			npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<IlluminantCoating>(), 50));
-		}
+		npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<IlluminantCoating>(), 50));
 	}
 }
