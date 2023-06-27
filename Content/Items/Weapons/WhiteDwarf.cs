@@ -7,9 +7,9 @@ using Terraria.ModLoader;
 
 namespace Bangarang.Content.Items.Weapons;
 
-public class WhiteDwarf : ModItem {
-
-public override bool IsLoadingEnabled(Mod mod) => ServerConfig.Instance.ModdedBoomerangs;
+public class WhiteDwarf : ModItem
+{
+	public override bool IsLoadingEnabled(Mod mod) => ServerConfig.Instance.ModdedBoomerangs;
 
 	public override void SetStaticDefaults() {
 		Tooltip.SetDefault("Incinerates enemies with stellar energy");

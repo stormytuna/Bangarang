@@ -9,10 +9,10 @@ namespace Bangarang.Content.Projectiles.Weapons;
 
 public abstract class Boomerang : ModProjectile
 {
-	/// <summary>How quickly the boomerang will return to its owner. Default = 10f</summary>
+	/// <summary>How quickly the boomerang will return to its owner. Default = 9f</summary>
 	public float ReturnSpeed { get; set; } = 9f;
 
-	/// <summary>How strong the boomerang will home in on its owner when returning. Default = 4f</summary>
+	/// <summary>How strong the boomerang will home in on its owner when returning. Default = 0.4f</summary>
 	public float HomingOnOwnerStrength { get; set; } = 0.4f;
 
 	/// <summary>How many frames the boomerang will travel away from the player for. Default = 30</summary>
@@ -103,12 +103,7 @@ public abstract class Boomerang : ModProjectile
 	}
 
 	public override void OnHitNPC(NPC target, int damage, float knockback, bool crit) {
-		if (Projectile.ai[0] == 0f) {
-			Projectile.ai[0] = 1f;
-			Projectile.ai[1] = 0f;
-			Projectile.netUpdate = true;
-			Projectile.velocity = -Projectile.velocity;
-		}
+		TurnAround();
 	}
 
 	public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac) {
@@ -121,14 +116,17 @@ public abstract class Boomerang : ModProjectile
 	public override bool OnTileCollide(Vector2 oldVelocity) {
 		Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
 		SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
+		TurnAround();
 
+		return false;
+	}
+
+	protected void TurnAround() {
 		if (Projectile.ai[0] == 0f) {
 			Projectile.ai[0] = 1f;
 			Projectile.ai[1] = 0f;
-			Projectile.netUpdate = true;
 			Projectile.velocity = -Projectile.velocity;
+			Projectile.netUpdate = true;
 		}
-
-		return false;
 	}
 }

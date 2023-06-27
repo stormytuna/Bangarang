@@ -43,6 +43,6 @@ public class Synapse : ModItem
 			.AddTile(TileID.Anvils)
 			.Register();
 	}
-	
+
 	public override bool CanUseItem(Player player) => player.ownedProjectileCounts[Item.shoot] < player.GetModPlayer<BangarangPlayer>().ExtraBoomerangs + 1;
 }

@@ -1,7 +1,6 @@
 using System;
 using Bangarang.Common.Configs;
 using Bangarang.Common.Systems;
-using Bangarang.Content.Items;
 using Terraria;
 using Terraria.ModLoader;
 
