@@ -19,8 +19,8 @@ public class IlluminantCoatingGlobalProjectile : GlobalProjectile
 			Lighting.AddLight(projectile.Center, TorchID.Purple);
 
 			if (Main.rand.NextBool(10)) {
-				Dust d = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.UndergroundHallowedEnemies);
-				d.velocity *= 0.8f;
+				Dust dust = Dust.NewDustDirect(projectile.position, projectile.width, projectile.height, DustID.UndergroundHallowedEnemies);
+				dust.velocity *= 0.8f;
 			}
 		}
 	}
