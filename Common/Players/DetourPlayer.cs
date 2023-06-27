@@ -15,21 +15,21 @@ public class DetourPlayer : ModPlayer
 		bool ret = orig(self, sItem);
 
 		if (BoomerangInfoSystem.BoomerangInfoDict.ContainsKey(sItem.type)) {
-			BoomerangInfoSystem.BoomerangInfo bi = BoomerangInfoSystem.BoomerangInfoDict[sItem.type];
+			BoomerangInfoSystem.BoomerangInfo boomerangInfo = BoomerangInfoSystem.BoomerangInfoDict[sItem.type];
 			int extraBoomerangs = self.GetModPlayer<BangarangPlayer>().ExtraBoomerangs;
 			// -2 == just return our orig
-			if (bi.NumBoomerangs == -2) {
-				if (bi.CanUseItemFunc is not null) {
-					return bi.CanUseItemFunc(self, sItem, extraBoomerangs);
+			if (boomerangInfo.NumBoomerangs == -2) {
+				if (boomerangInfo.CanUseItemFunc is not null) {
+					return boomerangInfo.CanUseItemFunc(self, sItem, extraBoomerangs);
 				}
 
 				return ret;
 			}
 
 			// -1 == explicitly infinite boomerangs
-			if (bi.NumBoomerangs == -1) {
-				if (bi.CanUseItemFunc is not null) {
-					return bi.CanUseItemFunc(self, sItem, extraBoomerangs);
+			if (boomerangInfo.NumBoomerangs == -1) {
+				if (boomerangInfo.CanUseItemFunc is not null) {
+					return boomerangInfo.CanUseItemFunc(self, sItem, extraBoomerangs);
 				}
 
 				return true;
@@ -37,15 +37,15 @@ public class DetourPlayer : ModPlayer
 
 			// Gets our max owned projectiles for any boomerang in our boomerang info
 			int ownedProj = 0;
-			foreach (int projType in bi.ProjectileTypes) {
+			foreach (int projType in boomerangInfo.ProjectileTypes) {
 				if (ownedProj < self.ownedProjectileCounts[projType]) {
 					ownedProj = self.ownedProjectileCounts[projType];
 				}
 			}
 
-			if (ownedProj < bi.NumBoomerangs + extraBoomerangs) {
-				if (bi.CanUseItemFunc is not null) {
-					return bi.CanUseItemFunc(self, sItem, extraBoomerangs);
+			if (ownedProj < boomerangInfo.NumBoomerangs + extraBoomerangs) {
+				if (boomerangInfo.CanUseItemFunc is not null) {
+					return boomerangInfo.CanUseItemFunc(self, sItem, extraBoomerangs);
 				}
 
 				return true;
