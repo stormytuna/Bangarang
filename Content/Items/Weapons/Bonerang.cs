@@ -30,7 +30,6 @@ public class Bonerang : ModItem
 		Item.noUseGraphic = true;
 
 		Item.shoot = ModContent.ProjectileType<BonerangProj>();
-		;
 		Item.shootSpeed = 14f;
 		Item.damage = 28;
 		Item.knockBack = 6f;
