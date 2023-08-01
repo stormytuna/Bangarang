@@ -12,8 +12,8 @@ public class GlaiveLordsGift : ModItem
 	public override bool IsLoadingEnabled(Mod mod) => ServerConfig.Instance.ModdedAccessory;
 
 	public override void SetStaticDefaults() {
-		DisplayName.SetDefault("Glaive Lord's Gift");
-		Tooltip.SetDefault("Throw an extra boomerang\nYour boomerangs glow, return faster and have increased knockback\nYour boomerangs are orbited by a pair of spectral glaives");
+		// DisplayName.SetDefault("Glaive Lord's Gift");
+		// Tooltip.SetDefault("Throw an extra boomerang\nYour boomerangs glow, return faster and have increased knockback\nYour boomerangs are orbited by a pair of spectral glaives");
 	}
 
 	public override void SetDefaults() {

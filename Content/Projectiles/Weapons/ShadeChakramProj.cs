@@ -11,7 +11,7 @@ namespace Bangarang.Content.Projectiles.Weapons;
 public class ShadeChakramProj : Boomerang
 {
 	public override void SetStaticDefaults() {
-		DisplayName.SetDefault("Shade Chakram");
+		// DisplayName.SetDefault("Shade Chakram");
 		ProjectileID.Sets.TrailCacheLength[Type] = 4;
 		ProjectileID.Sets.TrailingMode[Type] = 0;
 	}

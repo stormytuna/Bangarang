@@ -12,7 +12,7 @@ public class TheChloroplast : ModItem
 	public override bool IsLoadingEnabled(Mod mod) => ServerConfig.Instance.ModdedBoomerangs;
 
 	public override void SetStaticDefaults() {
-		Tooltip.SetDefault("Bursts into stingers at its apex");
+		// Tooltip.SetDefault("Bursts into stingers at its apex");
 	}
 
 	public override void SetDefaults() {

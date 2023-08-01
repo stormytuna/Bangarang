@@ -1,0 +1,137 @@
+Items: {
+	CONFIG_ChromaticCrux: {
+		DisplayName: C O N F I G_ Chromatic Crux
+		Tooltip: ""
+	}
+
+	CONFIG_Cog: {
+		DisplayName: C O N F I G_ Cog
+		Tooltip: ""
+	}
+
+	CONFIG_Phylactery: {
+		DisplayName: C O N F I G_ Phylactery
+		Tooltip: ""
+	}
+
+	BoomerangLicense: {
+		DisplayName: Boomerang License
+		Tooltip: ""
+	}
+
+	FluorescentLicense: {
+		DisplayName: Fluorescent License
+		Tooltip: ""
+	}
+
+	GlaiveLordsGift: {
+		DisplayName: Glaive Lords Gift
+		Tooltip: ""
+	}
+
+	IlluminantCoating: {
+		DisplayName: Illuminant Coating
+		Tooltip: ""
+	}
+
+	SpectralAmulet: {
+		DisplayName: Spectral Amulet
+		Tooltip: ""
+	}
+
+	Beemerang: {
+		DisplayName: Beemerang
+		Tooltip: ""
+	}
+
+	Bonerang: {
+		DisplayName: Bonerang
+		Tooltip: ""
+	}
+
+	ChromaticCrux: {
+		DisplayName: Chromatic Crux
+		Tooltip: ""
+	}
+
+	Rangaboom: {
+		DisplayName: Rangaboom
+		Tooltip: ""
+	}
+
+	SawedOffShotrang: {
+		DisplayName: Sawed Off Shotrang
+		Tooltip: ""
+	}
+
+	ShadeChakram: {
+		DisplayName: Shade Chakram
+		Tooltip: ""
+	}
+
+	Synapse: {
+		DisplayName: Synapse
+		Tooltip: ""
+	}
+
+	Teslarang: {
+		DisplayName: Teslarang
+		Tooltip: ""
+	}
+
+	TheChloroplast: {
+		DisplayName: The Chloroplast
+		Tooltip: ""
+	}
+
+	WhiteDwarf: {
+		DisplayName: White Dwarf
+		Tooltip: ""
+	}
+
+	YinAndRang: {
+		DisplayName: Yin And Rang
+		Tooltip: ""
+	}
+}
+
+Projectiles: {
+	IceBoomerangShard.DisplayName: Ice Boomerang Shard
+	SpectralGlaiveProj.DisplayName: Spectral Glaive Proj
+	BeemerangProj.DisplayName: Beemerang Proj
+	BonerangProj.DisplayName: Bonerang Proj
+	BoneShardProj.DisplayName: Bone Shard Proj
+	ChromaticCruxProj.DisplayName: Chromatic Crux Proj
+	ChromaticCruxRainbowProj.DisplayName: Chromatic Crux Rainbow Proj
+	RangaboomPortalProj.DisplayName: Rangaboom Portal Proj
+	RangaboomProj.DisplayName: Rangaboom Proj
+	SawedOffShotrangProj.DisplayName: Sawed Off Shotrang Proj
+	ShadeChakramProj.DisplayName: Shade Chakram Proj
+	SynapseProj.DisplayName: Synapse Proj
+	TeslarangProj.DisplayName: Teslarang Proj
+	TheChloroplastProj.DisplayName: The Chloroplast Proj
+	WhiteDwarfProj.DisplayName: White Dwarf Proj
+	YinAndRangProj.DisplayName: Yin And Rang Proj
+	YinAndRangShardProj.DisplayName: Yin And Rang Shard Proj
+}
+
+Configs: {
+	ServerConfig: {
+		DisplayName: Server Config
+
+		VanillaChanges: {
+			Label: "[i:4818] Vanilla boomerang changes"
+			Tooltip: ""
+		}
+
+		ModdedBoomerangs: {
+			Label: "{$Mods.Bangarang.Config.ModdedBoomerangs}"
+			Tooltip: ""
+		}
+
+		ModdedAccessory: {
+			Label: "{$Mods.Bangarang.Config.ModdedAccessories}"
+			Tooltip: ""
+		}
+	}
+}

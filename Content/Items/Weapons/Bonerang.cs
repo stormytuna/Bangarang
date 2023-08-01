@@ -12,7 +12,7 @@ public class Bonerang : ModItem
 	public override bool IsLoadingEnabled(Mod mod) => ServerConfig.Instance.ModdedBoomerangs;
 
 	public override void SetStaticDefaults() {
-		Tooltip.SetDefault("Breaks into bone shards on impact");
+		// Tooltip.SetDefault("Breaks into bone shards on impact");
 	}
 
 	public override void SetDefaults() {

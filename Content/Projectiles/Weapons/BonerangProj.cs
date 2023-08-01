@@ -10,7 +10,7 @@ namespace Bangarang.Content.Projectiles.Weapons;
 public class BonerangProj : Boomerang
 {
 	public override void SetStaticDefaults() {
-		DisplayName.SetDefault("Bonerang");
+		// DisplayName.SetDefault("Bonerang");
 	}
 
 	public override bool IsLoadingEnabled(Mod mod) => ServerConfig.Instance.ModdedBoomerangs;
@@ -33,7 +33,7 @@ public class BonerangProj : Boomerang
 		DoTurn = true;
 	}
 
-	public override void OnHitNPC(NPC target, int damage, float knockback, bool crit) {
+	public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) {
 		int numShards = Main.rand.Next(1, 4);
 		for (int i = 0; i < numShards; i++) {
 			Vector2 velocity = Projectile.velocity;
@@ -64,7 +64,7 @@ public class BonerangProj : Boomerang
 public class BoneShardProj : ModProjectile
 {
 	public override void SetStaticDefaults() {
-		DisplayName.SetDefault("Bone Shard");
+		// DisplayName.SetDefault("Bone Shard");
 		Main.projFrames[Type] = 4;
 	}
 

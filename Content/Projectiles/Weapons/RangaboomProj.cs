@@ -14,7 +14,7 @@ namespace Bangarang.Content.Projectiles.Weapons;
 public class RangaboomProj : Boomerang
 {
 	public override void SetStaticDefaults() {
-		DisplayName.SetDefault("Rangaboom");
+		// DisplayName.SetDefault("Rangaboom");
 	}
 
 	public override bool IsLoadingEnabled(Mod mod) => ServerConfig.Instance.ModdedBoomerangs;
@@ -179,7 +179,7 @@ public class RangaboomProj : Boomerang
 		SpawnPortal.Kill();
 	}
 
-	public override void OnHitNPC(NPC target, int damage, float knockback, bool crit) {
+	public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) {
 		if (Projectile.ai[0] == 0f) {
 			Projectile.ai[0] = 1f;
 			Projectile.velocity = -Projectile.velocity;
@@ -230,7 +230,7 @@ public class RangaboomProj : Boomerang
 public class RangaboomPortalProj : ModProjectile
 {
 	public override void SetStaticDefaults() {
-		DisplayName.SetDefault("Rangaboom Portal");
+		// DisplayName.SetDefault("Rangaboom Portal");
 		Main.projFrames[Type] = 8;
 	}
 

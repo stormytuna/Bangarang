@@ -12,7 +12,7 @@ public class Beemerang : ModItem
 	public override bool IsLoadingEnabled(Mod mod) => ServerConfig.Instance.ModdedBoomerangs;
 
 	public override void SetStaticDefaults() {
-		Tooltip.SetDefault("Releases bees on impact");
+		// Tooltip.SetDefault("Releases bees on impact");
 	}
 
 	public override void SetDefaults() {

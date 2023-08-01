@@ -9,6 +9,8 @@ public class ServerConfig : ModConfig
 
 	public override ConfigScope Mode => ConfigScope.ServerSide;
 
+	// TODO: Localise
+
 	[Label("[i:4818] Vanilla boomerang changes")]
 	[DefaultValue(true)]
 	public bool VanillaChanges { get; set; }

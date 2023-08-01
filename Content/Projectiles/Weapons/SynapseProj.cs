@@ -11,7 +11,7 @@ namespace Bangarang.Content.Projectiles.Weapons;
 public class SynapseProj : Boomerang
 {
 	public override void SetStaticDefaults() {
-		DisplayName.SetDefault("Synapse");
+		// DisplayName.SetDefault("Synapse");
 		ProjectileID.Sets.CultistIsResistantTo[Type] = true;
 	}
 

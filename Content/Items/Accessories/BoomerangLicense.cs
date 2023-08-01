@@ -11,7 +11,7 @@ public class BoomerangLicense : ModItem
 	public override bool IsLoadingEnabled(Mod mod) => ServerConfig.Instance.ModdedAccessory;
 
 	public override void SetStaticDefaults() {
-		Tooltip.SetDefault("Throw an extra boomerang");
+		// Tooltip.SetDefault("Throw an extra boomerang");
 	}
 
 	public override void SetDefaults() {

@@ -11,7 +11,7 @@ public class FluorescentLicense : ModItem
 	public override bool IsLoadingEnabled(Mod mod) => ServerConfig.Instance.ModdedAccessory;
 
 	public override void SetStaticDefaults() {
-		Tooltip.SetDefault("Throw an extra boomerang\nYour boomerangs glow, return faster and have increased knockback");
+		// Tooltip.SetDefault("Throw an extra boomerang\nYour boomerangs glow, return faster and have increased knockback");
 	}
 
 	public override void SetDefaults() {

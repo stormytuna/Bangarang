@@ -12,7 +12,7 @@ public class SawedOffShotrang : ModItem
 	public override bool IsLoadingEnabled(Mod mod) => ServerConfig.Instance.ModdedBoomerangs;
 
 	public override void SetStaticDefaults() {
-		Tooltip.SetDefault("Fires a shotgun blast at its apex\n'Who said guns were ranged weapons?'");
+		// Tooltip.SetDefault("Fires a shotgun blast at its apex\n'Who said guns were ranged weapons?'");
 	}
 
 	public override void SetDefaults() {

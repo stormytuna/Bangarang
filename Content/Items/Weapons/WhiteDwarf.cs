@@ -12,7 +12,7 @@ public class WhiteDwarf : ModItem
 	public override bool IsLoadingEnabled(Mod mod) => ServerConfig.Instance.ModdedBoomerangs;
 
 	public override void SetStaticDefaults() {
-		Tooltip.SetDefault("Incinerates enemies with stellar energy");
+		// Tooltip.SetDefault("Incinerates enemies with stellar energy");
 	}
 
 	public override void SetDefaults() {

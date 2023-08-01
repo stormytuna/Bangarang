@@ -12,7 +12,7 @@ public class YinAndRang : ModItem
 	public override bool IsLoadingEnabled(Mod mod) => ServerConfig.Instance.ModdedBoomerangs;
 
 	public override void SetStaticDefaults() {
-		Tooltip.SetDefault("Releases two homing shards at its apex");
+		// Tooltip.SetDefault("Releases two homing shards at its apex");
 	}
 
 	public override void SetDefaults() {

@@ -12,7 +12,7 @@ public class ShadeChakram : ModItem
 	public override bool IsLoadingEnabled(Mod mod) => ServerConfig.Instance.ModdedBoomerangs;
 
 	public override void SetStaticDefaults() {
-		Tooltip.SetDefault("Exceptionally quick");
+		// Tooltip.SetDefault("Exceptionally quick");
 	}
 
 	public override void SetDefaults() {

@@ -12,7 +12,7 @@ public class Synapse : ModItem
 	public override bool IsLoadingEnabled(Mod mod) => ServerConfig.Instance.ModdedBoomerangs;
 
 	public override void SetStaticDefaults() {
-		Tooltip.SetDefault("Chases down nearby enemies");
+		// Tooltip.SetDefault("Chases down nearby enemies");
 	}
 
 	public override void SetDefaults() {
