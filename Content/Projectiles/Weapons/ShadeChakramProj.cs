@@ -1,8 +1,7 @@
 using Bangarang.Common.Configs;
+using Bangarang.Common.GlobalProjectiles;
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.Graphics;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -16,6 +15,10 @@ public class ShadeChakramProj : Boomerang
         ProjectileID.Sets.TrailCacheLength[Type] = 10;
         ProjectileID.Sets.TrailingMode[Type] = 5;
         ProjectileID.Sets.DrawScreenCheckFluff[Type] = 960;
+        SimpleTrailGlobalProjectile.ProjectileTrailSettings[Type] = new SimpleTrailSettings {
+            StripColorFunction = GetStripColor,
+            StripHalfWidthFunction = _ => 14f
+        };
     }
 
     public override void SetDefaults() {
@@ -34,22 +37,6 @@ public class ShadeChakramProj : Boomerang
         HomingOnOwnerStrength = 2f;
         TravelOutFrames = 25;
         DoTurn = true;
-    }
-
-    private static readonly VertexStrip vertexStrip = new();
-
-    public override bool PreDraw(ref Color lightColor) {
-        MiscShaderData miscShaderData = GameShaders.Misc["LightDisc"];
-        miscShaderData.UseSaturation(-2.8f);
-        miscShaderData.UseOpacity(2f);
-        miscShaderData.Apply();
-
-        vertexStrip.PrepareStripWithProceduralPadding(Projectile.oldPos, Projectile.oldRot, GetStripColor, _ => 14f, (Projectile.Size / 2f) - Main.screenPosition);
-        vertexStrip.DrawTrail();
-
-        Main.pixelShader.CurrentTechnique.Passes[0].Apply();
-
-        return true;
     }
 
     private Color GetStripColor(float progress) {
