@@ -1,6 +1,4 @@
-﻿ctrl+shift+f for TODO comments
-
-Tidy up sprites and visuals
+﻿Tidy up sprites and visuals
 
 Make dust code prettier, `with` keyword exists
 

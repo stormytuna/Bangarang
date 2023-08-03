@@ -40,7 +40,7 @@ public class BoomerangInfoSystem : ModSystem
         RegisterBoomerang(ItemID.BloodyMachete, ProjectileID.BloodyMachete, 1);
         RegisterBoomerang(ItemID.IceBoomerang, ProjectileID.IceBoomerang, 1);
         RegisterBoomerang(ItemID.EnchantedBoomerang, ProjectileID.EnchantedBoomerang, 1);
-        //RegisterBoomerang(ItemID.Trimarang, ProjectileID.Trimarang, 1); // TODO: Add Trimarang
+        RegisterBoomerang(ItemID.Trimarang, ProjectileID.Trimarang, 3);
         RegisterBoomerang(ItemID.Shroomerang, ProjectileID.Shroomerang, 1);
         RegisterBoomerang(ItemID.CombatWrench, ProjectileID.CombatWrench, 1);
         RegisterBoomerang(ItemID.ThornChakram, ProjectileID.ThornChakram, 1);

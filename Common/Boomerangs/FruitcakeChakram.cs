@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using Bangarang.Common.Configs;
+using Bangarang.Helpers;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.Enums;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace Bangarang.Common.Boomerangs;
@@ -12,12 +14,10 @@ public class FruitcakeChakramGlobalItem : GlobalItem
 {
     public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.FruitcakeChakram && ServerConfig.Instance.VanillaChanges;
 
-    public override void ModifyTooltips(Item item, List<TooltipLine> tooltips) {
-        int index = tooltips.FindLastIndex(t => t.Mod == "Terraria");
-        // TODO: Localise
-        tooltips.Insert(index + 1, new TooltipLine(Mod, "Tooltip0", "Inflicts a random debuff on hit"));
-        tooltips.Insert(index + 2, new TooltipLine(Mod, "Tooltip1", "'Rainbow effects!'"));
-    }
+    public override void ModifyTooltips(Item item, List<TooltipLine> tooltips) => tooltips.InsertTooltips(new List<TooltipLine>() {
+            new TooltipLine(Mod, "Tooltip0", Language.GetTextValue("Mods.Bangarang.Items.FruitcakeChakram.Tooltip0")),
+            new TooltipLine(Mod, "Tooltip1", Language.GetTextValue("Mods.Bangarang.Items.FruitcakeChakram.Tooltip1"))
+        }, "Material");
 }
 
 public class FruitcakeChakramGlobalProjetile : GlobalProjectile
@@ -48,40 +48,9 @@ public class FruitcakeChakramDetour : ModSystem
     private void ShakeTreeDetour(On_WorldGen.orig_ShakeTree orig, int i, int j) {
         orig(i, j);
 
-        // Gets our trees bottom tile
-        // Copied from vanilla: Terraria.Worldgen.cs:40444
-        // TODO: Check this method again and see if this is still the correct way to do this
-        int x = i;
-        int y = j;
-        Tile tile = Framing.GetTileSafely(x, y);
-        if (tile.TileType == 323) {
-            return;
-        }
-
-        int num = tile.TileFrameX / 22;
-        int num2 = tile.TileFrameY / 22;
-        if (num == 3 && num2 <= 2) {
-            x++;
-        } else if (num == 4 && num2 >= 3 && num2 <= 5) {
-            x--;
-        } else if (num == 1 && num2 >= 6 && num2 <= 8) {
-            x--;
-        } else if (num == 2 && num2 >= 6 && num2 <= 8) {
-            x++;
-        } else if (num == 2 && num2 >= 9) {
-            x++;
-        } else if (num == 3 && num2 >= 9) {
-            x--;
-        }
-
-        tile = Framing.GetTileSafely(x, y);
-        while (y < Main.maxTilesY - 50 && (!tile.HasTile || TileID.Sets.IsATreeTrunk[tile.TileType] || tile.TileType == TileID.MushroomTrees)) {
-            y++;
-            tile = Framing.GetTileSafely(x, y);
-        }
-
-        TreeTypes treeType = Terraria.WorldGen.GetTreeType(Main.tile[x, y].TileType);
-        if (Terraria.WorldGen.genRand.NextBool(15) && treeType == TreeTypes.Snow) {
+        WorldGen.GetTreeBottom(i, j, out int x, out int y);
+        TreeTypes treeType = WorldGen.GetTreeType(Main.tile[x, y].TileType);
+        if (WorldGen.genRand.NextBool(15) && treeType == TreeTypes.Snow) {
             Item.NewItem(Terraria.WorldGen.GetItemSource_FromTreeShake(i, j), new Rectangle(i * 16, j * 16, 16, 16), ItemID.FruitcakeChakram);
         }
     }

@@ -41,19 +41,4 @@ public class Bangarang : Mod
 
         return true;
     }
-
-    // TODO: Fix this
-    /*
-    public override void Load() {
-        AddToggle("Mods.Bangarang.Config.ModdedBoomerangs", "Modded boomerangs", ModContent.ItemType<CONFIG_ChromaticCrux>(), "ffffff");
-        AddToggle("Mods.Bangarang.Config.ModdedAccessories", "Modded accessories", ModContent.ItemType<CONFIG_Phylactery>(), "ffffff");
-        AddToggle("Mods.Bangarang.Config.AutoSupport", "Automatically support other modded boomerangs", ModContent.ItemType<CONFIG_Cog>(), "ffffff");
-    }
-
-    private void AddToggle(string toggle, string name, int item, string color) {
-        LocalizedText text = Language.GetOrRegister(toggle);
-        // text.SetDefault($"[i:{item}] [c/{color}:{name}]");
-        LocalizationLoader.AddTranslation(text); //tModPorter Note: Removed. Use Language.GetOrRegister
-    }
-    */
 }

@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using Bangarang.Common.Configs;
+using Bangarang.Helpers;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace Bangarang.Common.Boomerangs;
@@ -11,11 +13,7 @@ public class ShroomerangGlobalItem : GlobalItem
 {
     public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.Shroomerang && ServerConfig.Instance.VanillaChanges;
 
-    public override void ModifyTooltips(Item item, List<TooltipLine> tooltips) {
-        int index = tooltips.FindLastIndex(t => t.Mod == "Terraria");
-        // TODO: Localise
-        tooltips.Insert(index + 1, new TooltipLine(Mod, "Tooltip0", "Leaves mushrooms as it flies"));
-    }
+    public override void ModifyTooltips(Item item, List<TooltipLine> tooltips) => tooltips.InsertTooltip(new TooltipLine(Mod, "Tooltip0", Language.GetTextValue("Mods.Bangarang.Items.Shroomerang.Tooltip0")), "Material");
 }
 
 public class ShroomerangGlobalProjectile : GlobalProjectile

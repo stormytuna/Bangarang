@@ -11,10 +11,6 @@ namespace Bangarang.Content.Projectiles.Weapons;
 
 public class TheChloroplastProj : Boomerang
 {
-    public override void SetStaticDefaults() {
-        // DisplayName.SetDefault("The Chloroplast");
-    }
-
     public override bool IsLoadingEnabled(Mod mod) => ServerConfig.Instance.ModdedBoomerangs;
 
     public override void SetDefaults() {

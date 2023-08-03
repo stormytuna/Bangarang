@@ -9,10 +9,6 @@ namespace Bangarang.Content.Items.Accessories;
 
 public class SpectralAmulet : ModItem
 {
-    public override void SetStaticDefaults() {
-        // Tooltip.SetDefault("Your boomerangs are orbited by a pair of spectral glaives");
-    }
-
     public override void SetDefaults() {
         Item.width = 26;
         Item.height = 26;
@@ -36,7 +32,5 @@ public class PhylacteryGlobalNPC : GlobalNPC
 
     public override bool AppliesToEntity(NPC entity, bool lateInstantiation) => magicDungeonNPCs.Contains(entity.type);
 
-    public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot) =>
-        // TODO: Change this chance?
-        npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SpectralAmulet>(), 40));
+    public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot) => npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<SpectralAmulet>(), 25));
 }

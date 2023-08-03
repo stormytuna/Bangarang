@@ -12,7 +12,6 @@ namespace Bangarang.Content.Projectiles.Weapons;
 public class YinAndRangProj : Boomerang
 {
     public override void SetStaticDefaults() {
-        // DisplayName.SetDefault("Yin and Rang");
         Main.projFrames[Type] = 2;
         ProjectileID.Sets.TrailCacheLength[Type] = 3;
         ProjectileID.Sets.TrailingMode[Type] = 0;

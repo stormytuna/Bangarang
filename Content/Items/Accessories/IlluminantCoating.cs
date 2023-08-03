@@ -11,10 +11,6 @@ public class IlluminantCoating : ModItem
 {
     public override bool IsLoadingEnabled(Mod mod) => ServerConfig.Instance.ModdedAccessory;
 
-    public override void SetStaticDefaults() {
-        // Tooltip.SetDefault("Your boomerangs glow, return faster and have increased knockback");
-    }
-
     public override void SetDefaults() {
         Item.width = 18;
         Item.height = 28;
@@ -36,7 +32,5 @@ public class IlluminantCoatingGlobalNPC : GlobalNPC
 {
     public override bool AppliesToEntity(NPC entity, bool lateInstantiation) => (entity.type == NPCID.IlluminantBat || entity.type == NPCID.IlluminantSlime) && ServerConfig.Instance.ModdedAccessory;
 
-    public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot) =>
-        // TODO: Change this chance?
-        npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<IlluminantCoating>(), 50));
+    public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot) => npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<IlluminantCoating>(), 50));
 }

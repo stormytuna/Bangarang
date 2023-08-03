@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using Bangarang.Common.Configs;
+using Bangarang.Helpers;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace Bangarang.Common.Boomerangs;
@@ -11,12 +13,10 @@ public class BloodyMacheteGlobalItem : GlobalItem
 {
     public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.BloodyMachete && ServerConfig.Instance.VanillaChanges;
 
-    public override void ModifyTooltips(Item item, List<TooltipLine> tooltips) {
-        int index = tooltips.FindLastIndex(t => t.Mod == "Terraria");
-        // TODO: Make these localised!
-        tooltips.Insert(index + 1, new TooltipLine(Mod, "Tooltip0", "Increases in damage while airborne"));
-        tooltips.Insert(index + 2, new TooltipLine(Mod, "Tooltip1", "'Go, do a crime'"));
-    }
+    public override void ModifyTooltips(Item item, List<TooltipLine> tooltips) => tooltips.InsertTooltips(new List<TooltipLine>() {
+            new TooltipLine(Mod, "Tooltip0", Language.GetTextValue("Mods.Bangarang.Items.BloodyMachete.Tooltip0")),
+            new TooltipLine(Mod, "Tooltip1", Language.GetTextValue("Mods.Bangarang.Items.BloodyMachete.Tooltip1"))
+        }, "Material");
 }
 
 public class BloodyMacheteGlobalProjectile : GlobalProjectile
@@ -36,5 +36,5 @@ public class BloodyMacheteGlobalNPC : GlobalNPC
 {
     public override bool AppliesToEntity(NPC entity, bool lateInstantiation) => entity.type == NPCID.SkeletonMerchant && ServerConfig.Instance.VanillaChanges;
 
-    public override void ModifyShop(NPCShop shop) => shop.Add(ItemID.BloodyMachete, Condition.MoonPhasesHalf1);
+    public override void ModifyShop(NPCShop shop) => shop.Add(ItemID.BloodyMachete, Condition.MoonPhaseFirstQuarter);
 }

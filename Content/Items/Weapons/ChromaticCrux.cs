@@ -15,10 +15,6 @@ public class ChromaticCrux : ModItem
 {
     public override bool IsLoadingEnabled(Mod mod) => ServerConfig.Instance.ModdedBoomerangs;
 
-    public override void SetStaticDefaults() {
-        // Tooltip.SetDefault("Leaves a homing rainbow chakram when it hits an enemy");
-    }
-
     public override void SetDefaults() {
         Item.width = 30;
         Item.height = 33;
@@ -48,7 +44,6 @@ public class ChromaticCruxGlobalNPC : GlobalNPC
     public override bool AppliesToEntity(NPC entity, bool lateInstantiation) => entity.type == NPCID.HallowBoss && ServerConfig.Instance.ModdedBoomerangs;
 
     public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot) {
-        // TODO: LINQ exists!!!??!!???!??!?
         foreach (IItemDropRule rule in npcLoot.Get()) {
             if (rule is LeadingConditionRule leadingConditionRule && leadingConditionRule.condition is Conditions.NotExpert) {
                 foreach (IItemDropRuleChainAttempt chain in leadingConditionRule.ChainedRules) {
@@ -68,7 +63,6 @@ public class ChromaticCruxGlobalItem : GlobalItem
     public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.FairyQueenBossBag && ServerConfig.Instance.ModdedBoomerangs;
 
     public override void ModifyItemLoot(Item item, ItemLoot itemLoot) {
-        // TODO: Linq still exists!!?!!!?!!?
         foreach (IItemDropRule rule in itemLoot.Get()) {
             if (rule is OneFromOptionsNotScaledWithLuckDropRule oneFromOptions) {
                 List<int> original = oneFromOptions.dropIds.ToList();

@@ -9,10 +9,6 @@ namespace Bangarang.Content.Projectiles.Weapons;
 
 public class SawedOffShotrangProj : Boomerang
 {
-    public override void SetStaticDefaults() {
-        // DisplayName.SetDefault("Sawed-off Shotrang");
-    }
-
     public override bool IsLoadingEnabled(Mod mod) => ServerConfig.Instance.ModdedBoomerangs;
 
     public override void SetDefaults() {

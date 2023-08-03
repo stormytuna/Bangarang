@@ -7,10 +7,6 @@ namespace Bangarang.Content.Projectiles.Weapons;
 
 public class BeemerangProj : Boomerang
 {
-    public override void SetStaticDefaults() {
-        // DisplayName.SetDefault("Beemerang");
-    }
-
     public override bool IsLoadingEnabled(Mod mod) => ServerConfig.Instance.ModdedBoomerangs;
 
     public override void SetDefaults() {

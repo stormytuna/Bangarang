@@ -15,10 +15,6 @@ public class Rangaboom : ModItem
 {
     public override bool IsLoadingEnabled(Mod mod) => ServerConfig.Instance.ModdedBoomerangs;
 
-    public override void SetStaticDefaults() {
-        // Tooltip.SetDefault("Starts at its apex and flies to you");
-    }
-
     public override void SetDefaults() {
         Item.width = 42;
         Item.height = 42;
@@ -53,7 +49,6 @@ public class RangaboomGlobalNPC : GlobalNPC
     public override bool AppliesToEntity(NPC entity, bool lateInstantiation) => entity.type == NPCID.MartianSaucerCore && ServerConfig.Instance.ModdedBoomerangs;
 
     public override void ModifyNPCLoot(NPC npc, NPCLoot npcLoot) {
-        // TODO: LINQ!!!
         foreach (IItemDropRule rule in npcLoot.Get()) {
             if (rule is OneFromOptionsNotScaledWithLuckDropRule oneFromOptions) {
                 List<int> original = oneFromOptions.dropIds.ToList();

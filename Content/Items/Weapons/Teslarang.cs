@@ -12,10 +12,6 @@ public class Teslarang : ModItem
 {
     public override bool IsLoadingEnabled(Mod mod) => ServerConfig.Instance.ModdedBoomerangs;
 
-    public override void SetStaticDefaults() {
-        // Tooltip.SetDefault("Discharges bolts of electricity when it hits an enemy");
-    }
-
     public override void SetDefaults() {
         Item.width = 18;
         Item.height = 46;

@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using Bangarang.Common.Configs;
+using Bangarang.Helpers;
 using Terraria;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
 
 namespace Bangarang.Common.Boomerangs;
@@ -11,11 +13,7 @@ public class CombatWrenchGlobalItem : GlobalItem
 {
     public override bool AppliesToEntity(Item entity, bool lateInstantiation) => entity.type == ItemID.CombatWrench && ServerConfig.Instance.VanillaChanges;
 
-    public override void ModifyTooltips(Item item, List<TooltipLine> tooltips) {
-        int index = tooltips.FindLastIndex(t => t.Mod == "Terraria");
-        // TODO: Localise
-        tooltips.Insert(index + 1, new TooltipLine(Mod, "Tooltip0", "Deals more damage when returning to you"));
-    }
+    public override void ModifyTooltips(Item item, List<TooltipLine> tooltips) => tooltips.InsertTooltip(new TooltipLine(Mod, "Tooltip0", Language.GetTextValue("Mods.Bangarang.Items.CombatWrench.Tooltip0")), "Material");
 }
 
 public class CombatWrenchGlobalProjectile : GlobalProjectile

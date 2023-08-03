@@ -4,11 +4,6 @@ Items: {
 		Tooltip: ""
 	}
 
-	CONFIG_Cog: {
-		DisplayName: C O N F I G_ Cog
-		Tooltip: ""
-	}
-
 	CONFIG_Phylactery: {
 		DisplayName: C O N F I G_ Phylactery
 		Tooltip: ""
@@ -16,103 +11,134 @@ Items: {
 
 	BoomerangLicense: {
 		DisplayName: Boomerang License
-		Tooltip: ""
+		Tooltip: Throw an extra boomerang
 	}
 
 	FluorescentLicense: {
 		DisplayName: Fluorescent License
-		Tooltip: ""
+		Tooltip:
+			'''
+			Throw an extra boomerang
+			Your boomerangs glow, return faster and have increased knockback
+			'''
 	}
 
 	GlaiveLordsGift: {
 		DisplayName: Glaive Lords Gift
-		Tooltip: ""
+		Tooltip:
+			'''
+			Throw an extra Boomerang
+			Your boomerangs glow and have increased knockback
+			Your boomerangs are orbited by a pair of spectral glaives
+			'''
 	}
 
 	IlluminantCoating: {
 		DisplayName: Illuminant Coating
-		Tooltip: ""
+		Tooltip: Your boomerangs glow, return faster and have increased knockback
 	}
 
 	SpectralAmulet: {
 		DisplayName: Spectral Amulet
-		Tooltip: ""
+		Tooltip: Your boomerangs are orbited by a pair of spectral glaives
 	}
 
 	Beemerang: {
 		DisplayName: Beemerang
-		Tooltip: ""
+		Tooltip: Releases bees on impact
+	}
+
+	BloodyMachete: {
+		Tooltip0: Increases in damage while airborne
+		Tooltip1: "'Go, do a crime'"
 	}
 
 	Bonerang: {
 		DisplayName: Bonerang
-		Tooltip: ""
+		Tooltip: Breaks into bone shards on impact
 	}
 
 	ChromaticCrux: {
 		DisplayName: Chromatic Crux
-		Tooltip: ""
+		Tooltip: Leaves a homing rainbow chakram when it hits an enemy
 	}
+
+	CombatWrench.Tooltip0: Deals 20% more damage when returning to you
+	Flamarang.Tooltip0: Spews molten sparks when it hits an enemy
+
+	FruitcakeChakram: {
+		Tooltip0: Inflicts a random debuff on hit
+		Tooltip1: "'Rainbow effects!'"
+	}
+
+	IceBoomerang.Tooltip0: Sprays icey bolts and inflicts Frostburn when it hits an enemy
 
 	Rangaboom: {
 		DisplayName: Rangaboom
-		Tooltip: ""
+		Tooltip: Starts at its apex and flies to you
 	}
 
 	SawedOffShotrang: {
 		DisplayName: Sawed Off Shotrang
-		Tooltip: ""
+		Tooltip:
+			'''
+			Fires a shotgun blast at its apex
+			'Who said shotguns were ranged weapons?'
+			'''
 	}
 
 	ShadeChakram: {
 		DisplayName: Shade Chakram
-		Tooltip: ""
+		Tooltip: Exceptionally quick
 	}
+
+	Shroomerang.Tooltip0: Leaves mushrooms as it flies
 
 	Synapse: {
 		DisplayName: Synapse
-		Tooltip: ""
+		Tooltip: Chases down nearby enemies
 	}
 
 	Teslarang: {
 		DisplayName: Teslarang
-		Tooltip: ""
+		Tooltip: Discharges bolts of electricity when it hits an enemy
 	}
 
 	TheChloroplast: {
 		DisplayName: The Chloroplast
-		Tooltip: ""
+		Tooltip: Bursts into stingers at its apex
 	}
 
 	WhiteDwarf: {
 		DisplayName: White Dwarf
-		Tooltip: ""
+		Tooltip: Incinerates enemies with stellar energy
 	}
 
 	YinAndRang: {
 		DisplayName: Yin And Rang
-		Tooltip: ""
+		Tooltip: Releases two homing shards at its apex
 	}
 }
 
 Projectiles: {
-	IceBoomerangShard.DisplayName: Ice Boomerang Shard
-	SpectralGlaiveProj.DisplayName: Spectral Glaive Proj
-	BeemerangProj.DisplayName: Beemerang Proj
-	BonerangProj.DisplayName: Bonerang Proj
-	BoneShardProj.DisplayName: Bone Shard Proj
-	ChromaticCruxProj.DisplayName: Chromatic Crux Proj
-	ChromaticCruxRainbowProj.DisplayName: Chromatic Crux Rainbow Proj
-	RangaboomPortalProj.DisplayName: Rangaboom Portal Proj
-	RangaboomProj.DisplayName: Rangaboom Proj
-	SawedOffShotrangProj.DisplayName: Sawed Off Shotrang Proj
-	ShadeChakramProj.DisplayName: Shade Chakram Proj
-	SynapseProj.DisplayName: Synapse Proj
-	TeslarangProj.DisplayName: Teslarang Proj
-	TheChloroplastProj.DisplayName: The Chloroplast Proj
-	WhiteDwarfProj.DisplayName: White Dwarf Proj
-	YinAndRangProj.DisplayName: Yin And Rang Proj
-	YinAndRangShardProj.DisplayName: Yin And Rang Shard Proj
+	IceBoomerangShard.DisplayName: Ice Shard
+	SpectralGlaiveProj.DisplayName: Spectral Glaive
+	BeemerangProj.DisplayName: Beemerang
+	BonerangProj.DisplayName: Bonerang
+	BoneShardProj.DisplayName: Bone Shard
+	ChromaticCruxProj.DisplayName: Chromatic Crux
+	ChromaticCruxRainbowProj.DisplayName: Chromatic Crux Rainbow
+	RangaboomPortalProj.DisplayName: Rangaboom Portal
+	RangaboomProj.DisplayName: Rangaboom
+	SawedOffShotrangProj.DisplayName: Sawed Off Shotrang
+	ShadeChakramProj.DisplayName: Shade Chakram
+	SynapseProj.DisplayName: Synapse
+	TeslarangProj.DisplayName: Teslarang
+	TheChloroplastProj.DisplayName: The Chloroplast
+	WhiteDwarfProj.DisplayName: White Dwarf
+	YinAndRangProj.DisplayName: Yin And Rang
+	YinAndRangShardProj.DisplayName: Yin And Rang Shard
+	FlamarangSpark.DisplayName: Flamarang Spark
 }
 
 Configs: {
@@ -125,12 +151,12 @@ Configs: {
 		}
 
 		ModdedBoomerangs: {
-			Label: "{$Mods.Bangarang.Config.ModdedBoomerangs}"
+			Label: "[i:Bangarang/CONFIG_ChromaticCrux] Modded boomerangs"
 			Tooltip: ""
 		}
 
 		ModdedAccessory: {
-			Label: "{$Mods.Bangarang.Config.ModdedAccessories}"
+			Label: "[i:Bangarang/CONFIG_Phylactery] Modded accessories"
 			Tooltip: ""
 		}
 	}

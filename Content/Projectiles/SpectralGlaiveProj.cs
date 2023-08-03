@@ -10,7 +10,6 @@ namespace Bangarang.Content.Projectiles;
 public class SpectralGlaiveProj : ModProjectile
 {
     public override void SetStaticDefaults() {
-        // DisplayName.SetDefault("Spectral Glaive");
         ProjectileID.Sets.TrailCacheLength[Type] = 7;
         ProjectileID.Sets.TrailingMode[Type] = 0;
     }
