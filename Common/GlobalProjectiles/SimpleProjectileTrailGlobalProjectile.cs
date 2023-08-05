@@ -14,6 +14,8 @@ public class SimpleTrailGlobalProjectile : GlobalProjectile
 
     public override bool PreDraw(Projectile projectile, ref Color lightColor) {
         if (ProjectileTrailSettings.TryGetValue(projectile.type, out SimpleTrailSettings settings)) {
+            Main.instance.LoadProjectile(projectile.type);
+
             MiscShaderData miscShaderData = GameShaders.Misc["LightDisc"];
             miscShaderData.UseSaturation(settings.Saturation);
             miscShaderData.UseOpacity(settings.Opacity);
