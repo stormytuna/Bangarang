@@ -27,6 +27,8 @@ public class BeemerangProj : Boomerang
         DoTurn = true;
     }
 
+    public override string Texture => "Bangarang/Content/Items/Weapons/Beemerang";
+
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) {
         int numBees = 1;
         if (Main.rand.NextBool(3)) {

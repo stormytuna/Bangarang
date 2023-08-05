@@ -29,6 +29,8 @@ public class BonerangProj : Boomerang
         DoTurn = true;
     }
 
+    public override string Texture => "Bangarang/Content/Items/Weapons/Bonerang";
+
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) {
         int numShards = Main.rand.Next(1, 4);
         for (int i = 0; i < numShards; i++) {
@@ -36,14 +38,6 @@ public class BonerangProj : Boomerang
             velocity = velocity.RotatedByRandom(MathHelper.ToRadians(30f));
             Projectile shard = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), Projectile.Center, velocity, ModContent.ProjectileType<BoneShardProj>(), Projectile.damage / 2, Projectile.knockBack / 3f, Projectile.owner, target.whoAmI);
             shard.frame = Main.rand.Next(0, 4);
-        }
-
-        // Dust
-        int numDust = Main.rand.Next(4, 7);
-        for (int i = 0; i < numDust; i++) {
-            Vector2 velocity = Projectile.velocity;
-            velocity *= 0.3f;
-            Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Bone, velocity.X, velocity.Y, 0, default, Main.rand.NextFloat(0.8f, 1.2f));
         }
 
         Projectile.Kill();
@@ -54,6 +48,16 @@ public class BonerangProj : Boomerang
         SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
 
         return true;
+    }
+
+    public override void Kill(int timeLeft) {
+        // Dust
+        int numDust = Main.rand.Next(8, 12);
+        for (int i = 0; i < numDust; i++) {
+            Vector2 velocity = Projectile.velocity;
+            velocity *= 0.2f;
+            Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Bone, velocity.X, velocity.Y, 0, default, Main.rand.NextFloat(0.8f, 1.2f));
+        }
     }
 }
 
@@ -92,8 +96,8 @@ public class BoneShardProj : ModProjectile
         int numDust = Main.rand.Next(2, 6);
         for (int i = 0; i < numDust; i++) {
             Vector2 velocity = Projectile.velocity;
-            velocity *= 0.3f;
-            Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Bone, velocity.X, velocity.Y, 0, default, Main.rand.NextFloat(0.6f, 1f));
+            velocity *= 0.2f;
+            Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Bone, velocity.X, velocity.Y, 0, default, Main.rand.NextFloat(0.6f, 0.8f));
         }
     }
 }

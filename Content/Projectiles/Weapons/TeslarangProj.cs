@@ -31,6 +31,8 @@ public class TeslarangProj : Boomerang
         DoTurn = true;
     }
 
+    public override string Texture => "Bangarang/Content/Items/Weapons/Teslarang";
+
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) {
         if (Projectile.ai[0] == 0f) {
             LightningStrike(target.whoAmI, target.Center, damageDone);

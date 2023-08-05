@@ -31,6 +31,8 @@ public class SynapseProj : Boomerang
         DoTurn = true;
     }
 
+    public override string Texture => "Bangarang/Content/Items/Weapons/Synapse";
+
     private int currentTarget = -1;
 
     public override void AI() {

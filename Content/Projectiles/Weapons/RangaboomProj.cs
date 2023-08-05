@@ -33,6 +33,8 @@ public class RangaboomProj : Boomerang
         DoTurn = true;
     }
 
+    public override string Texture => "Bangarang/Content/Items/Weapons/Rangaboom";
+
     private ref float AI_Mode => ref Projectile.ai[0];
     private ref float AI_SpawnPortal => ref Projectile.ai[1];
 

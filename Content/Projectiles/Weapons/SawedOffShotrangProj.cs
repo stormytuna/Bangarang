@@ -13,7 +13,7 @@ public class SawedOffShotrangProj : Boomerang
 
     public override void SetDefaults() {
         Projectile.width = 38;
-        Projectile.height = 14;
+        Projectile.height = 16;
         Projectile.aiStyle = -1;
 
         Projectile.DamageType = DamageClass.MeleeNoSpeed;
@@ -29,6 +29,8 @@ public class SawedOffShotrangProj : Boomerang
         Rotation = 0.35f;
         DoTurn = true;
     }
+
+    public override string Texture => "Bangarang/Content/Items/Weapons/SawedOffShotrang";
 
     public override void OnReachedApex() => DoShotgunBlast();
 

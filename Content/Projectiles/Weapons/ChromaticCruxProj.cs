@@ -37,6 +37,8 @@ public class ChromaticCruxProj : Boomerang
         DoTurn = true;
     }
 
+    public override string Texture => "Bangarang/Content/Items/Weapons/ChromaticCrux";
+
     private int child = -1;
 
     public override void AI() {
@@ -108,7 +110,7 @@ public class ChromaticCruxProj : Boomerang
     private Asset<Texture2D> _texture;
     private Asset<Texture2D> _glowMask;
 
-    private new Asset<Texture2D> Texture {
+    private new Asset<Texture2D> BaseTexture {
         get {
             _texture ??= ModContent.Request<Texture2D>("Bangarang/Content/Projectiles/Weapons/ChromaticCruxProj");
 
@@ -132,12 +134,12 @@ public class ChromaticCruxProj : Boomerang
             effects = SpriteEffects.FlipHorizontally;
         }
 
-        Rectangle sourceRect = new(0, 0, Texture.Width(), Texture.Height());
-        Vector2 origin = Texture.Size() / 2f;
+        Rectangle sourceRect = new(0, 0, BaseTexture.Width(), BaseTexture.Height());
+        Vector2 origin = BaseTexture.Size() / 2f;
         Color drawColor = Projectile.GetAlpha(lightColor);
 
         // Draw our boomerang
-        Main.EntitySpriteDraw(Texture.Value, drawPos, sourceRect, drawColor, Projectile.rotation, origin, Projectile.scale, effects, 0);
+        Main.EntitySpriteDraw(BaseTexture.Value, drawPos, sourceRect, drawColor, Projectile.rotation, origin, Projectile.scale, effects, 0);
 
         // Draw our glowmask
         drawColor = Color.White;

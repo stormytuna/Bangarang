@@ -21,6 +21,8 @@ public class ShadeChakramProj : Boomerang
         };
     }
 
+    public override string Texture => "Bangarang/Content/Items/Weapons/ShadeChakram";
+
     public override void SetDefaults() {
         Projectile.width = 30;
         Projectile.height = 30;

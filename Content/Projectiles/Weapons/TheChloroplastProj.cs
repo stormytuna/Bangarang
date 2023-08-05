@@ -29,6 +29,8 @@ public class TheChloroplastProj : Boomerang
         DoTurn = true;
     }
 
+    public override string Texture => "Bangarang/Content/Items/Weapons/TheChloroplast";
+
     public override void AI() {
         // Using ai[0] as our "stay in place" mode
         Projectile.velocity /= 1.05f;
