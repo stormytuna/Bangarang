@@ -105,8 +105,8 @@ public abstract class Boomerang : ModProjectile
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) => TurnAround();
 
     public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac) {
-        width = 20;
-        height = 20;
+        width = Projectile.width > 20 ? 20 : Projectile.width;
+        height = Projectile.height > 20 ? 20 : Projectile.height;
 
         return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
     }
