@@ -1,8 +1,7 @@
 using Bangarang.Common.Configs;
+using Bangarang.Common.GlobalProjectiles;
 using Bangarang.Helpers;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -12,16 +11,26 @@ namespace Bangarang.Content.Projectiles.Weapons;
 public class YinAndRangProj : Boomerang
 {
     public override void SetStaticDefaults() {
-        Main.projFrames[Type] = 2;
-        ProjectileID.Sets.TrailCacheLength[Type] = 3;
-        ProjectileID.Sets.TrailingMode[Type] = 0;
+        ProjectileID.Sets.TrailCacheLength[Type] = 7;
+        ProjectileID.Sets.TrailingMode[Type] = 5;
+        SimpleTrailGlobalProjectile.ProjectileTrailSettings[Type] = new SimpleTrailSettings {
+            StripColorFunction = GetStripColor,
+            StripHalfWidthFunction = _ => 16f
+        };
+    }
+
+    private Color GetStripColor(float progress) {
+        float inverse = 1f - progress;
+        Color color = Color.White * (inverse * inverse * inverse * inverse) * 0.3f;
+        color.A = 0;
+        return color;
     }
 
     public override bool IsLoadingEnabled(Mod mod) => ServerConfig.Instance.ModdedBoomerangs;
 
     public override void SetDefaults() {
-        Projectile.width = 40;
-        Projectile.height = 40;
+        Projectile.width = 28;
+        Projectile.height = 28;
         Projectile.aiStyle = -1;
 
         Projectile.DamageType = DamageClass.MeleeNoSpeed;
@@ -37,19 +46,29 @@ public class YinAndRangProj : Boomerang
         DoTurn = true;
     }
 
+    public override string Texture => "Bangarang/Content/Items/Weapons/YinAndRang";
+
+    private bool HasSplit {
+        get => Projectile.ai[2] == 1f;
+        set => Projectile.ai[2] = value ? 1f : 0f;
+    }
+
     public override void OnReachedApex() => Split();
 
     public override bool OnTileCollide(Vector2 oldVelocity) {
         Split();
-
         return base.OnTileCollide(oldVelocity);
     }
 
-    public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) => Split();
+    public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) {
+        Split();
+        base.OnHitNPC(target, hit, damageDone);
+    }
 
     private void Split() {
-        // Change to our next frame
-        Projectile.frame++;
+        if (HasSplit || Main.myPlayer != Projectile.owner) {
+            return;
+        }
 
         // Spawn our projectiles
         Vector2 velocity = Projectile.rotation.ToRotationVector2();
@@ -57,56 +76,36 @@ public class YinAndRangProj : Boomerang
         velocity *= 5f;
         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, velocity, ModContent.ProjectileType<YinAndRangShardProj>(), Projectile.damage / 2, Projectile.knockBack / 2f, Projectile.owner, 0f, -1f);
         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, -velocity, ModContent.ProjectileType<YinAndRangShardProj>(), Projectile.damage / 2, Projectile.knockBack / 2f, Projectile.owner, 1f, -1f);
-    }
 
-    private Asset<Texture2D> _yinAndRang;
-
-    private Asset<Texture2D> YinAndRangTexture {
-        get {
-            _yinAndRang ??= ModContent.Request<Texture2D>("Bangarang/Content/Projectiles/Weapons/YinAndRangProj");
-
-            return _yinAndRang;
-        }
-    }
-
-    public override bool PreDraw(ref Color lightColor) {
-        for (int i = 0; i < Projectile.oldPos.Length; i++) {
-            int frameHeight = YinAndRangTexture.Value.Height / Main.projFrames[Type];
-            int startY = frameHeight * Projectile.frame;
-            Rectangle sourceRect = new(0, startY, YinAndRangTexture.Value.Width, frameHeight);
-
-            Main.EntitySpriteDraw(
-                YinAndRangTexture.Value,
-                Projectile.oldPos[i] - Main.screenPosition + new Vector2(15f, 15f),
-                sourceRect,
-                Color.White * (i / (float)Projectile.oldPos.Length) * 0.3f,
-                Projectile.rotation,
-                sourceRect.Size() / 2f,
-                Projectile.scale,
-                SpriteEffects.None,
-                0
-            );
-        }
-
-        return true;
+        HasSplit = true;
     }
 }
 
 public class YinAndRangShardProj : ModProjectile
 {
     public override void SetStaticDefaults() {
-        // DisplayName.SetDefault("Yin and Rang Shard");
         Main.projFrames[Type] = 2;
-        ProjectileID.Sets.TrailCacheLength[Type] = 3;
-        ProjectileID.Sets.TrailingMode[Type] = 0;
+        ProjectileID.Sets.TrailCacheLength[Type] = 30;
+        ProjectileID.Sets.TrailingMode[Type] = 5;
+        SimpleTrailGlobalProjectile.ProjectileTrailSettings[Type] = new SimpleTrailSettings {
+            StripColorFunction = GetStripColor,
+            StripHalfWidthFunction = _ => 4f
+        };
+    }
+
+    private Color GetStripColor(float progress) {
+        float inverse = 1f - progress;
+        Color color = Color.White * (inverse * inverse * inverse * inverse) * 0.3f;
+        //color.A = 0;
+        return color;
     }
 
     public override void SetDefaults() {
-        Projectile.width = 38;
-        Projectile.height = 14;
+        Projectile.width = 14;
+        Projectile.height = 16;
         Projectile.aiStyle = -1;
         Projectile.extraUpdates = 2;
-        Projectile.timeLeft = 60;
+        Projectile.timeLeft = 180;
 
         Projectile.DamageType = DamageClass.Melee;
         Projectile.friendly = true;
@@ -117,11 +116,12 @@ public class YinAndRangShardProj : ModProjectile
     }
 
     private ref float AI_State => ref Projectile.ai[0];
+
     private ref float AI_Target => ref Projectile.ai[1];
 
     private Dust MakeDust() {
         Color color = AI_State == 0f ? Color.Black : Color.White;
-        return Dust.NewDustPerfect(Projectile.Center, DustID.Snow, Vector2.Zero, 40, color, Main.rand.NextFloat(0.4f, 0.8f));
+        return Dust.NewDustPerfect(Projectile.Center, DustID.Snow, Main.rand.NextVector2Square(0f, 1f), 40, color, Main.rand.NextFloat(0.4f, 0.8f));
     }
 
     public override void AI() {
@@ -143,7 +143,7 @@ public class YinAndRangShardProj : ModProjectile
         }
 
         // Point where its travelling
-        Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver4;
+        Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
 
         // Homing
         // Two states, either found target or not found target
@@ -157,10 +157,7 @@ public class YinAndRangShardProj : ModProjectile
                 return;
             }
 
-            float rotationMax = MathHelper.ToRadians(8f);
-            float rotTarget = (target.Center - Projectile.Center).ToRotation();
-            float rotCurrent = Projectile.velocity.ToRotation();
-            Projectile.velocity = Projectile.velocity.RotatedBy(MathHelper.WrapAngle(MathHelper.WrapAngle(rotCurrent.AngleTowards(rotTarget, rotationMax)) - Projectile.velocity.ToRotation()));
+            GeneralHelpers.SmoothHoming(Projectile, target.Center, 0.2f, 5f, bufferZone: false);
 
             return;
         }
@@ -171,7 +168,7 @@ public class YinAndRangShardProj : ModProjectile
         // Check for target
         if (NPCHelpers.TryGetClosestEnemy(Projectile.Center, 20f * 16f, out NPC closestEnemy)) {
             AI_Target = closestEnemy.whoAmI;
-            Projectile.timeLeft += 10 * 60;
+            Projectile.timeLeft += 20 * 60;
             Projectile.netUpdate = true;
         }
     }
@@ -181,44 +178,12 @@ public class YinAndRangShardProj : ModProjectile
         for (int i = 0; i < 13; i++) {
             Dust dust = MakeDust();
             if (!Main.rand.NextBool(3)) {
-                dust.velocity *= 2f;
+                dust.velocity *= 5f;
                 dust.noGravity = true;
                 dust.scale *= 1.75f;
             } else {
                 dust.scale *= 0.5f;
             }
         }
-    }
-
-    private Asset<Texture2D> _yinAndRangShard;
-
-    private Asset<Texture2D> YinAndRangShardTexture {
-        get {
-            _yinAndRangShard ??= ModContent.Request<Texture2D>("Bangarang/Content/Projectiles/Weapons/YinAndRangShardProj");
-
-            return _yinAndRangShard;
-        }
-    }
-
-    public override bool PreDraw(ref Color lightColor) {
-        for (int i = 0; i < Projectile.oldPos.Length; i++) {
-            int frameHeight = YinAndRangShardTexture.Value.Height / Main.projFrames[Type];
-            int startY = frameHeight * Projectile.frame;
-            Rectangle sourceRect = new(0, startY, YinAndRangShardTexture.Value.Width, frameHeight);
-
-            Main.EntitySpriteDraw(
-                YinAndRangShardTexture.Value,
-                Projectile.oldPos[i] - Main.screenPosition + new Vector2(15f, 15f),
-                sourceRect,
-                Color.White * (i / (float)Projectile.oldPos.Length) * 0.3f,
-                Projectile.rotation,
-                sourceRect.Size() / 2f,
-                Projectile.scale,
-                SpriteEffects.None,
-                0
-            );
-        }
-
-        return true;
     }
 }
