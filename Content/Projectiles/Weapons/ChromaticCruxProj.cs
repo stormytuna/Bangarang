@@ -1,5 +1,5 @@
-using System;
 using System.IO;
+using System.Linq;
 using Bangarang.Common.Configs;
 using Bangarang.Helpers;
 using Microsoft.Xna.Framework;
@@ -8,6 +8,7 @@ using ReLogic.Content;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.GameContent;
 using Terraria.GameContent.Drawing;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -62,7 +63,7 @@ public class ChromaticCruxProj : Boomerang
         base.AI();
     }
 
-    public override void OnSpawn(IEntitySource source) => child = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<ChromaticCruxRainbowProj>(), Projectile.damage / 5, Projectile.knockBack / 5f, Projectile.owner, 0f, Projectile.whoAmI);
+    public override void OnSpawn(IEntitySource source) => child = Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, Vector2.Zero, ModContent.ProjectileType<ChromaticCruxRainbowProj>(), Projectile.damage / 5, Projectile.knockBack / 5f, Projectile.owner, 0f, Projectile.identity);
 
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) {
         // Visuals - just copies the rainbow rod because I am uninspired :)
@@ -107,26 +108,13 @@ public class ChromaticCruxProj : Boomerang
 
     public override void ReceiveExtraAI(BinaryReader reader) => child = reader.ReadInt32();
 
-    private Asset<Texture2D> _texture;
     private Asset<Texture2D> _glowMask;
-
-    private new Asset<Texture2D> BaseTexture {
-        get {
-            _texture ??= ModContent.Request<Texture2D>("Bangarang/Content/Projectiles/Weapons/ChromaticCruxProj");
-
-            return _texture;
-        }
-    }
-
-    private Asset<Texture2D> GlowMask {
-        get {
-            _glowMask ??= ModContent.Request<Texture2D>("Bangarang/Content/Projectiles/Weapons/ChromaticCruxProj_GlowMask");
-
-            return _glowMask;
-        }
-    }
+    private Asset<Texture2D> GlowMask => _glowMask ??= ModContent.Request<Texture2D>("Bangarang/Content/Projectiles/Weapons/ChromaticCruxProj_GlowMask");
 
     public override bool PreDraw(ref Color lightColor) {
+        Main.instance.LoadProjectile(Type);
+        Asset<Texture2D> texture = TextureAssets.Projectile[Type];
+
         // Set some values we use
         Vector2 drawPos = Projectile.Center - Main.screenPosition;
         SpriteEffects effects = SpriteEffects.None;
@@ -134,12 +122,12 @@ public class ChromaticCruxProj : Boomerang
             effects = SpriteEffects.FlipHorizontally;
         }
 
-        Rectangle sourceRect = new(0, 0, BaseTexture.Width(), BaseTexture.Height());
-        Vector2 origin = BaseTexture.Size() / 2f;
+        Rectangle sourceRect = new(0, 0, texture.Width(), texture.Height());
+        Vector2 origin = texture.Size() / 2f;
         Color drawColor = Projectile.GetAlpha(lightColor);
 
         // Draw our boomerang
-        Main.EntitySpriteDraw(BaseTexture.Value, drawPos, sourceRect, drawColor, Projectile.rotation, origin, Projectile.scale, effects, 0);
+        Main.EntitySpriteDraw(texture.Value, drawPos, sourceRect, drawColor, Projectile.rotation, origin, Projectile.scale, effects, 0);
 
         // Draw our glowmask
         drawColor = Color.White;
@@ -152,7 +140,6 @@ public class ChromaticCruxProj : Boomerang
 public class ChromaticCruxRainbowProj : ModProjectile
 {
     public override void SetStaticDefaults() =>
-        // DisplayName.SetDefault("Chromatic Rainbow");
         ProjectileID.Sets.CultistIsResistantTo[Type] = true;
 
     public override void SetDefaults() {
@@ -171,7 +158,8 @@ public class ChromaticCruxRainbowProj : ModProjectile
         Projectile.ignoreWater = true;
     }
 
-    private Projectile Parent => Main.projectile[(int)Projectile.ai[1]];
+    private Projectile _parent;
+    private Projectile Parent => _parent ??= Main.projectile.FirstOrDefault(proj => proj.identity == (int)Projectile.ai[1], Main.projectile.Last());
     private NPC EnemyToFollow => Main.npc[(int)Projectile.ai[1]];
     private ref float AI_Mode => ref Projectile.ai[0];
 
@@ -211,48 +199,7 @@ public class ChromaticCruxRainbowProj : ModProjectile
                 }
             }
 
-            // Homing - copy pasted from Boomerang.cs B)
-            // Get our x and y velocity values
-            float xDif = EnemyToFollow.Center.X - Projectile.Center.X;
-            float yDif = EnemyToFollow.Center.Y - Projectile.Center.Y;
-            float dist = MathF.Sqrt((xDif * xDif) + (yDif * yDif));
-
-            // If we're super close to the npc there's no point changing our velocity so just divide it to slow down and return
-            if (dist <= 32f) {
-                Projectile.velocity /= 1.1f;
-                return;
-            }
-
-            // Get values for our max velocity
-            float mult = 9f / dist;
-            float xVel = xDif * mult;
-            float yVel = yDif * mult;
-
-            // Increase or decrease our X velocity accordingly 
-            if (Projectile.velocity.X < xVel) {
-                Projectile.velocity.X += 0.9f;
-                if (Projectile.velocity.X < 0f && xVel > 0f) {
-                    Projectile.velocity.X += 0.9f;
-                }
-            } else if (Projectile.velocity.X > xVel) {
-                Projectile.velocity.X -= 0.9f;
-                if (Projectile.velocity.X > 0f && xVel < 0f) {
-                    Projectile.velocity.X -= 0.9f;
-                }
-            }
-
-            // Same for our Y velocity
-            if (Projectile.velocity.Y < yVel) {
-                Projectile.velocity.Y += 0.9f;
-                if (Projectile.velocity.Y < 0f && yVel > 0f) {
-                    Projectile.velocity.Y += 0.9f;
-                }
-            } else if (Projectile.velocity.Y > yVel) {
-                Projectile.velocity.Y -= 0.9f;
-                if (Projectile.velocity.Y > 0f && yVel < 0f) {
-                    Projectile.velocity.Y -= 0.9f;
-                }
-            }
+            GeneralHelpers.SmoothHoming(Projectile, EnemyToFollow.Center, 0.5f, 11f);
         }
     }
 
