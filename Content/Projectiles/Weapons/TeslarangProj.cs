@@ -37,13 +37,15 @@ public class TeslarangProj : Boomerang
         if (Projectile.ai[0] == 0f) {
             LightningStrike(target.whoAmI, target.Center, damageDone);
         }
+
+        base.OnHitNPC(target, hit, damageDone);
     }
 
     public override bool OnTileCollide(Vector2 oldVelocity) {
         Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
         SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
 
-        if (Projectile.ai[0] == 0f) {
+        if (Projectile.ai[0] == 0f && Projectile.whoAmI == Main.myPlayer) {
             LightningStrike(-1, Projectile.Center, (int)Owner.GetTotalDamage(Projectile.DamageType).ApplyTo(Projectile.damage));
         }
 
