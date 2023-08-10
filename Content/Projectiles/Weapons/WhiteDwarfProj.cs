@@ -1,11 +1,9 @@
-using System;
-using System.Collections.Generic;
+using System.IO;
 using Bangarang.Common.Configs;
-using Bangarang.Helpers;
+using Bangarang.Common.GlobalProjectiles;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -15,11 +13,31 @@ public class WhiteDwarfProj : Boomerang
 {
     public override bool IsLoadingEnabled(Mod mod) => ServerConfig.Instance.ModdedBoomerangs;
 
+    public override void SetStaticDefaults() {
+        ProjectileID.Sets.TrailCacheLength[Type] = 10;
+        ProjectileID.Sets.TrailingMode[Type] = 5;
+        SimpleTrailGlobalProjectile.ProjectileTrailSettings[Type] = new SimpleTrailSettings {
+            StripColorFunction = GetStripColor,
+            StripHalfWidthFunction = GetStripHalfWidth
+        };
+    }
+
+    private Color GetStripColor(float progress) {
+        float inverse = 1f - progress;
+        Color color = Color.OrangeRed * (inverse * inverse * inverse * inverse) * 0.3f;
+        color.A = 0;
+        return color;
+    }
+
+    private float GetStripHalfWidth(float progress) {
+        float inverse = 1f - progress;
+        return inverse * 10f;
+    }
+
     public override void SetDefaults() {
         Projectile.width = 50;
         Projectile.height = 50;
         Projectile.aiStyle = -1;
-        Projectile.extraUpdates = 1;
 
         Projectile.DamageType = DamageClass.MeleeNoSpeed;
         Projectile.friendly = true;
@@ -30,44 +48,50 @@ public class WhiteDwarfProj : Boomerang
         ReturnSpeed = 21f;
         HomingOnOwnerStrength = 1.2f;
         TravelOutFrames = 25;
-        Rotation = 0f;
+        Rotation = 0.4f;
         DoTurn = true;
     }
 
-    public override void AI() {
-        // If an enemy is nearby, apply daybroken
-        List<NPC> nearbyNPCs = NPCHelpers.GetNearbyEnemies(Projectile.Center, 3f * 16f);
-        foreach (NPC npc in nearbyNPCs) {
-            npc.AddBuff(BuffID.Daybreak, 60);
-        }
+    public override string Texture => "Bangarang/Content/Items/Weapons/WhiteDwarf";
 
+    public override void AI() {
         // Dust trail
         for (int i = 0; i < 2; i++) {
             Dust d = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.SolarFlare, Scale: Main.rand.NextFloat(0.8f, 1.2f));
             d.noGravity = true;
         }
 
-        // Point where we're travelling
-        Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
-
         base.AI();
     }
 
     public override bool OnTileCollide(Vector2 oldVelocity) {
-        Explode(Projectile.Center);
+        Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
+        SoundEngine.PlaySound(SoundID.Dig, Projectile.Center);
 
-        return base.OnTileCollide(oldVelocity);
+        if (Projectile.velocity.X != oldVelocity.X) {
+            Projectile.velocity.X = 0f - oldVelocity.X;
+        }
+
+        if (Projectile.velocity.Y != oldVelocity.Y) {
+            Projectile.velocity.Y = 0f - oldVelocity.Y;
+        }
+
+        return false;
     }
 
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) {
         if (Projectile.ai[0] == 0f) {
             Explode(target.Center);
         }
+
+        target.AddBuff(BuffID.Daybreak, 5 * 60);
     }
 
     private void Explode(Vector2 position) {
         // Explosion
-        Projectile.NewProjectile(Projectile.GetSource_FromAI(), position.X, position.Y, 0f, 0f, ProjectileID.SolarWhipSwordExplosion, Projectile.damage, 10f, Projectile.owner, 0f, 0.85f + (Main.rand.NextFloat() * 1.15f));
+        if (Projectile.owner == Main.myPlayer) {
+            Projectile proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), position, Vector2.Zero, ProjectileID.SolarWhipSwordExplosion, Projectile.damage, 10f, Projectile.owner, 0f, 0.85f + (Main.rand.NextFloat() * 1.15f));
+        }
 
         // Dust
         int numDust = Main.rand.Next(4, 7);
@@ -85,61 +109,7 @@ public class WhiteDwarfProj : Boomerang
         }
     }
 
-    private Asset<Texture2D> _texture;
-    private Asset<Texture2D> _effect;
+    public override void SendExtraAI(BinaryWriter writer) => writer.Write(Projectile.localAI[0]);
 
-    private new Asset<Texture2D> Texture {
-        get {
-            _texture ??= ModContent.Request<Texture2D>("Bangarang/Content/Projectiles/Weapons/WhiteDwarfProj");
-
-            return _texture;
-        }
-    }
-
-    private Asset<Texture2D> Effect {
-        get {
-            _effect ??= ModContent.Request<Texture2D>("Bangarang/Content/Projectiles/Weapons/WhiteDwarfEffect");
-
-            return _effect;
-        }
-    }
-
-    public override bool PreDraw(ref Color lightColor) {
-        // TODO: Don't do this, change this to draw a premultiplied sprite instead
-        Main.spriteBatch.End();
-        Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, Main.Camera.Sampler, DepthStencilState.None, Main.Camera.Rasterizer, null, Main.Camera.GameViewMatrix.TransformationMatrix);
-
-        Main.spriteBatch.Draw(
-            Effect.Value,
-            Projectile.Center - Main.screenPosition + (Projectile.velocity * -0.8f),
-            new Rectangle(0, 0, Effect.Width(), Effect.Height()),
-            GetColor(),
-            Projectile.rotation,
-            new Rectangle(0, 0, Effect.Width(), Effect.Height()).Size() / 2f,
-            Projectile.scale,
-            SpriteEffects.None,
-            0);
-
-        Main.spriteBatch.End();
-        Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, Main.Camera.Sampler, DepthStencilState.None, Main.Camera.Rasterizer, null, Main.Camera.GameViewMatrix.TransformationMatrix);
-
-        Main.spriteBatch.Draw(
-            Texture.Value,
-            Projectile.Center - Main.screenPosition,
-            new Rectangle(0, 0, Texture.Width(), Texture.Height()),
-            Color.White,
-            Projectile.rotation,
-            new Rectangle(0, 0, Texture.Width(), Texture.Height()).Size() / 2f,
-            Projectile.scale,
-            SpriteEffects.None,
-            0);
-
-        return false;
-    }
-
-    private Color GetColor() {
-        float sineTime = MathF.Sin(Main.LocalPlayer.miscCounterNormalized);
-        Color color = Color.Lerp(Color.Orange, Color.OrangeRed, sineTime);
-        return color;
-    }
+    public override void ReceiveExtraAI(BinaryReader reader) => Projectile.localAI[0] = reader.ReadSingle();
 }

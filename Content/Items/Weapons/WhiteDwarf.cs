@@ -12,8 +12,8 @@ public class WhiteDwarf : ModItem
     public override bool IsLoadingEnabled(Mod mod) => ServerConfig.Instance.ModdedBoomerangs;
 
     public override void SetDefaults() {
-        Item.width = 14;
-        Item.height = 14;
+        Item.width = 52;
+        Item.height = 52;
         Item.rare = ItemRarityID.Red;
         Item.value = Item.sellPrice(gold: 10);
 
