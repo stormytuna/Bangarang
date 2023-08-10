@@ -51,9 +51,8 @@ Changelog
 [list]
 [*][i]v2.0.0[/i]
 [list]
-[*]Boomerang License is no longer integrated into the Travelling Merchant's stock and will instead just show up 10% of the time
-[*]Fixed [b]many[/b] issues with config options not working properly
 [*]Updated to 1.4.4!
+[*]Fixed [b]many[/b] issues with config options not working properly
 [*]Changed the drop chance of Spectral Amulet to 4% from any magic Post-Plantera Dungeon skeleton
 [*]Changed how Boomerang License is inserted into the Travelling Merchant's shop - No longer takes the place of a 'very rare' item and now has a 10% chance of showing up
 [*]Updated some sprites and visuals
