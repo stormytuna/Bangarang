@@ -2,15 +2,13 @@ Bangarang is a mod that overhauls the Boomerang subclass of melee weapons, makin
 
 Vanilla changes are pretty small in this mod, giving some boomerangs minor effects, giving a couple boomerangs crafting recipes and allowing stacking boomerangs to receive modifiers
 
-New boomerangs are available throughout your entire progression. From the Shade Chakram, an early pre-hardmode boomerang that slightly homes on enemies, to the White Dwarf, an endgame boomerang that incinerates all it touches. This mod also adds a handful of accessories that support Boomerangs, increasing how many you can throw, how fast they return and more
+New boomerangs are available throughout your entire progression. From the Synapse, an early pre-hardmode boomerang that slightly homes on enemies, to the White Dwarf, an endgame boomerang that incinerates all it touches. This mod also adds a handful of accessories that support Boomerangs, increasing how many you can throw, how fast they return and more
 
 [hr][/hr]
 
 [h2][b]Vanilla changes[/b][/h2]
 [list]
 [*]All boomerangs have auto-reuse
-[*]Bananarang and Light Disc now only stack to one. Light Disc has a more expensive recipe to compensate
-[*]Bananarang has an increased drop chance, 16.67% from 3.33%
 [*]Fruitcake Chakram now inflicts a random debuff on hit and can be acquired by shaking Boreal trees
 [*]Bloody Machete now inflicts up to 50% more damage the longer it has been in flight
 [*]Shroomerang now leaves mushrooms in the air as it flies
@@ -26,7 +24,7 @@ New boomerangs are available throughout your entire progression. From the Shade 
 [*]Beemerang - Releases bees on impact. Crafted with 14 Bee Wax @ Anvil
 [*]Bonerang - Breaks into bone shards on impact. Crafted with 90 Bones @ Anvil
 [*]Sawed Off Shotrang - Fires a shotgun blast at its apex. Crafted with 1 Shotgun, 1 Illegal Gun Parts @ Anvil
-[*]Yin and Rang - Breaks into two homing shards at its apex. Crafted with 1 Light Shard, 1 Dark Shard, 5 Titanium Bars @ Hardmode Anvil
+[*]Yin and Rang - Releases into two homing shards at its apex. Crafted with 1 Light Shard, 1 Dark Shard, 5 Titanium Bars @ Hardmode Anvil
 [*]The Chloroplast - Bursts into stingers at its apex. Crafted with 14 Chlorophyte Bars @ Hardmode Anvil
 [*]Teslarang - Discharges bolts of electricity when it hits an enemy. 2.5% drop from Frankenstein after Plantera has been defeated
 [*]Chromatic Crux - Leaves a homing rainbow chakram when it hits an enemy. Drops from Empress of Light
@@ -38,7 +36,7 @@ New boomerangs are available throughout your entire progression. From the Shade 
 [list]
 [*]Boomerang License - Lets you throw an extra boomerang. Bought from the Travelling Merchant after any boss has been defeated, 10% chance to appear
 [*]Illuminant Coating - Your boomerangs glow, return faster and have increased knockback. 2% drop from Illuminant Bat and Slime
-[*]Spectral Amulet - Your boomerangs are orbited by a pair of spectral glaives. 1.25% drop from any magic Post-Plantera Dungeon skeleton
+[*]Spectral Amulet - Your boomerangs are orbited by a pair of spectral glaives. 4% drop from any magic Post-Plantera Dungeon skeleton
 [*]Fluorescent License - Effects of Boomerang License and Illuminant Coating. Crafted with both of them @ Tinkerer's Workbench
 [*]Glaive Lord's Gift - Effects of all 3. Crafted with Fluorescent License and Spectral Amulet @ Tinkerer's Workbench
 [/list]
@@ -47,7 +45,7 @@ New boomerangs are available throughout your entire progression. From the Shade 
 
 If you're a modder and want to add explicit support for your boomerangs, you'll want to see [url=https://github.com/stormytuna/Bangarang#for-modders]this section[/url] of the readme on github
 
-To report any bugs or give feedback, you can post a comment on the Steam Workshop or message me on Discord (stormytuna#2688). You can report bugs using GitHub issues as well.
+To report any bugs or give feedback, you can post a comment on the Steam Workshop. You can report bugs using GitHub issues as well.
 
 Changelog
 [list]
@@ -55,7 +53,11 @@ Changelog
 [list]
 [*]Boomerang License is no longer integrated into the Travelling Merchant's stock and will instead just show up 10% of the time
 [*]Fixed [b]many[/b] issues with config options not working properly
-[*]Major backend changes
+[*]Updated to 1.4.4!
+[*]Changed the drop chance of Spectral Amulet to 4% from any magic Post-Plantera Dungeon skeleton
+[*]Changed how Boomerang License is inserted into the Travelling Merchant's shop - No longer takes the place of a 'very rare' item and now has a 10% chance of showing up
+[*]Updated some sprites and visuals
+[*]Updated homing algorithms
 [/list]
 [*][i]v1.1.2[/i]
 [list]

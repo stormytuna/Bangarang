@@ -6,4 +6,4 @@ New boomerangs are available throughout your entire progression. From the Synaps
 
 For a full list of changes see the Workshop description or GitHub readme
 
-To report any bugs or give feedback, you can post a comment on the Steam Workshop or message me on Discord (stormytuna#2688). You can report bugs using GitHub issues as well.
+To report any bugs or give feedback, you can post a comment on the Steam Workshop. You can report bugs using GitHub issues as well.
