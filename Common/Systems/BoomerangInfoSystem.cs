@@ -69,6 +69,12 @@ public class BoomerangInfoSystem : ModSystem
     public static void RegisterBoomerang(int itemType, int projectileType, int numBoomerangs, Func<Player, Item, int, bool> canUseItemFunc = null) => RegisterBoomerang(itemType, new[] { projectileType }, numBoomerangs, canUseItemFunc);
 
     public static void RegisterBoomerang(int itemType, int[] projectileTypes, int numBoomerangs, Func<Player, Item, int, bool> canUseItemFunc = null) {
+        // Not sure what was causing it, but someone reporting this method throwing
+        if (BoomerangInfoDict.ContainsKey(itemType)) {
+            ModContent.GetInstance<Bangarang>().Logger.Warn($"WARNING: Item with type {itemType} ({ItemID.Search.GetName(itemType)}) has already been registered!");
+            return;
+        }
+
         // Adds to our projectile list
         List<int> maxOutList = ProjectilesThatAreBoomerangs.ToList();
         maxOutList.AddRange(projectileTypes);

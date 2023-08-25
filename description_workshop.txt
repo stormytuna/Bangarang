@@ -49,6 +49,10 @@ To report any bugs or give feedback, you can post a comment on the Steam Worksho
 
 Changelog
 [list]
+[*][i]v2.0.1[/i]
+[list]
+[*]Fixed an issue causing errors on load
+[/list]
 [*][i]v2.0.0[/i]
 [list]
 [*]Updated to 1.4.4!
