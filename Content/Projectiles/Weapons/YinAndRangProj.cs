@@ -173,7 +173,7 @@ public class YinAndRangShardProj : ModProjectile
         }
     }
 
-    public override void Kill(int timeLeft) {
+    public override void OnKill(int timeLeft) {
         // Dust explosion
         for (int i = 0; i < 13; i++) {
             Dust dust = MakeDust();

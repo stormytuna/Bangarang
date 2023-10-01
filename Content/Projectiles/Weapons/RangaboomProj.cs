@@ -173,7 +173,7 @@ public class RangaboomProj : Boomerang
         }
     }
 
-    public override void Kill(int timeLeft) => SpawnPortal.Kill();
+    public override void OnKill(int timeLeft) => SpawnPortal.Kill();
 
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) {
         if (Projectile.ai[0] == 0f) {
@@ -267,7 +267,7 @@ public class RangaboomPortalProj : ModProjectile
         }
     }
 
-    public override void Kill(int timeLeft) {
+    public override void OnKill(int timeLeft) {
         // Dust
         for (int i = 0; i < 15; i++) {
             Vector2 velocity = Vector2.One.RotatedByRandom(MathHelper.TwoPi) * Main.rand.NextFloat(4f, 10f);

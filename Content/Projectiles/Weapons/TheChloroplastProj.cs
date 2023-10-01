@@ -64,7 +64,7 @@ public class TheChloroplastProj : Boomerang
         return false;
     }
 
-    public override void Kill(int timeLeft) {
+    public override void OnKill(int timeLeft) {
         // Smart fire at targets
         // Get our list of nearby enemies
         List<NPC> closeNPCs = NPCHelpers.GetNearbyEnemies(Projectile.Center, 30f * 16f);

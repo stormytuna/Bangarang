@@ -59,7 +59,7 @@ public class IceBoomerangShard : ModProjectile
         dust2.velocity *= 0.3f;
     }
 
-    public override void Kill(int timeLeft) {
+    public override void OnKill(int timeLeft) {
         int numDust = 10;
 
         SoundEngine.PlaySound(SoundID.Item27, Projectile.Center);

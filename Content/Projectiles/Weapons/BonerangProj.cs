@@ -50,7 +50,7 @@ public class BonerangProj : Boomerang
         return true;
     }
 
-    public override void Kill(int timeLeft) {
+    public override void OnKill(int timeLeft) {
         // Dust
         int numDust = Main.rand.Next(8, 12);
         for (int i = 0; i < numDust; i++) {
@@ -91,7 +91,7 @@ public class BoneShardProj : ModProjectile
 
     public override bool OnTileCollide(Vector2 oldVelocity) => true;
 
-    public override void Kill(int timeLeft) {
+    public override void OnKill(int timeLeft) {
         // Make some dust
         int numDust = Main.rand.Next(2, 6);
         for (int i = 0; i < numDust; i++) {

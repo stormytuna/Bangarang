@@ -98,7 +98,7 @@ public class ChromaticCruxProj : Boomerang
         return false;
     }
 
-    public override void Kill(int timeLeft) {
+    public override void OnKill(int timeLeft) {
         if (Main.projectile[child].ai[0] == 0f) {
             Main.projectile[child].Kill();
         }
@@ -212,7 +212,7 @@ public class ChromaticCruxRainbowProj : ModProjectile
         ParticleOrchestrator.RequestParticleSpawn(false, ParticleOrchestraType.RainbowRodHit, settings);
     }
 
-    public override void Kill(int timeLeft) {
+    public override void OnKill(int timeLeft) {
         for (int i = 0; i < 20; i++) {
             Color color = Main.hslToRgb(Main.GlobalTimeWrappedHourly * 0.25f % 1f, 1f, 0.5f);
             int dust = Dust.NewDust(Projectile.position, Projectile.height, Projectile.width, DustID.RainbowMk2, 0f, 0f, 0, color);
