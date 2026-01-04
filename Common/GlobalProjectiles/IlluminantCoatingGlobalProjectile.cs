@@ -1,4 +1,6 @@
-﻿using Bangarang.Common.Players;
+﻿using System.Linq;
+using Bangarang.Common.Players;
+using Bangarang.Common.Systems;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -7,6 +9,11 @@ namespace Bangarang.Common.GlobalProjectiles;
 
 public class IlluminantCoatingGlobalProjectile : GlobalProjectile
 {
+    public override bool AppliesToEntity(Projectile entity, bool lateInstantiation)
+    {
+        return BoomerangInfoSystem.ProjectilesThatAreBoomerangs.Contains(entity.type);
+    }
+
     public override void PostAI(Projectile projectile) {
         BangarangPlayer modPlayer = Main.player[projectile.owner].GetModPlayer<BangarangPlayer>();
 
