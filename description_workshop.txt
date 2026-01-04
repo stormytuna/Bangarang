@@ -1,12 +1,10 @@
-Bangarang is a mod that overhauls the Boomerang subclass of melee weapons, making them more diverse, giving them unique effects and adding an array of new boomerangs
+[h2]TLDR[/h2]
 
-Vanilla changes are pretty small in this mod, giving some boomerangs minor effects, giving a couple boomerangs crafting recipes and allowing stacking boomerangs to receive modifiers
-
-New boomerangs are available throughout your entire progression. From the Synapse, an early pre-hardmode boomerang that slightly homes on enemies, to the White Dwarf, an endgame boomerang that incinerates all it touches. This mod also adds a handful of accessories that support Boomerangs, increasing how many you can throw, how fast they return and more
+Overhauls the Boomerang subclass of melee weapons, making them more diverse, giving them unique effects and adding an array of new boomerangs.
 
 [hr][/hr]
 
-[h2][b]Vanilla changes[/b][/h2]
+[h2]Vanilla changes[/h2]
 [list]
 [*]All boomerangs have auto-reuse
 [*]Fruitcake Chakram now inflicts a random debuff on hit and can be acquired by shaking Boreal trees
@@ -17,7 +15,7 @@ New boomerangs are available throughout your entire progression. From the Synaps
 [*]Flamarang now fires a couple sparks when it hits an enemy
 [/list]
 
-[h2][b]Added boomerangs[/b][/h2]
+[h2]New boomerangs[/h2]
 [list]
 [*]Synapse - Homes in on enemies. Crafted with 8 Crimtane Bars, 5 Tissue Samples @ Anvil
 [*]Shade Chakram - Travels exceptionally quick. Crafted with 8 Demonite Bars, 5 Shadow Scales @ Anvil
@@ -32,7 +30,7 @@ New boomerangs are available throughout your entire progression. From the Synaps
 [*]White Dwarf - Incinerates enemies with stellar energy. Crafted with 16 Solar Fragments @ Ancient Manipulator
 [/list]
 
-[h2][b]Added accessories[/b][/h2]
+[h2]New accessories[/h2]
 [list]
 [*]Boomerang License - Lets you throw an extra boomerang. Bought from the Travelling Merchant after any boss has been defeated, 10% chance to appear
 [*]Illuminant Coating - Your boomerangs glow, return faster and have increased knockback. 2% drop from Illuminant Bat and Slime
@@ -45,43 +43,8 @@ New boomerangs are available throughout your entire progression. From the Synaps
 
 If you're a modder and want to add explicit support for your boomerangs, you'll want to see [url=https://github.com/stormytuna/Bangarang#for-modders]this section[/url] of the readme on github
 
-To report any bugs or give feedback, you can post a comment on the Steam Workshop. You can report bugs using GitHub issues as well.
+Source code: https://github.com/stormytuna/NightreignRevives
 
-Changelog
-[list]
-[*][i]v2.0.2[/i]
-[list]
-[*]Keeping up with API, no actual gameplay changes
-[/list]
-[*][i]v2.0.1[/i]
-[list]
-[*]Fixed an issue causing errors on load
-[/list]
-[*][i]v2.0.0[/i]
-[list]
-[*]Updated to 1.4.4!
-[*]Fixed [b]many[/b] issues with config options not working properly
-[*]Changed the drop chance of Spectral Amulet to 4% from any magic Post-Plantera Dungeon skeleton
-[*]Changed how Boomerang License is inserted into the Travelling Merchant's shop - No longer takes the place of a 'very rare' item and now has a 10% chance of showing up
-[*]Updated some sprites and visuals
-[*]Updated homing algorithms
-[/list]
-[*][i]v1.1.2[/i]
-[list]
-[*]Changed Spectral Glaives to copy their parents damage type to support other mods adding non-melee boomerangs
-[/list]
-[*][i]v1.1.1[/i]
-[list]
-[*]Fixed an issue where Ranger's Talisman items were not being renamed to Glaive Lord's Gift
-[/list]
-[*][i]v1.1.0[/i]
-[list]
-[*]Renamed Ranger's Talisman to Glaive Lord's Gift
-[*]Extended the functionality of mod calls
-[*]Removed auto support feature - Refactored a lot of backend stuff and it isn't possible for me to have this feature and the extended mod calls
-[/list]
-[*][i]v1.0.5[/i]
-[list]
-[*]Various balance changes and fixes
-[/list]
-[/list]
+Join the [url=https://discord.gg/yr3hUxUxpg]discord server![/url]
+
+If you enjoy my work, [url=https://ko-fi.com/stormytuna]please consider donating[/url]

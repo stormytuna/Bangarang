@@ -1,0 +1,45 @@
+v2.0.3
+- Fixed Fruitcake Chakram drop chance from shaking trees
+- Fixed an issue allowing Illuminant Coating to apply to all projectiles
+- Moved changelogs to changelogs section of workshop
+- Tweaked description
+
+Old Changelogs:
+
+[list]
+[*][i]v2.0.2[/i]
+[list]
+[*]Keeping up with API, no actual gameplay changes
+[/list]
+[*][i]v2.0.1[/i]
+[list]
+[*]Fixed an issue causing errors on load
+[/list]
+[*][i]v2.0.0[/i]
+[list]
+[*]Updated to 1.4.4!
+[*]Fixed [b]many[/b] issues with config options not working properly
+[*]Changed the drop chance of Spectral Amulet to 4% from any magic Post-Plantera Dungeon skeleton
+[*]Changed how Boomerang License is inserted into the Travelling Merchant's shop - No longer takes the place of a 'very rare' item and now has a 10% chance of showing up
+[*]Updated some sprites and visuals
+[*]Updated homing algorithms
+[/list]
+[*][i]v1.1.2[/i]
+[list]
+[*]Changed Spectral Glaives to copy their parents damage type to support other mods adding non-melee boomerangs
+[/list]
+[*][i]v1.1.1[/i]
+[list]
+[*]Fixed an issue where Ranger's Talisman items were not being renamed to Glaive Lord's Gift
+[/list]
+[*][i]v1.1.0[/i]
+[list]
+[*]Renamed Ranger's Talisman to Glaive Lord's Gift
+[*]Extended the functionality of mod calls
+[*]Removed auto support feature - Refactored a lot of backend stuff and it isn't possible for me to have this feature and the extended mod calls
+[/list]
+[*][i]v1.0.5[/i]
+[list]
+[*]Various balance changes and fixes
+[/list]
+[/list]
