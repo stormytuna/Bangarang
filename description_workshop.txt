@@ -1,6 +1,6 @@
 [h2]TLDR[/h2]
 
-Overhauls the Boomerang subclass of melee weapons, making them more diverse, giving them unique effects and adding an array of new boomerangs.
+Overhauls the Boomerang subclass of melee weapons, making them more diverse, giving them unique effects, and adding an array of new boomerangs.
 
 [hr][/hr]
 
@@ -43,7 +43,7 @@ Overhauls the Boomerang subclass of melee weapons, making them more diverse, giv
 
 If you're a modder and want to add explicit support for your boomerangs, you'll want to see [url=https://github.com/stormytuna/Bangarang#for-modders]this section[/url] of the readme on github
 
-Source code: https://github.com/stormytuna/NightreignRevives
+Source code: https://github.com/stormytuna/Bangarang
 
 Join the [url=https://discord.gg/yr3hUxUxpg]discord server![/url]
 

@@ -1,4 +1,4 @@
-Bangarang is a mod that overhauls the Boomerang subclass of melee weapons, making them more diverse, giving them unique effects and adding an array of new boomerangs
+Bangarang is a mod that overhauls the Boomerang subclass of melee weapons, making them more diverse, giving them unique effects, and adding an array of new boomerangs
 
 Vanilla changes are pretty small in this mod, giving some boomerangs minor effects, giving a couple boomerangs crafting recipes and allowing stacking boomerangs to receive modifiers
 
