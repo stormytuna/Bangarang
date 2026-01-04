@@ -37,21 +37,16 @@ public class FruitcakeChakramGlobalProjetile : GlobalProjectile
     }
 }
 
-public class FruitcakeChakramDetour : ModSystem
+public class FruitcakeChakramDrop : GlobalTile
 {
-    public override void Load() {
-        if (ServerConfig.Instance.VanillaChanges) {
-            Terraria.On_WorldGen.ShakeTree += ShakeTreeDetour;
+    public override bool ShakeTree(int x, int y, TreeTypes treeType)
+    {
+        if (treeType == TreeTypes.Snow && WorldGen.genRand.NextBool(30)) {
+            Item.NewItem(Terraria.WorldGen.GetItemSource_FromTreeShake(x, y), new Rectangle(x * 16, y * 16, 16, 16), ItemID.FruitcakeChakram);
+            return true;
         }
-    }
 
-    private void ShakeTreeDetour(On_WorldGen.orig_ShakeTree orig, int i, int j) {
-        orig(i, j);
-
-        WorldGen.GetTreeBottom(i, j, out int x, out int y);
-        TreeTypes treeType = WorldGen.GetTreeType(Main.tile[x, y].TileType);
-        if (WorldGen.genRand.NextBool(15) && treeType == TreeTypes.Snow) {
-            Item.NewItem(Terraria.WorldGen.GetItemSource_FromTreeShake(i, j), new Rectangle(i * 16, j * 16, 16, 16), ItemID.FruitcakeChakram);
-        }
+        return false;
     }
 }
+
